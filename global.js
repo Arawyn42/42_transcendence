@@ -9,6 +9,6 @@ document.body.appendChild(canvas);
 const ctx = canvas.getContext('2d');
 
 // Constantes
-const MAX_SCORE = 2;
+const MAX_SCORE = 10;
 const MENU_BUTTON_WIDTH = 200;
 const MENU_BUTTON_HEIGHT = 50;
