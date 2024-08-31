@@ -1,9 +1,0 @@
-
-services:
-
-  django:
-    container_name: django
-    image: django_image
-    build: requirements/django
-    ports:
-      - "8000:80"

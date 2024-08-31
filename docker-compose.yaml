@@ -1,0 +1,21 @@
+
+services:
+
+  django:
+    container_name: django
+    build: srcs/django
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:80"
+    volumes:
+      - www:/django/mysite/transcendence 
+
+volumes:
+
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${WWW_PATH}
+      o: bind
