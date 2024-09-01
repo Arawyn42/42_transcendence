@@ -7,8 +7,8 @@ function createHandleClickEvents(scene)
 	return function (e)
 	{
 		const rect = canvas.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
+		const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+		const y = (e.clientY - rect.top) * (canvas.height / rect.height);
 
 		switch (scene) {
 			case 'menu':
@@ -50,22 +50,19 @@ function removeClickEvents()
 // Launch scene
 function launchScene(scene)
 {
-
+	removeClickEvents();
+	
 	switch (scene) {
 		case 'menu':
-			addClickEvent('menu');
 			drawMenu();
 			break;
 		case 'classic':
-			removeClickEvents();
 			classicPongGame();
 			break;
 		case 'end1':
-			addClickEvent('end');
 			drawEndScreen(1);
 			break;
 		case 'end2':
-			addClickEvent('end');
 			drawEndScreen(2);
 			break;
 		case 'multi':
@@ -73,5 +70,8 @@ function launchScene(scene)
 	}
 }
 
-// Launch the menu
-launchScene('menu');
+// Launch the main scene after the DOM content was loaded
+document.addEventListener('DOMContentLoaded', function ()
+{
+	launchScene('menu');
+});

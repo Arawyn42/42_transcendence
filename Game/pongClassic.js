@@ -34,48 +34,60 @@ function startCountdown(game)
 // Draw the canvas background
 function drawBackground()
 {
-	ctx.fillStyle = '#222';
+	ctx.fillStyle = BLACK;
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 // Draw the header ("PONG")
-function drawHeader()
+function drawHeader(game)
 {
-	ctx.font = '64px Arial';
-	ctx.fillStyle = '#fff';
+	// Title 'PONG'
+	ctx.font = `${TITLE_SIZE}px "Press Start 2P", cursive`;
+	ctx.fillStyle = WHITE;
 	const headerText = 'PONG';
 	const headerTextWidth = ctx.measureText(headerText).width;
-	ctx.fillText(headerText, (canvas.width - headerTextWidth) / 2, 50);
+	ctx.fillText(headerText, (canvas.width - headerTextWidth) / 2, TITLE_POS_Y);
+
+	ctx.font = `${SUBTITLE_SIZE}px "Press Start 2P", cursive`;
+
+	// Player 1
+	const player1Text = `PLAYER 1`;
+	const player1Width = ctx.measureText(player1Text).width;
+	const player1PosX = canvas.width / 2 - game.area.width / 3 - player1Width / 2;
+	ctx.fillText(player1Text, player1PosX, TITLE_POS_Y);
+	
+	// Player 2
+	const player2Text = `PLAYER 2`;
+	const player2Width = ctx.measureText(player2Text).width;
+	const player2PosX = canvas.width / 2 + game.area.width / 3 - player2Width / 2;
+	ctx.fillText(player2Text, player2PosX, TITLE_POS_Y);
 }
 
 // Draw the score
 function drawScore(game)
 {
-	ctx.font = '48px Arial';
-	ctx.fillStyle = '#fff';
+	ctx.font = `${SUBTITLE_SIZE}px "Press Start 2P", cursive`;
+	ctx.fillStyle = WHITE;
 
 	// Score 1
 	const score1Text = game.score1.toString();
 	const score1Width = ctx.measureText(score1Text).width;
-	const score1PosX = canvas.width / 2 - game.area.width / 4 - score1Width / 2;
+	const score1PosX = canvas.width / 2 - game.area.width / 3 - score1Width / 2;
+	ctx.fillText(score1Text, score1PosX, SCORES_POS_Y);
 	
 	// Score 2
 	const score2Text = game.score2.toString();
 	const score2Width = ctx.measureText(score2Text).width;
-	const score2PosX = canvas.width / 2 + game.area.width / 4 - score2Width / 2;
-	
-	const scorePosY = 100;
-	
-	ctx.fillText(score1Text, score1PosX, scorePosY);
-	ctx.fillText(score2Text, score2PosX, scorePosY);
+	const score2PosX = canvas.width / 2 + game.area.width / 3 - score2Width / 2;
+	ctx.fillText(score2Text, score2PosX, SCORES_POS_Y);
 }
 
 // Draw the game area
 function drawGameArea(game)
 {
-	ctx.strokeStyle = '#fff';
+	ctx.strokeStyle = WHITE;
 	ctx.lineWidth = 5;
-	ctx.fillStyle = '#444';
+	ctx.fillStyle = WHITE;
 	ctx.fillRect((canvas.width - game.area.width) / 2, game.area.y, game.area.width, game.area.height);
 	ctx.strokeRect((canvas.width - game.area.width) / 2, game.area.y, game.area.width, game.area.height);
 }
@@ -84,7 +96,7 @@ function drawGameArea(game)
 function drawScene(game)
 {
 	drawBackground();
-	drawHeader();
+	drawHeader(game);
 	drawScore(game);
 	drawGameArea(game);
 }
@@ -92,24 +104,24 @@ function drawScene(game)
 // Draw a countdown before a game starts
 function drawCountdown(game)
 {
-	ctx.font = '72px Arial';
-	ctx.fillStyle = '#fff';
+	ctx.font = `${TITLE_SIZE * 2}px "Press Start 2P", cursive`;
+	ctx.fillStyle = BLACK;
 	const text = game.countdown > 0 ? game.countdown.toString() : 'GO';
 	const textWidth = ctx.measureText(text).width;
-	ctx.fillText(text, (canvas.width - game.area.width) / 2 +(game.area.width - textWidth) / 2, game.area.y + game.area.height / 2);
+	ctx.fillText(text, (canvas.width - game.area.width) / 2 +(game.area.width - textWidth) / 2, game.area.y + game.area.height / 2 + TITLE_SIZE / 2);
 }
 
 // Draw a rectangle
 function drawRect(x, y, width, height)
 {
-	ctx.fillStyle = "#fff";
+	ctx.fillStyle = BLACK;
 	ctx.fillRect(x, y, width, height);
 }
 
 // Draw a circle
 function drawCircle(x, y, radius)
 {
-	ctx.fillStyle = '#fff';
+	ctx.fillStyle = BLACK;
 	ctx.beginPath();
 	ctx.arc(x, y, radius, 0, 2 * Math.PI);
 
@@ -140,10 +152,10 @@ function detectPaddleCollision(ball, paddle)
 function movePaddle(game, paddle)
 {
 	paddle.y += paddle.dy;
-	if (paddle.y < game.area.y)
-		paddle.y = game.area.y;
-	if (paddle.y + paddle.height > game.area.y + game.area.height)
-		paddle.y = game.area.y + game.area.height - paddle.height;
+	if (paddle.y <= game.area.y + 2)
+		paddle.y = game.area.y + 2;
+	if (paddle.y + paddle.height >= game.area.y + game.area.height - 2)
+		paddle.y = game.area.y + game.area.height - 2 - paddle.height;
 }
 
 // Ball movements
@@ -259,17 +271,13 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 
 function classicPongGame()
 {
-	// Game area
-	const gameArea =
-	{
-		y: 120,
-		width: 800,
-		height: 600
+	const gameArea = {
+		y: GAME_AREA_POS_Y,
+		width: GAME_AREA_WIDTH,
+		height: GAME_AREA_HEIGHT
 	};
 
-	// Game states and game
-	let game =
-	{
+	let game = {
 		state: 'countdown',
 		countdown: 3,
 		area: gameArea,
@@ -277,39 +285,28 @@ function classicPongGame()
 		score2: 0
 	};
 
-	// Paddle and ball dimensions
-	const paddleWidth = 10;
-	const paddleHeight = 100;
-	const ballRadius = 10;
-
-	// Paddle 1
-	let paddle1 =
-	{
-		x: (canvas.width - game.area.width) / 2 + 10,
-		y: game.area.y + game.area.height / 2 - paddleHeight / 2,
-		width: paddleWidth,
-		height: paddleHeight,
+	let paddle1 = {
+		x: (canvas.width - game.area.width) / 2 + BALL_RADIUS / 4,
+		y: game.area.y + game.area.height / 2 - PADDLE_HEIGHT / 2,
+		width: PADDLE_WIDTH,
+		height: PADDLE_HEIGHT,
 		dy: 0
 	};
 
-	// Paddle 2
-	let paddle2 =
-	{
-		x: (canvas.width - game.area.width) / 2 + game.area.width - paddleWidth - 10,
-		y: game.area.y + game.area.height / 2 - paddleHeight / 2,
-		width: paddleWidth,
-		height: paddleHeight,
+	let paddle2 = {
+		x: (canvas.width - game.area.width) / 2 + game.area.width - PADDLE_WIDTH - BALL_RADIUS / 4,
+		y: game.area.y + game.area.height / 2 - PADDLE_HEIGHT / 2,
+		width: PADDLE_WIDTH,
+		height: PADDLE_HEIGHT,
 		dy: 0
 	};
 
-	// Ball
-	let ball =
-	{
+	let ball = {
 		x: canvas.width / 2,
 		y: game.area.y + game.area.height / 2,
 		dx: 4 * (Math.random() > 0.5 ? 1 : -1),
 		dy: 4 * (Math.random() > 0.5 ? 1 : -1),
-		radius: ballRadius
+		radius: BALL_RADIUS
 	};
 
 	document.addEventListener('keydown', (e) => handleKeyDown(e, paddle1, paddle2));
@@ -317,4 +314,7 @@ function classicPongGame()
 
 	classicPongReset(game, paddle1, paddle2, ball);
 	classicPongLoop(game, paddle1, paddle2, ball);
+
+	document.removeEventListener('keydown', handleKeyDown);
+	document.removeEventListener('keyup', handleKeyUp);
 }
