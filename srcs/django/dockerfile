@@ -9,11 +9,8 @@ RUN apt -y update && apt -y upgrade && \
 
 RUN python3 -m venv env
 RUN . env/bin/activate && pip install -r requirements.txt
-RUN . env/bin/activate && django-admin startproject mysite
-RUN mkdir mysite/transcendence
 
-COPY conf/settings.py ./mysite/mysite/settings.py
-COPY conf/urls.py ./mysite/mysite/urls.py
+COPY data/mysite ./mysite
 
 COPY tools/django_setup.sh .
 RUN chmod +x django_setup.sh
