@@ -9,13 +9,13 @@ services:
     ports:
       - "${PORT}:80"
     volumes:
-      - www:/django/mysite/transcendence 
+      - transcendence:/django/mysite/transcendence 
 
 volumes:
 
-  www:
+  transcendence:
     driver: local
     driver_opts:
       type: none
-      device: ${WWW_PATH}
+      device: ${VOLUME_PATH}
       o: bind
