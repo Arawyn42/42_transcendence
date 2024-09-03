@@ -1,0 +1,10 @@
+FROM debian:bullseye
+
+RUN apt -y update && apt -y upgrade && apt install -y \
+	sudo \
+	postgresql
+
+COPY tools/pgsql_setup.sh .
+RUN chmod +x pgsql_setup.sh
+
+CMD ["./pgsql_setup.sh"]
