@@ -15,7 +15,7 @@ cp dev.env .env && nano .env
 ```
 You may need to create the folders for the docker volumes:
 ```sh
-mkdir -p data/www
+mkdir -p data/mysite
 ```
 Build the project using docker compose: 
 ```sh
