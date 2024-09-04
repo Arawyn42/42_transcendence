@@ -9,13 +9,36 @@ services:
     ports:
       - "${PORT}:80"
     volumes:
-      - www:/django/mysite/transcendence 
+      - transcendence:/django/mysite/
+    networks:
+      - my_network
+
+  postgresql:
+    container_name: postgresql
+    build: srcs/postgreSQL
+    env_file:
+      - .env
+#    volumes:
+#      - database:/usr/local/pgsql/data
+    networks:
+      - my_network
 
 volumes:
 
-  www:
+  transcendence:
     driver: local
     driver_opts:
       type: none
-      device: ${WWW_PATH}
+      device: ${DJANGO_VOLUME_PATH}
       o: bind
+  
+#  database:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: ${POSTGRESQL_VOLUME_PATH}
+#      o: bind
+
+networks:
+  my_network:
+    driver: bridge
