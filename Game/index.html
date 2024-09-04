@@ -3,23 +3,63 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Transcendence - Pong Game</title>
+	<title>Transcendance - Pong Game</title>
 	<link rel="stylesheet" href="style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+
+	<!-- Page title -->
 	<header>
-		<h1>Transcendence</h1>
+		<h1>Transcendance</h1>
 	</header>
 
 	<div id="app">
-		<canvas id="gameCanvas" width="1000" height="800"></canvas>
+
+		<!-- Title -->
+		<h2 id="pongTitle">PONG</h2>
+		
+		<!-- Game Screen -->
+		<div id="gameScreen" class="screen">
+
+			<!-- Player Labels and Scores -->
+			<div id="scoreBoard">
+				<span id="player1Label" class="playerLabel">Player 1</span>
+				
+				<div class="scores">
+					<span id="player1Score">0</span>
+					<span>-</span>
+					<span id="player2Score">0</span>
+				</div>
+				
+				<span id="player2Label" class="playerLabel">Player 2</span>
+			</div>
+			
+
+			<!-- Game Canvas -->
+			<div id="gameWrapper">
+				<canvas id="gameCanvas" width="1000" height="500"></canvas>
+			</div>
+		</div>
+
+		<!-- Menu Screen -->
+		<div id="menuScreen" class="screen">
+			<button id="playClassic">Play Classic</button>
+			<button id="playMultiplayer">Play Multiplayer</button>
+		</div>
+
+		<!-- End Screen -->
+		<div id="classicEndScreen" class="screen">
+			<h2 id="winnerMessage">Player Wins!</h2>
+			<button id="restartGame">Restart</button>
+			<button id="backToMenu">Back to Menu</button>
+		</div>
 	</div>
 
-	<script src="global.js"></script>
-	<script src="menu.js"></script>
-	<script src="pongClassic.js"></script>
-	<script src="endScreen.js"></script>
+	<!-- Scripts js -->
 	<script src="main.js"></script>
+	<script src="menu.js"></script>
+	<script src="classic.js"></script>
+	<script src="classicEnd.js"></script>
 </body>
 </html>

@@ -1,77 +1,61 @@
-// Object to store event handlers
-const eventHandlers = {};
+/******************************** CONSTANTES ********************************/
+// Canvas setup
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
 
-// Create a click events handler
-function createHandleClickEvents(scene)
+// Colors
+const WHITE = '#fff';
+const BLACK = '#000';
+const GREEN = '#00FF00';
+const RED = '#FF0000';
+
+// Scores
+const MAX_SCORE = 1;
+
+// Paddles and ball sizes
+const BALL_RADIUS = canvas.height * 0.02;
+const PADDLE_WIDTH = canvas.height * 0.015;
+const PADDLE_HEIGHT = canvas.height * 0.2;
+
+
+/******************************** FUNCTIONS *********************************/
+// Switch to another screen
+function switchScreen(screenId)
 {
-	return function (e)
+	// Hide all screens
+	const screens = document.querySelectorAll('.screen');
+	screens.forEach(screen =>
 	{
-		const rect = canvas.getBoundingClientRect();
-		const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-		const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+		screen.style.display = 'none';
+	});
 
-		switch (scene) {
-			case 'menu':
-				handleMenuClick(x, y);
-				break;
-			case 'end':
-				handleEndScreenClick(x, y);
-				break;
-		}
-	};
-}
-
-// Remove all click events, then store a click event
-function addClickEvent(scene)
-{
-	removeClickEvents();
-
-	const clickEvent = createHandleClickEvents(scene);
-
-	canvas.addEventListener('click', clickEvent);
-	eventHandlers[scene] = clickEvent;
-}
-
-// Remove all click events
-function removeClickEvents()
-{
-	if (eventHandlers['menu'])
+	// Show the selected screen
+	const activeScreen = document.getElementById(screenId);
+	if (activeScreen)
 	{
-		canvas.removeEventListener('click', eventHandlers['menu']);
-		delete eventHandlers['menu'];
+		activeScreen.style.display = 'flex';
+
+		const currentState = window.history.state;
+		if (!currentState || currentState.screenId !== screenId)
+			window.history.pushState({ screenId }, '', `#${screenId}`);
 	}
-	if (eventHandlers['end'])
-	{
-		canvas.removeEventListener('click', eventHandlers['end']);
-		delete eventHandlers['end'];
-	}
+	else
+		console.error(`Screen with ID ${screenId} not found`);
 }
 
-// Launch scene
-function launchScene(scene)
+// Handle browser back/forward navigation
+window.addEventListener('popstate', (event) =>
 {
-	removeClickEvents();
-	
-	switch (scene) {
-		case 'menu':
-			drawMenu();
-			break;
-		case 'classic':
-			classicPongGame();
-			break;
-		case 'end1':
-			drawEndScreen(1);
-			break;
-		case 'end2':
-			drawEndScreen(2);
-			break;
-		case 'multi':
-			break;
-	}
-}
+	if (event.state && event.state.screenId)
+		switchScreen(event.state.screenId);
+	else
+		switchScreen('menuScreen');
+});
 
-// Launch the main scene after the DOM content was loaded
+/****************************** LAUNCH SCRIPTS ******************************/
+// Display the menu on start
 document.addEventListener('DOMContentLoaded', function ()
 {
-	launchScene('menu');
+	const hash = window.location.hash.replace('#', '') || 'menuScreen';
+	switchScreen('menuScreen');
 });

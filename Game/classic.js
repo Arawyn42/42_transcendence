@@ -2,11 +2,11 @@
 // Reset paddles and ball and start the countdown
 function classicPongReset(game, paddle1, paddle2, ball)
 {
-	paddle1.y = game.area.y + game.area.height / 2 - paddle1.height / 2;
-	paddle2.y = game.area.y + game.area.height / 2 - paddle2.height / 2;
+	paddle1.y = canvas.height / 2 - paddle1.height / 2;
+	paddle2.y = canvas.height / 2 - paddle2.height / 2;
 
 	ball.x = canvas.width / 2;
-	ball.y = game.area.y + game.area.height / 2;
+	ball.y = canvas.height / 2;
 	ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
 	ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
 
@@ -29,86 +29,31 @@ function startCountdown(game)
 	}, 1000);
 }
 
+// Set scores
+function setScore(player, score)
+{
+	if (player === 1)
+		document.getElementById('player1Score').textContent = score;
+	else if (player === 2)
+		document.getElementById('player2Score').textContent = score;
+	else if (player === 0)
+	{
+		document.getElementById('player1Score').textContent = score;
+		document.getElementById('player2Score').textContent = score;
+	}
+}
+
 
 /********************************* DRAWING **********************************/
-// Draw the canvas background
-function drawBackground()
-{
-	ctx.fillStyle = BLACK;
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-// Draw the header ("PONG")
-function drawHeader(game)
-{
-	// Title 'PONG'
-	ctx.font = `${TITLE_SIZE}px "Press Start 2P", cursive`;
-	ctx.fillStyle = WHITE;
-	const headerText = 'PONG';
-	const headerTextWidth = ctx.measureText(headerText).width;
-	ctx.fillText(headerText, (canvas.width - headerTextWidth) / 2, TITLE_POS_Y);
-
-	ctx.font = `${SUBTITLE_SIZE}px "Press Start 2P", cursive`;
-
-	// Player 1
-	const player1Text = `PLAYER 1`;
-	const player1Width = ctx.measureText(player1Text).width;
-	const player1PosX = canvas.width / 2 - game.area.width / 3 - player1Width / 2;
-	ctx.fillText(player1Text, player1PosX, TITLE_POS_Y);
-	
-	// Player 2
-	const player2Text = `PLAYER 2`;
-	const player2Width = ctx.measureText(player2Text).width;
-	const player2PosX = canvas.width / 2 + game.area.width / 3 - player2Width / 2;
-	ctx.fillText(player2Text, player2PosX, TITLE_POS_Y);
-}
-
-// Draw the score
-function drawScore(game)
-{
-	ctx.font = `${SUBTITLE_SIZE}px "Press Start 2P", cursive`;
-	ctx.fillStyle = WHITE;
-
-	// Score 1
-	const score1Text = game.score1.toString();
-	const score1Width = ctx.measureText(score1Text).width;
-	const score1PosX = canvas.width / 2 - game.area.width / 3 - score1Width / 2;
-	ctx.fillText(score1Text, score1PosX, SCORES_POS_Y);
-	
-	// Score 2
-	const score2Text = game.score2.toString();
-	const score2Width = ctx.measureText(score2Text).width;
-	const score2PosX = canvas.width / 2 + game.area.width / 3 - score2Width / 2;
-	ctx.fillText(score2Text, score2PosX, SCORES_POS_Y);
-}
-
-// Draw the game area
-function drawGameArea(game)
-{
-	ctx.strokeStyle = WHITE;
-	ctx.lineWidth = 5;
-	ctx.fillStyle = WHITE;
-	ctx.fillRect((canvas.width - game.area.width) / 2, game.area.y, game.area.width, game.area.height);
-	ctx.strokeRect((canvas.width - game.area.width) / 2, game.area.y, game.area.width, game.area.height);
-}
-
-// Draw the scene (background, header, game, game area)
-function drawScene(game)
-{
-	drawBackground();
-	drawHeader(game);
-	drawScore(game);
-	drawGameArea(game);
-}
-
 // Draw a countdown before a game starts
 function drawCountdown(game)
 {
-	ctx.font = `${TITLE_SIZE * 2}px "Press Start 2P", cursive`;
+	const size = parseInt(window.getComputedStyle(document.getElementById('pongTitle')).fontSize, 10);
+	ctx.font = `${size * 2}px "Press Start 2P", cursive`;
 	ctx.fillStyle = BLACK;
 	const text = game.countdown > 0 ? game.countdown.toString() : 'GO';
 	const textWidth = ctx.measureText(text).width;
-	ctx.fillText(text, (canvas.width - game.area.width) / 2 +(game.area.width - textWidth) / 2, game.area.y + game.area.height / 2 + TITLE_SIZE / 2);
+	ctx.fillText(text, (canvas.width - textWidth) / 2, canvas.height / 2 + size / 2);
 }
 
 // Draw a rectangle
@@ -133,7 +78,7 @@ function drawCircle(x, y, radius)
 // Wall collisions
 function detectWallCollision(game, ball)
 {
-	if (ball.y + ball.radius >= game.area.y + game.area.height || ball.y - ball.radius <= game.area.y)
+	if (ball.y + ball.radius >= canvas.height || ball.y - ball.radius <= 0)
 		ball.dy *= -1;
 }
 
@@ -152,10 +97,10 @@ function detectPaddleCollision(ball, paddle)
 function movePaddle(game, paddle)
 {
 	paddle.y += paddle.dy;
-	if (paddle.y <= game.area.y + 2)
-		paddle.y = game.area.y + 2;
-	if (paddle.y + paddle.height >= game.area.y + game.area.height - 2)
-		paddle.y = game.area.y + game.area.height - 2 - paddle.height;
+	if (paddle.y <= 2)
+		paddle.y = 2;
+	if (paddle.y + paddle.height >= canvas.height - 2)
+		paddle.y = canvas.height - 2 - paddle.height;
 }
 
 // Ball movements
@@ -166,21 +111,27 @@ function moveBall(game, paddle1, paddle2, ball)
 
 	detectWallCollision(game, ball);
 
-	if (ball.x - ball.radius < (canvas.width - game.area.width) / 2)
+	if (ball.x - ball.radius < 0)
 	{
-		game.score2++;
-		if (game.score2 >= MAX_SCORE)
+		let player2Score = parseInt(document.getElementById('player2Score').textContent);
+		player2Score++;
+		setScore(2, player2Score);
+		if (player2Score >= MAX_SCORE)
 		{
+			setScore(0, 0);
 			game.state = 'end2';
 			return;
 		}
 		classicPongReset(game, paddle1, paddle2, ball);
 	}
-	else if (ball.x + ball.radius > (canvas.width - game.area.width) / 2 + game.area.width)
+	else if (ball.x + ball.radius > canvas.width)
 	{
-		game.score1++;
-		if (game.score1 >= MAX_SCORE)
+		let player1Score = parseInt(document.getElementById('player1Score').textContent);
+		player1Score++;
+		setScore(1, player1Score);
+		if (player1Score >= MAX_SCORE)
 		{
+			setScore(0, 0);
 			game.state = 'end1';
 			return;
 		}
@@ -193,6 +144,10 @@ function moveBall(game, paddle1, paddle2, ball)
 // When a key is pressed
 function handleKeyDown(e, paddle1, paddle2)
 {
+	// Prevent the default behaviour of ArrowUp and ArrowDown
+    if (["ArrowUp", "ArrowDown"].includes(e.key))
+        e.preventDefault();
+
 	switch (e.key)
 	{
 		case 'w':
@@ -214,6 +169,10 @@ function handleKeyDown(e, paddle1, paddle2)
 // When a key is released
 function handleKeyUp(e, paddle1, paddle2)
 {
+	// Prevent the default behaviour of ArrowUp and ArrowDown
+    if (["ArrowUp", "ArrowDown"].includes(e.key))
+        e.preventDefault();
+	
 	switch (e.key)
 	{
 		case 'w':
@@ -233,9 +192,6 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 {
 	// Clear the canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-	// Draw the scene
-	drawScene(game);
 
 	switch (game.state)
 	{
@@ -258,10 +214,12 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 			drawCountdown(game);
 			break;
 		case 'end1':
-			launchScene('end1');
+			document.getElementById('winnerMessage').textContent = "Player 1 won!";
+			switchScreen('classicEndScreen');
 			return;
 		case 'end2':
-			launchScene('end2');
+			document.getElementById('winnerMessage').textContent = "Player 2 won!";
+			launchScene('classicEndScreen');
 			return;
 	}
 
@@ -271,31 +229,23 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 
 function classicPongGame()
 {
-	const gameArea = {
-		y: GAME_AREA_POS_Y,
-		width: GAME_AREA_WIDTH,
-		height: GAME_AREA_HEIGHT
-	};
 
 	let game = {
 		state: 'countdown',
-		countdown: 3,
-		area: gameArea,
-		score1: 0,
-		score2: 0
+		countdown: 3
 	};
 
 	let paddle1 = {
-		x: (canvas.width - game.area.width) / 2 + BALL_RADIUS / 4,
-		y: game.area.y + game.area.height / 2 - PADDLE_HEIGHT / 2,
+		x: BALL_RADIUS / 4,
+		y: canvas.height / 2 - PADDLE_HEIGHT / 2,
 		width: PADDLE_WIDTH,
 		height: PADDLE_HEIGHT,
 		dy: 0
 	};
 
 	let paddle2 = {
-		x: (canvas.width - game.area.width) / 2 + game.area.width - PADDLE_WIDTH - BALL_RADIUS / 4,
-		y: game.area.y + game.area.height / 2 - PADDLE_HEIGHT / 2,
+		x: canvas.width - PADDLE_WIDTH - BALL_RADIUS / 4,
+		y: canvas.height / 2 - PADDLE_HEIGHT / 2,
 		width: PADDLE_WIDTH,
 		height: PADDLE_HEIGHT,
 		dy: 0
@@ -303,7 +253,7 @@ function classicPongGame()
 
 	let ball = {
 		x: canvas.width / 2,
-		y: game.area.y + game.area.height / 2,
+		y: canvas.height / 2,
 		dx: 4 * (Math.random() > 0.5 ? 1 : -1),
 		dy: 4 * (Math.random() > 0.5 ? 1 : -1),
 		radius: BALL_RADIUS
