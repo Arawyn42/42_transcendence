@@ -214,12 +214,12 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 			drawCountdown(game);
 			break;
 		case 'end1':
-			document.getElementById('winnerMessage').textContent = "Player 1 won!";
+			document.getElementById('winnerMessage').textContent = `${document.getElementById('player1Label').textContent} won!`;
 			switchScreen('classicEndScreen');
 			return;
 		case 'end2':
-			document.getElementById('winnerMessage').textContent = "Player 2 won!";
-			launchScene('classicEndScreen');
+			document.getElementById('winnerMessage').textContent = `${document.getElementById('player2Label').textContent} won!`;
+			switchScreen('classicEndScreen');
 			return;
 	}
 

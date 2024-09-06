@@ -48,6 +48,26 @@
 			<button id="playMultiplayer">Play Multiplayer</button>
 		</div>
 
+		<!-- Names Input Screen -->
+		<div id="playerNamesScreen" class="screen">
+			<h2>Enter your names</h2>
+			<div>
+				<label for="player1Input">Player 1:</label>
+				<input type="text" id="player1Input" placeholder="Enter Player 1 name" maxlength="8">
+			</div>
+			<div>
+				<p id="player1InputError" class="error-message"></p>
+			</div>
+			<div>
+				<label for="player2Input">Player 2:</label>
+				<input type="text" id="player2Input" placeholder="Enter Player 2 name" maxlength="8">
+			</div>
+			<div>
+				<p id="player2InputError" class="error-message"></p>
+			</div>
+			<button id="startGameWithNames">Start Game</button>
+		</div>
+
 		<!-- End Screen -->
 		<div id="classicEndScreen" class="screen">
 			<h2 id="winnerMessage">Player Wins!</h2>
@@ -59,6 +79,7 @@
 	<!-- Scripts js -->
 	<script src="main.js"></script>
 	<script src="menu.js"></script>
+	<script src="names.js"></script>
 	<script src="classic.js"></script>
 	<script src="classicEnd.js"></script>
 </body>

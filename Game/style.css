@@ -1,4 +1,4 @@
-/* Basic styles */
+/********************************** GENERAL **********************************/
 html, body {
     height: 100%;
     width: 100%;
@@ -48,6 +48,24 @@ h2 {
     width: 100%;
 }
 
+/* Buttons */
+button {
+    display: block;
+    width: 30vw; /* Set width relative to the viewport width */
+    margin: 1vh 0; /* Space between buttons */
+    padding: 1vh;
+    background-color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+	/* Font */
+	font-family: 'Press Start 2P', cursive;
+    color: #000;
+    font-size: 1.8vh;
+    text-align: center;
+}
+
+
+/******************************** GAME SCREEN ********************************/
 /* Flex layout for the scoreboard, keeping it responsive */
 #scoreBoard {
     display: flex;
@@ -75,15 +93,7 @@ h2 {
     flex-shrink: 0;
 }
 
-/* Game Canvas */
-#gameWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2vh;
-}
-
+/* Game canvas */
 #gameCanvas {
     width: 65vw;
     height: calc(65vw * 0.55); /* Maintain aspect ratio */
@@ -92,22 +102,66 @@ h2 {
     image-rendering: pixelated;
 }
 
-/* Buttons */
-button {
-    display: block;
-    width: 30vw; /* Set width relative to the viewport width */
-    margin: 1vh 0; /* Space between buttons */
-    padding: 1vh;
-    background-color: #fff;
-    border: 2px solid #fff;
-    cursor: pointer;
-	/* Font */
-	font-family: 'Press Start 2P', cursive;
-    color: #000;
-    font-size: 1.8vh;
-    text-align: center;
+/* Adjust the game canvas */
+#gameWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
 }
 
+
+/************************* INPUT PLAYER NAMES SCREEN *************************/
+/* Forms (text inputs, error-messages for fields...) */
+input[type="text"] {
+    width: 60%;
+    padding: 0.5vh;
+    font-size: 1.5vh;
+    border: 2px solid #fff;
+    background-color: #000;
+    color: #fff;
+}
+
+/* Text, above input fields */
+#playerNamesScreen label {
+    width: 50%;
+    text-align: right;
+    padding-right: 1vh;
+    white-space: nowrap;
+}
+
+/* 'Enter your names' title */
+#playerNamesScreen h2 {
+    font-size: 2.5vh;
+    margin-bottom: 6vh;
+}
+
+/* Spaces between elements */
+#playerNamesScreen div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Button to launch the game with names */
+#startGameWithNames {
+    margin-top: 4vh;
+    width: 15vw;
+}
+
+/* Error message if names are not valid */
+.error-message {
+    color: red;
+    font-size: 1vh;
+    height: 1em;
+    text-align: center;
+    margin-bottom: 1vh;
+    margin-top: 0.4vh;
+}
+
+
+/******************************** ALL SCREENS ********************************/
 /* Screens (hidden by default) */
 .screen {
     display: none; /* Hide element */
@@ -117,4 +171,3 @@ button {
     flex-direction: column;
     align-items: center;
 }
-

@@ -1,9 +1,8 @@
 // Button 'Play Classic'
 document.getElementById('playClassic').addEventListener('click', function ()
 {
-	switchScreen('gameScreen');
-	classicPongGame();
-	console.log('Launching a classic pong game');
+	switchScreen('playerNamesScreen');
+	console.log('Requesting players nicknames');
 });
 
 // Button 'Play Multiplayer'

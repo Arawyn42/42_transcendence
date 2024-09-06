@@ -10,7 +10,7 @@ const GREEN = '#00FF00';
 const RED = '#FF0000';
 
 // Scores
-const MAX_SCORE = 1;
+const MAX_SCORE = 5;
 
 // Paddles and ball sizes
 const BALL_RADIUS = canvas.height * 0.02;
@@ -57,5 +57,5 @@ window.addEventListener('popstate', (event) =>
 document.addEventListener('DOMContentLoaded', function ()
 {
 	const hash = window.location.hash.replace('#', '') || 'menuScreen';
-	switchScreen('menuScreen');
+	switchScreen(hash);
 });
