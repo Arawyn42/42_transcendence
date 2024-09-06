@@ -1,21 +1,20 @@
 
 services:
 
-  django:
-    container_name: django
-    build: srcs/django
-    env_file:
-      - .env
-    ports:
-      - "${PORT}:80"
-    volumes:
-      - transcendence:/django/mysite/
-    networks:
-      - my_network
-
   postgresql:
     container_name: postgresql
-    build: srcs/postgreSQL
+    build: 
+      context: srcs/postgreSQL
+      args:
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASS=${DB_PASS}
+    healthcheck:
+      test: [ "CMD", "sudo", "-u", "postgres", "psql"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     env_file:
       - .env
 #    volumes:
@@ -23,14 +22,30 @@ services:
     networks:
       - my_network
 
-volumes:
 
-  transcendence:
-    driver: local
-    driver_opts:
-      type: none
-      device: ${DJANGO_VOLUME_PATH}
-      o: bind
+  django:
+    container_name: django
+    build: srcs/django
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:80"
+    # volumes:
+      # - transcendence:/django/mysite/
+    networks:
+      - my_network
+    depends_on:
+      postgresql:
+        condition: service_healthy
+
+# volumes:
+
+#   transcendence:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: ${DJANGO_VOLUME_PATH}
+#       o: bind
   
 #  database:
 #    driver: local
