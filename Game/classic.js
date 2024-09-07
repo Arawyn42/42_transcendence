@@ -158,10 +158,16 @@ function handleKeyDown(e, paddle1, paddle2)
 			paddle1.dy = 8;
 			break;
 		case 'ArrowUp':
-			paddle2.dy = -8;
+			if (NB_PLAYERS === 1)
+				paddle1.dy = -8;
+			else
+				paddle2.dy = -8;
 			break;
 		case 'ArrowDown':
-			paddle2.dy = 8;
+			if (NB_PLAYERS === 1)
+				paddle1.dy = 8;
+			else
+				paddle2.dy = 8;
 			break;
 	}
 }
@@ -182,7 +188,10 @@ function handleKeyUp(e, paddle1, paddle2)
 			break;
 		case 'ArrowUp':
 		case 'ArrowDown':
-			paddle2.dy = 0;
+			if (NB_PLAYERS === 1)
+				paddle1.dy = 0;
+			else
+				paddle2.dy = 0;
 			break;
 	}
 }
@@ -268,3 +277,4 @@ function classicPongGame()
 	document.removeEventListener('keydown', handleKeyDown);
 	document.removeEventListener('keyup', handleKeyUp);
 }
+

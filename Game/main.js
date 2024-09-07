@@ -12,6 +12,9 @@ const RED = '#FF0000';
 // Scores
 const MAX_SCORE = 5;
 
+// Number of players
+const NB_PLAYERS = 2;
+
 // Paddles and ball sizes
 const BALL_RADIUS = canvas.height * 0.02;
 const PADDLE_WIDTH = canvas.height * 0.015;
