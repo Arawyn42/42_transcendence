@@ -158,13 +158,13 @@ function handleKeyDown(e, paddle1, paddle2)
 			paddle1.dy = 8;
 			break;
 		case 'ArrowUp':
-			if (NB_PLAYERS === 1)
+			if (nbPlayers === 1)
 				paddle1.dy = -8;
 			else
 				paddle2.dy = -8;
 			break;
 		case 'ArrowDown':
-			if (NB_PLAYERS === 1)
+			if (nbPlayers === 1)
 				paddle1.dy = 8;
 			else
 				paddle2.dy = 8;
@@ -188,7 +188,7 @@ function handleKeyUp(e, paddle1, paddle2)
 			break;
 		case 'ArrowUp':
 		case 'ArrowDown':
-			if (NB_PLAYERS === 1)
+			if (nbPlayers === 1)
 				paddle1.dy = 0;
 			else
 				paddle2.dy = 0;

@@ -13,7 +13,7 @@ const RED = '#FF0000';
 const MAX_SCORE = 5;
 
 // Number of players
-const NB_PLAYERS = 2;
+let nbPlayers = 2;
 
 // Paddles and ball sizes
 const BALL_RADIUS = canvas.height * 0.02;
