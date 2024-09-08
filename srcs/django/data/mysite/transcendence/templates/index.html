@@ -1,27 +1,134 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	{% load static %}
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Transcendence - Pong Game</title>
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<title>Transcendance - Pong Game</title>
+	<link rel="stylesheet" href="../static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+
+	<!-------------------------------------- PAGE TITLE --------------------------------------->
 	<header>
-		<h1>Transcendence</h1>
+		<h1>Transcendance</h1>
 	</header>
 
 	<div id="app">
-		<canvas id="gameCanvas" width="1000" height="800"></canvas>
+	<!--------------------------------- PAGE SUBTITLE 'PONG' ---------------------------------->
+		<h2 id="pongTitle">PONG</h2>
+
+	<!--------------------------------------- REGISTER ---------------------------------------->
+		<div id="registerScreen" class="screen">
+			<h1>Register</h1>
+			<form id="registerForm">
+				{% csrf_token %}
+					<input type="text" name="username" placeholder="Username" required>
+					<input type="email" name="email" placeholder="Email" required>
+				<input type="text" name="first_name" placeholder="First name" required>  
+				<input type="password" name="password" placeholder="Password" required>
+				<button type="submit">Register</button>
+				<button id="loginFromRegister">Already have an account ? Login</button>
+			</form>
+			
+		</div>
+
+	<!---------------------------------------- LOGIN ------------------------------------------>
+		<div id="loginScreen" class="screen">
+			<h1>Login</h1>
+			<form id="loginForm">
+				{% csrf_token %}
+				<input type="text" name="username" placeholder="Username">
+				<input type="password" name="password" placeholder="Password">
+				<button type="submit">Login</button>
+				<button id="registerFromLogin">Not an account yet ? Register</button>
+				<button id="tempMenuButton">Skip and go to menu</button>
+			</form>
+		</div>
+	
+	<!----------------------------------------- MENU ------------------------------------------>
+		<div id="menuScreen" class="screen">
+			<button id="profile">Profile</button>
+			<button id="playClassic">Play Classic</button>
+			<button id="playRemote">Play Remote</button>
+			<button id="playMultiplayer">Play Multiplayer</button>
+		</div>
+
+	<!--------------------------------------- PROFILE ----------------------------------------->
+		<div id="profileScreen" class="screen">
+			<h2>User Profile</h2>
+			<p><strong>Username:</strong> <span id="profileUsername"></span></p>
+			<p><strong>Email:</strong> <span id="profileEmail"></span></p>
+			<p><strong>First Name:</strong> <span id="profileFirstName"></span></p>
+			<p><strong>Password:</strong> <span id="profilePassword"></span></p>
+			<p><strong>Wins:</strong> <span id="profileWins"></span></p>
+			<p><strong>Losses:</strong> <span id="profileLosses"></span></p>
+			<button id="menuFromProfile">Back to menu</button>
+		</div>
+		
+	<!---------------------------------- CLASSIC PONG GAME ------------------------------------>
+	<!-- Mode Selection Screen -->
+		<div id="modeSelectionScreen" class="screen">
+			<h2>Select Game Mode</h2>
+			<button id="modeVsAI">Player vs AI</button>
+			<button id="mode2Players">2 Players</button>
+		</div>
+		
+	<!-- Names Input Screen -->
+		<div id="playerNamesScreen" class="screen">
+			<h2>Enter your names</h2>
+			<div>
+				<label for="player1Input">Player 1:</label>
+				<input type="text" id="player1Input" placeholder="Enter Player 1 name" maxlength="8">
+			</div>
+			<div>
+				<p id="player1InputError" class="error-message"></p>
+			</div>
+			<div id="player2LabelField">
+				<label for="player2Input">Player 2:</label>
+				<input type="text" id="player2Input" placeholder="Enter Player 2 name" maxlength="8">
+			</div>
+			<div>
+				<p id="player2InputError" class="error-message"></p>
+			</div>
+			<button id="startGameWithNames">Start Game</button>
+		</div>
+
+	<!-- Game Screen -->
+		<div id="gameScreen" class="screen">
+			<!-- Player Labels and Scores -->
+			<div id="scoreBoard">
+				<span id="player1Label" class="playerLabel">Player 1</span>
+				<div class="scores">
+					<span id="player1Score">0</span>
+					<span>-</span>
+					<span id="player2Score">0</span>
+				</div>
+				<span id="player2Label" class="playerLabel">Player 2</span>
+			</div>
+			<!-- Game Canvas -->
+			<div id="gameWrapper">
+				<canvas id="gameCanvas" width="1000" height="500"></canvas>
+			</div>
+		</div>
+
+	<!-- End Screen -->
+		<div id="classicEndScreen" class="screen">
+			<h2 id="classicWinMessage">Player Wins!</h2>
+			<button id="restartClassicGame">Restart</button>
+			<button id="menuFromClassicEnd">Back to Menu</button>
+		</div>
 	</div>
 
-	<div id="root"></div>
-	<script src="{% static 'js/global.js' %}"></script>
-	<script src="{% static 'js/menu.js' %}"></script>
-	<script src="{% static 'js/endScreen.js' %}"></script>
-	<script src="{% static 'js/pongClassic.js' %}"></script>
-	<script src="{% static 'js/main.js' %}"></script>
+	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
+	<script src="../static/js/main.js"></script>
+	<script src="../static/js/login.js"></script>
+	<script src="../static/js/register.js"></script>
+	<script src="../static/js/menu.js"></script>
+	<script src="../static/js/profile.js"></script>
+	<script src="../static/js/classicStart.js"></script>
+	<script src="../static/js/classic.js"></script>
+	<script src="../static/js/classicEnd.js"></script>
+
 </body>
 </html>

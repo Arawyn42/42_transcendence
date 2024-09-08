@@ -1,27 +1,3 @@
-/*********************************** MENU ***********************************/
-// Button 'Play Classic'
-document.getElementById('playClassic').addEventListener('click', function ()
-{
-	switchScreen('modeSelectionScreen');
-	console.log('Selecting a game mode');
-});
-
-// Button 'Play Multiplayer'
-document.getElementById('playMultiplayer').addEventListener('click', function ()
-{
-	switchScreen('gameScreen');
-	console.log('Launching a multiplayer pong game');
-});
-
-// Button 'Play Remote'
-document.getElementById('playRemote').addEventListener('click', function ()
-{
-	nbPlayers = 1;
-	switchScreen('gameScreen');
-	classicPongGame();
-	console.log('Launching a game in remote');
-});
-
 /****************************** MODE SELECTION ******************************/
 // Player vs AI
 document.getElementById('modeVsAI').addEventListener('click', function () {
@@ -98,20 +74,3 @@ function adjustPlayerNamesScreen() {
         document.getElementById('player2LabelField').style.display = 'block';
     }
 }
-
-
-/******************************** END SCREEN ********************************/
-// Button 'Restart'
-document.getElementById('restartGame').addEventListener('click', function ()
-{
-	switchScreen('gameScreen');
-	classicPongGame();
-	console.log('Restarting game');
-});
-
-// Button 'Back to Menu'
-document.getElementById('backToMenu').addEventListener('click', function ()
-{
-	switchScreen('menuScreen');
-	console.log('Back to Menu');
-});
