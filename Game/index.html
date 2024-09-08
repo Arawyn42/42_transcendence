@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Transcendance - Pong Game</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -47,6 +47,10 @@
 			<button id="playClassic">Play Classic</button>
 			<button id="playRemote">Play Remote</button>
 			<button id="playMultiplayer">Play Multiplayer</button>
+			<button id="register">Register</button>                
+			<button id="login">Login</button>                
+			<button id="profile">Profile</button>                
+		
 		</div>
 
 		<!-- Names Input Screen -->
@@ -69,6 +73,48 @@
 			<button id="startGameWithNames">Start Game</button>
 		</div>
 
+        <!-- register screen -->
+        <div id="registerScreen" class="screen" style="display: none;">
+            <h1>Login</h1>
+            <form id="registerForm">
+                {% csrf_token %}
+                <input type="text" id="username" name="username" required>
+                <input type="email" id="email" name="email" required>
+                <input type="text" id="first_name" name="first_name" required>  
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Register</button>
+                <button id="login">Login</button>                
+                <button id="menu">Back to menu</button>                
+            </form>
+            
+        </div>
+
+        <!-- Login screen -->
+        <div id="loginScreen" class="screen" style="display: none;">
+            <h1>Login</h1>
+            <form id="loginForm">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <button type="submit">Login</button>
+                <button id="register">Register</button>                
+                <button id="menu">Back to menu</button>                            
+            </form>
+        </div>
+
+        <!-- Profil screen -->
+        <div id="profileScreen" class="screen" style="display: none;">
+            <h2>User Profile</h2>
+            <p><strong>Username:</strong> <span id="profileUsername"></span></p>
+            <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+            <p><strong>First Name:</strong> <span id="profileFirstName"></span></p>
+            <p><strong>Password:</strong> <span id="profilePassword"></span></p>
+            <p><strong>Wins:</strong> <span id="profileWins"></span></p>
+            <p><strong>Losses:</strong> <span id="profileLosses"></span></p>
+            <button id="menu">Back to menu</button>                                    
+        </div>
+
+
 		<!-- End Screen -->
 		<div id="classicEndScreen" class="screen">
 			<h2 id="winnerMessage">Player Wins!</h2>
@@ -78,10 +124,14 @@
 	</div>
 
 	<!-- Scripts js -->
-	<script src="main.js"></script>
-	<script src="menu.js"></script>
-	<script src="names.js"></script>
-	<script src="classic.js"></script>
-	<script src="classicEnd.js"></script>
+	<script src="../static/js/main.js"></script>
+	<script src="../static/js/menu.js"></script>
+	<script src="../static/js/names.js"></script>
+	<script src="../static/js/classic.js"></script>
+	<script src="../static/js/classicEnd.js"></script>
+	<script src="../static/js/login.js"></script>
+	<script src="../static/js/register.js"></script>
+	<script src="../static/js/profile.js"></script>
+
 </body>
 </html>

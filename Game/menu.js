@@ -21,3 +21,29 @@ document.getElementById('playRemote').addEventListener('click', function ()
 	classicPongGame();
 	console.log('Launching a game in remote');
 });
+
+//user management
+
+// Button 'login'
+document.getElementById('login').addEventListener('click', function ()
+{
+	switchScreen('loginScreen');
+	console.log('Go to login');
+});
+
+// Button 'register'
+document.getElementById('register').addEventListener('click', function ()
+{
+	switchScreen('registerScreen');
+	console.log('Go to register');
+});
+
+// Button 'profile'
+document.getElementById('profile').addEventListener('click', showProfile);
+
+// Button 'menu'
+document.getElementById('menu').addEventListener('click', function ()
+{
+	switchScreen('menuScreen');
+	console.log('Go to menu');
+});
