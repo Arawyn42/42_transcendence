@@ -12,6 +12,10 @@ function classicPongReset(game, paddle1, paddle2, ball)
 
 	game.state = 'countdown';
 	game.countdown = 3;
+	game.aiHitCount = 0;
+	game.aiPreviousY = null;
+	game.aiPredictedY = null;
+
 	startCountdown(game);
 }
 
@@ -41,6 +45,22 @@ function setScore(player, score)
 		document.getElementById('player1Score').textContent = score;
 		document.getElementById('player2Score').textContent = score;
 	}
+}
+
+// At the end, clear the AI interval and remove the event listeners
+function endGame(game)
+{
+	if (game.aiInterval)
+	{
+		clearInterval(game.aiInterval);
+		game.aiInterval = null;
+	}
+
+	game.eventListeners.forEach(({ type, listener }) => {
+		document.removeEventListener(type, listener);
+	});
+
+	game.eventListeners = [];
 }
 
 
@@ -76,25 +96,29 @@ function drawCircle(x, y, radius)
 
 /******************************* COLLISIONS *********************************/
 // Wall collisions
-function detectWallCollision(game, ball)
+function detectWallCollision(ball)
 {
 	if (ball.y + ball.radius >= canvas.height || ball.y - ball.radius <= 0)
 		ball.dy *= -1;
 }
 
 // Paddle collisions
-function detectPaddleCollision(ball, paddle)
+function detectPaddleCollision(game, ball, paddle)
 {
 	if (ball.x - ball.radius <= paddle.x + paddle.width
 		&& ball.x + ball.radius >= paddle.x
 		&& ball.y + ball.radius >= paddle.y
 		&& ball.y - ball.radius <= paddle.y + paddle.height)
-		ball.dx *= -1;
+	{
+		ball.dx *= -1.05;
+		if (ball.dx < 0 && nbPlayers === 1)
+			game.aiHitCount++;
+	}
 }
 
 /******************************** MOVEMENTS *********************************/
 // Paddle movements
-function movePaddle(game, paddle)
+function movePaddle(paddle)
 {
 	paddle.y += paddle.dy;
 	if (paddle.y <= 2)
@@ -109,7 +133,7 @@ function moveBall(game, paddle1, paddle2, ball)
 	ball.x += ball.dx;
 	ball.y += ball.dy;
 
-	detectWallCollision(game, ball);
+	detectWallCollision(ball);
 
 	if (ball.x - ball.radius < 0)
 	{
@@ -140,13 +164,96 @@ function moveBall(game, paddle1, paddle2, ball)
 }
 
 
+/************************************ AI ************************************/
+// Once every second, AI can see the ball and tries to predict its future position
+function aiDecision(game, ball)
+{
+	if (game.state !== 'playing' && game.state !== 'countdown')
+		return;
+
+	const prevPos = Math.abs(game.aiPreviousY);
+
+	if (game.aiPreviousY !== null)
+	{
+		let distance;
+
+		if ((ball.dy > 0 && game.aiPreviousY > 0) || (ball.dy < 0 && game.aiPreviousY < 0))
+			distance = Math.abs(ball.y - prevPos);
+		else if ((ball.dy > 0 && game.aiPreviousY < 0))
+			distance = ball.y + prevPos - 2 * ball.radius;
+		else if (ball.dy < 0 && game.aiPreviousY > 0)
+			distance = (canvas.height - ball.y) + (canvas.height - prevPos) - 2 * ball.radius;
+
+		const predictedPosition = predictBallFuturePosition(ball, distance);
+
+		let rand = Math.random();
+		let deviation = Math.min(game.aiHitCount * (5 + rand * 3), PADDLE_HEIGHT);
+
+		rand = Math.random();
+		if (rand < 0.5)
+			game.aiPredictedY = predictedPosition + deviation;
+		else
+			game.aiPredictedY = predictedPosition - deviation;
+
+		console.log(`Current: ${ball.y}, Distance: ${distance}, Predicted: ${predictedPosition}`);
+	}
+
+	// Update previous position only if it's valid and doesn't cause anomalies
+	if (ball.y !== null && typeof ball.y === 'number' && ball.y !== prevPos)
+		game.aiPreviousY = ball.y * ball.dy / Math.abs(ball.dy);
+}
+
+// AI movements
+function simulateAIInput(game, paddle) {
+	const paddleCenter = paddle.y + paddle.height / 2;
+	const threshold = 20;
+
+	if (Math.abs(game.aiPredictedY - paddleCenter) > threshold)
+	{
+		if (game.aiPredictedY > paddleCenter)
+			paddle.dy = 8;
+		else if (game.aiPredictedY < paddleCenter)
+			paddle.dy = -8;
+	}
+	else
+		paddle.dy = 0;
+}
+
+// Predict the future position of the ball
+function predictBallFuturePosition(ball, distance)
+{
+	let futureY = ball.y;
+	let futureDy = ball.dy
+	let pixelsToMove = Math.abs(distance);
+
+	while (pixelsToMove > 0)
+	{
+		let distanceToWall = (futureDy > 0) ? (canvas.height - futureY - ball.radius) : futureY - ball.radius;
+
+		if (pixelsToMove > distanceToWall)
+		{
+			pixelsToMove -= distanceToWall;
+			futureY = (futureDy > 0) ? canvas.height - ball.radius : ball.radius;
+			futureDy = -futureDy;
+		}
+		else
+		{
+			futureY += futureDy * pixelsToMove / Math.abs(futureDy);
+			pixelsToMove = 0;
+		}
+	}
+
+	return (futureY);
+}
+
+
 /****************************** EVENTS HANDLER ******************************/
 // When a key is pressed
 function handleKeyDown(e, paddle1, paddle2)
 {
 	// Prevent the default behaviour of ArrowUp and ArrowDown
-    if (["ArrowUp", "ArrowDown"].includes(e.key))
-        e.preventDefault();
+	if (["ArrowUp", "ArrowDown"].includes(e.key))
+		e.preventDefault();
 
 	switch (e.key)
 	{
@@ -176,8 +283,8 @@ function handleKeyDown(e, paddle1, paddle2)
 function handleKeyUp(e, paddle1, paddle2)
 {
 	// Prevent the default behaviour of ArrowUp and ArrowDown
-    if (["ArrowUp", "ArrowDown"].includes(e.key))
-        e.preventDefault();
+	if (["ArrowUp", "ArrowDown"].includes(e.key))
+		e.preventDefault();
 	
 	switch (e.key)
 	{
@@ -205,9 +312,11 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 	switch (game.state)
 	{
 		case 'playing':
+			if (nbPlayers === 1 && ball.dx > 0 && ball.x >= canvas.width / 2)
+				simulateAIInput(game, paddle2);
 			// Move and draw paddles
-			movePaddle(game, paddle1);
-			movePaddle(game, paddle2);
+			movePaddle(paddle1);
+			movePaddle(paddle2);
 			drawRect(paddle1.x, paddle1.y, paddle1.width, paddle1.height);
 			drawRect(paddle2.x, paddle2.y, paddle2.width, paddle2.height);
 		
@@ -216,18 +325,20 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 			drawCircle(ball.x, ball.y, ball.radius);
 		
 			// Detect paddles' collisions
-			detectPaddleCollision(ball, paddle1);
-			detectPaddleCollision(ball, paddle2);
+			detectPaddleCollision(game, ball, paddle1);
+			detectPaddleCollision(game, ball, paddle2);
 			break;
 		case 'countdown':
 			drawCountdown(game);
 			break;
 		case 'end1':
 			document.getElementById('winnerMessage').textContent = `${document.getElementById('player1Label').textContent} won!`;
+			endGame(game);
 			switchScreen('classicEndScreen');
 			return;
 		case 'end2':
 			document.getElementById('winnerMessage').textContent = `${document.getElementById('player2Label').textContent} won!`;
+			endGame(game);
 			switchScreen('classicEndScreen');
 			return;
 	}
@@ -238,10 +349,14 @@ function classicPongLoop(game, paddle1, paddle2, ball)
 
 function classicPongGame()
 {
-
 	let game = {
 		state: 'countdown',
-		countdown: 3
+		countdown: 3,
+		eventListeners: [],
+		aiInterval: null,
+		aiHitCount: 0,
+		aiPreviousY: null,
+		aiPredictedY: null
 	};
 
 	let paddle1 = {
@@ -268,13 +383,22 @@ function classicPongGame()
 		radius: BALL_RADIUS
 	};
 
-	document.addEventListener('keydown', (e) => handleKeyDown(e, paddle1, paddle2));
-	document.addEventListener('keyup', (e) => handleKeyUp(e, paddle1, paddle2));
+	// Add event listeners for player controls and store them in the game object
+	const keydownListener = (e) => handleKeyDown(e, paddle1, paddle2);
+	const keyupListener = (e) => handleKeyUp(e, paddle1, paddle2);
 
+	document.addEventListener('keydown', keydownListener);
+	document.addEventListener('keyup', keyupListener);
+
+	game.eventListeners.push({ type: 'keydown', listener: keydownListener });
+	game.eventListeners.push({ type: 'keyup', listener: keyupListener });
+
+	// If Player vs AI mode, set a 1 second interval for IA to make decisions
+	if (nbPlayers === 1)
+		game.aiInterval = setInterval(() => aiDecision(game, ball), 1000);
+
+	// Reset all positions and launch the main loop of the game
 	classicPongReset(game, paddle1, paddle2, ball);
 	classicPongLoop(game, paddle1, paddle2, ball);
-
-	document.removeEventListener('keydown', handleKeyDown);
-	document.removeEventListener('keyup', handleKeyUp);
 }
 

@@ -49,6 +49,13 @@
 			<button id="playMultiplayer">Play Multiplayer</button>
 		</div>
 
+		<!-- Mode Selection Screen -->
+		<div id="modeSelectionScreen" class="screen">
+			<h2>Select Game Mode</h2>
+			<button id="modeVsAI">Player vs AI</button>
+			<button id="mode2Players">2 Players</button>
+		</div>
+
 		<!-- Names Input Screen -->
 		<div id="playerNamesScreen" class="screen">
 			<h2>Enter your names</h2>
@@ -59,7 +66,7 @@
 			<div>
 				<p id="player1InputError" class="error-message"></p>
 			</div>
-			<div>
+			<div id="player2LabelField">
 				<label for="player2Input">Player 2:</label>
 				<input type="text" id="player2Input" placeholder="Enter Player 2 name" maxlength="8">
 			</div>
@@ -79,9 +86,7 @@
 
 	<!-- Scripts js -->
 	<script src="main.js"></script>
-	<script src="menu.js"></script>
-	<script src="names.js"></script>
+	<script src="screens.js"></script>
 	<script src="classic.js"></script>
-	<script src="classicEnd.js"></script>
 </body>
 </html>
