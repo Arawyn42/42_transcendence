@@ -103,12 +103,71 @@ button {
 
 /* Adjust the game canvas */
 #gameWrapper {
+	position: relative;
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 2vh;
 }
+
+/***************************** CONTROLS DISPLAY ******************************/
+/* Controls display (general) */
+#controlsDisplay {
+	position: absolute;
+	top: 50%; /* Vertically center */
+	transform: translateY(-50%);  /* Vertically adjust */
+	display: flex;
+	justify-content: space-between;
+	width: calc(100%);
+	left: 0;
+	right: 0;
+}
+
+/* Controls display in Player vs AI Mode */
+#controlsDisplay.ai-mode {
+	justify-content: flex-start;
+	flex-direction: column;
+	align-items: flex-start;
+	width: auto;
+	margin-left: 8vw;
+}
+
+/* Hide the h3 of the second control in AI Mode */
+#controlsDisplay.ai-mode #rightControls h3 {
+	visibility: hidden;
+}
+
+/* Controls display in Player vs Player Mode */
+#controlsDisplay.normal-mode {
+	justify-content: space-between;
+	flex-direction: row;
+	width: calc(84vw); /* So we have 8vw for margin left and right */
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Keys style */
+.controlKeys {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 0.3vh;
+}
+
+/* Keys style (paragraphes) */
+.controlKeys p {
+	font-size: 1.5vw;
+	padding: 0.5vw;
+	border: 0.2vw solid white;
+	width: 3vw;
+	height: 1.5vw;
+	text-align: center;
+	margin: 0.3vw 0;
+	background-color: transparent;
+	color: white;
+}
+
 
 
 /*************************** MODE SELECTION SCREEN ***************************/
@@ -180,7 +239,6 @@ input[type="text"] {
 	display: none; /* Hide element */
 	width: 100%;
 	height: 100%;
-	display: flex;
 	flex-direction: column;
 	align-items: center;
 }

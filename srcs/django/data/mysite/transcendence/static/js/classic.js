@@ -69,6 +69,9 @@ function endGame(game)
 	});
 
 	game.eventListeners = [];
+
+	game.state = 'stopped';
+	currentGameInstance = null;
 }
 
 
@@ -333,6 +336,13 @@ function handleKeyUp(e, game)
 /******************************** MAIN LOOP *********************************/
 function classicPongLoop(game)
 {
+
+	if (game.state === 'stopped')
+	{
+		console.log('Game loop stopped.');
+		return;
+	}
+
 	// Clear the canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -375,7 +385,7 @@ function classicPongLoop(game)
 
 function classicPongGame()
 {
-	let paddle1 = {
+	const paddle1 = {
 		x: BALL_RADIUS / 4,
 		y: canvas.height / 2 - PADDLE_HEIGHT / 2,
 		width: PADDLE_WIDTH,
@@ -383,7 +393,7 @@ function classicPongGame()
 		dy: 0
 	};
 
-	let paddle2 = {
+	const paddle2 = {
 		x: canvas.width - PADDLE_WIDTH - BALL_RADIUS / 4,
 		y: canvas.height / 2 - PADDLE_HEIGHT / 2,
 		width: PADDLE_WIDTH,
@@ -391,7 +401,7 @@ function classicPongGame()
 		dy: 0
 	};
 
-	let ball = {
+	const ball = {
 		x: canvas.width / 2,
 		y: canvas.height / 2,
 		dx: 4 * (Math.random() > 0.5 ? 1 : -1),
@@ -399,7 +409,7 @@ function classicPongGame()
 		radius: BALL_RADIUS
 	};
 
-	let ai = {
+	const ai = {
 		framesCount: 0,
 		interval: null,
 		hitCount: 0,
@@ -407,7 +417,7 @@ function classicPongGame()
 		distanceForBall: null
 	}
 
-	let game = {
+	const game = {
 		state: 'countdown',
 		countdown: 3,
 		eventListeners: [],
@@ -417,6 +427,13 @@ function classicPongGame()
 		ball: ball,
 		ai: ai
 	};
+
+	if (currentGameInstance)
+	{
+		console.log('Ending previous game instance...')
+		endGame(currentGameInstance);
+	}
+	currentGameInstance = game;
 
 	// Add event listeners for player controls and store them in the game object
 	const keydownListener = (e) => handleKeyDown(e, game);

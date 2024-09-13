@@ -9,6 +9,9 @@ const BLACK = '#000';
 const GREEN = '#00FF00';
 const RED = '#FF0000';
 
+// Game instance
+let currentGameInstance = null;
+
 // Scores
 const MAX_SCORE = 5;
 
@@ -53,6 +56,12 @@ window.addEventListener('popstate', (event) =>
 		switchScreen(event.state.screenId);
 	else
 		switchScreen('menuScreen');
+
+	if (currentGameInstance)
+	{
+		console.log('Ending previous game instance...')
+		endGame(currentGameInstance);
+	}
 });
 
 /****************************** LAUNCH SCRIPTS ******************************/
