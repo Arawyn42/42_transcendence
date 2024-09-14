@@ -25,16 +25,29 @@ document.getElementById("loginForm").onsubmit = function(event) {
 			'X-CSRFToken': getCookie('csrftoken')  // Récupération du token CSRF
 		}
 	})
-	.then(response => response.json())
+	.then(response => {
+		if (response.ok) {
+			return response.json();
+		} else {
+			return response.json().then(data => { 
+				throw new Error(data.error || 'Unknown error');
+			});
+		}
+	})
 	.then(data => {
 		if (data.success) {
 			document.getElementById('profileUsername').textContent = data.username;
-			switchScreen('profileScreen');
+			switchScreen('menuScreen');
 		} else {
-			alert('Connection error');
+			alert('Error: ' + data.error);
 		}
+	})
+	.catch(error => {
+		alert('Connection error: ' + error.message);
+		console.error('Connection error:', error);
 	});
 };
+
 
 function getCookie(name) {
 	let cookieValue = null;

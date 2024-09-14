@@ -156,6 +156,7 @@ function moveBall(game)
 		setScore(2, player2Score);
 		if (player2Score >= MAX_SCORE)
 		{
+			sendScoreUpdate('loose');
 			setScore(0, 0);
 			game.state = 'end2';
 			return;
@@ -169,6 +170,7 @@ function moveBall(game)
 		setScore(1, player1Score);
 		if (player1Score >= MAX_SCORE)
 		{
+			sendScoreUpdate('win');
 			setScore(0, 0);
 			game.state = 'end1';
 			return;

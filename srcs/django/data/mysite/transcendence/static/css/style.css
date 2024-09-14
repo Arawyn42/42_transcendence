@@ -242,3 +242,11 @@ input[type="text"] {
 	flex-direction: column;
 	align-items: center;
 }
+
+/********************************** PROFILE **********************************/
+
+.profile-picture {
+    width: 75px;  /* largeur de l'image */
+    height: 75px; /* hauteur de l'image */
+    border-radius: 50%; /* optionnel : pour rendre l'image circulaire */
+}

@@ -37,7 +37,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
 		}
 	})
 	.catch(error => {
-		console.error(`Error:${error}`);
+		console.error(`Error: ${error.message}`);
 	});
 };
 

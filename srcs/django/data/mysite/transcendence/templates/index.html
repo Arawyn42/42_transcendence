@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,8 +25,8 @@
 			<h1>Register</h1>
 			<form id="registerForm">
 				{% csrf_token %}
-					<input type="text" name="username" placeholder="Username" required>
-					<input type="email" name="email" placeholder="Email" required>
+				<input type="text" name="username" placeholder="Username" required>
+				<input type="email" name="email" placeholder="Email" required>
 				<input type="text" name="first_name" placeholder="First name" required>  
 				<input type="password" name="password" placeholder="Password" required>
 				<button type="submit">Register</button>
@@ -57,15 +59,57 @@
 	<!--------------------------------------- PROFILE ----------------------------------------->
 		<div id="profileScreen" class="screen">
 			<h2>User Profile</h2>
-			<p><strong>Username:</strong> <span id="profileUsername"></span></p>
-			<p><strong>Email:</strong> <span id="profileEmail"></span></p>
-			<p><strong>First Name:</strong> <span id="profileFirstName"></span></p>
-			<p><strong>Password:</strong> <span id="profilePassword"></span></p>
-			<p><strong>Wins:</strong> <span id="profileWins"></span></p>
-			<p><strong>Losses:</strong> <span id="profileLosses"></span></p>
+			{% if user.userprofile.profile_picture %}
+				<img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+			{% else %}
+				<img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="profile-picture">
+			{% endif %}
+			<p><strong>Username:</strong> <span id="profileUsername">{{ user.username }}</span></p>
+			<p><strong>Email:</strong> <span id="profileEmail">{{ user.email }}</span></p>
+			<p><strong>First Name:</strong> <span id="profileFirstName">{{ user.first_name }}</span></p>
+			<p><strong>Wins:</strong> <span id="profileWins">{{ user.userprofile.victory_count }}</span></p>
+			<p><strong>Looses:</strong> <span id="profileLosses">{{ user.userprofile.defeat_count }}</span></p>
+			<button id="editProfile">Edit profile</button>
+			<button id="friendFromProfile">Friend</button>
 			<button id="menuFromProfile">Back to menu</button>
 		</div>
-		
+
+	<!--------------------------------------- FRIEND ----------------------------------------->
+		<div id="friendScreen" class="screen">
+			<h3>Friend List</h3>
+			<div id="friendsList"></div>
+			<h3>Add a Friend</h3>
+			<input type="text" id="friendUsername" placeholder="Username">
+			<button id="addFriendButton">Add Friend</button>
+	
+			<h3>Friend Requests</h3>
+			<ul id="friendRequestsList">
+				{% for friend_request in friend_requests %}
+					<li>
+						<span>{{ friend_request.from_user.username }}</span>
+						<button class="acceptFriendButton" data-request-id="{{ friend_request.id }}">Accept</button>
+					</li>
+				{% empty %}
+					<li>No friend requests</li>
+				{% endfor %}
+			</ul>
+			<button id="profileFromFriend">Profile</button>
+		</div>
+	<!------------------------------------ EDIT PROFILE -------------------------------------->
+	
+		<div id="editProfileScreen" class="screen">
+			<h2>Edit Profile</h2>
+			<form id="editProfileForm" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="text" id="editUsername" name="username" placeholder="Username" required>
+				<input type="email" id="editEmail" name="email" placeholder="Email" required>
+				<input type="text" id="editFirstName" name="first_name" placeholder="First name" required>
+				<input type="password" id="editPassword" name="password" placeholder="Password">
+				<input type="file" id="editProfilePicture" name="profile_picture">
+				<button type="submit">Save changes</button>
+				<button id="cancelEditProfile">Cancel</button>
+			</form>
+		</div>
 	<!---------------------------------- CLASSIC PONG GAME ------------------------------------>
 	<!-- Mode Selection Screen -->
 		<div id="modeSelectionScreen" class="screen">
@@ -143,9 +187,12 @@
 	<script src="../static/js/register.js"></script>
 	<script src="../static/js/menu.js"></script>
 	<script src="../static/js/profile.js"></script>
+	<script src="../static/js/editProfile.js"></script>
 	<script src="../static/js/classicStart.js"></script>
 	<script src="../static/js/classic.js"></script>
 	<script src="../static/js/classicEnd.js"></script>
+	<script src="../static/js/updateScore.js"></script>
+	<script src="../static/js/friend.js"></script>
 
 </body>
 </html>
