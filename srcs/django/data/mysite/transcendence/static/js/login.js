@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById("loginForm").onsubmit = function(event) {
 
 	// Temporary: Do nothing if the 'Skip and go to menu' button is clicked
-	if (document.activeElement === document.getElementById('tempMenuButton'))
+	if (document.activeElement === document.getElementById('playAsGuest'))
         return;
 
 
@@ -81,7 +81,7 @@ fetch('/login/', {
 
 // TEMPORARY: Button to skip login and go directly to 'Menu'
 document.addEventListener('DOMContentLoaded', function () {
-	const skipButton = document.getElementById('tempMenuButton');
+	const skipButton = document.getElementById('playAsGuest');
 	
 	skipButton.addEventListener('click', function (event) {
 		event.preventDefault();

@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	{
 		nbPlayers = 1;
 		switchScreen('gameScreen');
-		classicPongGame();
 		console.log('Launching a game in remote');
 	});
 });

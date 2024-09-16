@@ -39,6 +39,19 @@ function switchScreen(screenId)
 	const activeScreen = document.getElementById(screenId);
 	if (activeScreen)
 	{
+		switch (screenId)
+		{
+			case 'gameScreen':
+				displayControls();
+				classicPongGame();
+				break;
+			case 'playerNamesScreen':
+				adjustPlayerNamesScreen();
+				break;
+			default:
+				break;
+		}
+
 		activeScreen.style.display = 'flex';
 
 		const currentState = window.history.state;
