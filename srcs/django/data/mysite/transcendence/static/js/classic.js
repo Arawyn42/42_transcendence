@@ -206,10 +206,16 @@ function aiDecision(game)
 			game.ai.distanceForBall = (canvas.height - currentPos) + (canvas.height - prevPos) - 2 * game.ball.radius;
 
 		const rand = Math.random();
+		let rand2 = Math.random();
+		if (aiDifficulty === 1)
+			rand2 *= 10;
+		else if (aiDifficulty === 2)
+			rand2 *= 5;
+
 		if (rand > 0.5)
-			game.ai.distanceForBall += 1.5 * game.ai.hitCount * Math.random();
+			game.ai.distanceForBall += 1.5 * game.ai.hitCount * rand2;
 		else
-			game.ai.distanceForBall -= 1.5 * game.ai.hitCount * Math.random();
+			game.ai.distanceForBall -= 1.5 * game.ai.hitCount * rand2;
 	}
 	
 	game.ai.previousPos = currentPos * game.ball.dy / Math.abs(game.ball.dy);
@@ -225,7 +231,14 @@ function simulateAIInput(game)
 		const targetPos = calculateBallPositionAtFrame(game);
 
 		const rand = Math.round(Math.random() * 100);
-		const rand2 = Math.round(0.05 * game.ai.hitCount * (1 + Math.random() / 2) * 100);
+		let rand2 = Math.round(0.05 * game.ai.hitCount * (1 + Math.random() / 2) * 100);
+
+		if (aiDifficulty === 1)
+			rand2 *= 4;
+		else if (aiDifficulty === 2)
+			rand2 *= 2;
+
+		console.log(`Difficulty = ${aiDifficulty} | rand = ${rand} | rand2 = ${rand2}`);
 		
 		if (rand > rand2)
 		{

@@ -1,5 +1,5 @@
 /****************************** MODE SELECTION ******************************/
-// Player vs AI
+// Player vs AI Button
 document.getElementById('modeVsAI').addEventListener('click', function () {
 	const username = document.getElementById('profileUsername').textContent;
 	nbPlayers = 1;
@@ -9,26 +9,61 @@ document.getElementById('modeVsAI').addEventListener('click', function () {
 	{
 		document.getElementById('player1Label').textContent = username;
 		document.getElementById('player2Label').textContent = '42B0T';
-		switchScreen('gameScreen');
-		console.log(`Launching a classic game vs AI for ${username}`);
+		switchScreen('parametersScreen');
+		console.log(`Selecting AI difficulty for user '${username}'`);
 	}
 	else
 	{
-		switchScreen('playerNamesScreen');
+		switchScreen('parametersScreen');
 		console.log('Requesting player name for Player vs AI');
 	}
 });
 
-// 2 players
+// 2 players Button
 document.getElementById('mode2Players').addEventListener('click', function () {
 	nbPlayers = 2;
-	switchScreen('playerNamesScreen');
+	switchScreen('parametersScreen');
 	console.log('Requesting player names for 2 players');
 });
 
-/******************************** NAMES INPUT *******************************/
+
+/******************************** PARAMETERS ********************************/
+// Button 'Easy' (Difficulty selection for AI)
+document.getElementById('easyButton').addEventListener('click', function () {
+    aiDifficulty = 1;
+    updateDifficultySelection(document.getElementById('easyButton'));
+});
+
+// Button 'Easy' (Difficulty selection for AI)
+document.getElementById('mediumButton').addEventListener('click', function () {
+    aiDifficulty = 2;
+    updateDifficultySelection(document.getElementById('mediumButton'));
+});
+
+// Button 'Easy' (Difficulty selection for AI)
+document.getElementById('hardButton').addEventListener('click', function () {
+    aiDifficulty = 3;
+    updateDifficultySelection(document.getElementById('hardButton'));
+});
+
+// Function to update the selected difficulty button
+function updateDifficultySelection(selectedButton)
+{
+	const easyButton = document.getElementById('easyButton');
+	const mediumButton = document.getElementById('mediumButton');
+	const hardButton = document.getElementById('hardButton');
+    const buttons = [easyButton, mediumButton, hardButton];
+
+    buttons.forEach(button => {
+        if (button === selectedButton)
+            button.classList.add('selected');
+        else
+            button.classList.remove('selected');
+    });
+}
+
 // Button 'Start Game' (Start the game with the players input names)
-document.getElementById('startGameWithNames').addEventListener('click', function ()
+document.getElementById('startGameWithParameters').addEventListener('click', function ()
 {
 	const username = document.getElementById('profileUsername').textContent;
 	const player1Name = document.getElementById('player1Input').value.trim();
@@ -105,6 +140,24 @@ function adjustPlayerNamesScreen()
 		document.getElementById('player1Input').style.display = 'flex';
 		document.getElementById('player1InputError').style.display = 'flex';
 		document.getElementById('player1LabelField').style.display = 'flex';
+	}
+
+	if (nbPlayers === 1 && username.length > 0)
+		document.getElementById('enterYourNames').style.display = 'none';
+	else
+		document.getElementById('enterYourNames').style.display = 'flex';
+}
+
+// Function to display the difficulty buttons only in player vs AI mode
+function displayDifficultyButtons()
+{
+	if (nbPlayers === 1)
+	{
+		document.getElementById('difficultySelection').style.display = 'flex';
+	}
+	else
+	{
+		document.getElementById('difficultySelection').style.display = 'none';
 	}
 }
 

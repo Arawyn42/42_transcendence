@@ -18,6 +18,9 @@ const MAX_SCORE = 5;
 // Number of players
 let nbPlayers = 2;
 
+// AI Difficulty
+let aiDifficulty = 1;
+
 // Paddles and ball sizes
 const BALL_RADIUS = canvas.height * 0.02;
 const PADDLE_WIDTH = canvas.height * 0.015;
@@ -45,8 +48,9 @@ function switchScreen(screenId)
 				displayControls();
 				classicPongGame();
 				break;
-			case 'playerNamesScreen':
+			case 'parametersScreen':
 				adjustPlayerNamesScreen();
+				displayDifficultyButtons();
 				break;
 			default:
 				break;
