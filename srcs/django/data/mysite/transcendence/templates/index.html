@@ -18,11 +18,11 @@
 
 	<div id="app">
 	<!--------------------------------- PAGE SUBTITLE 'PONG' ---------------------------------->
-		<h2 id="pongTitle">PONG</h2>
+		<h1 id="pongTitle">PONG</h1>
 
 	<!--------------------------------------- REGISTER ---------------------------------------->
 		<div id="registerScreen" class="screen">
-			<h1>Register</h1>
+			<h2>Register</h2>
 			<form id="registerForm">
 				{% csrf_token %}
 				<input type="text" name="username" placeholder="Username" required>
@@ -37,7 +37,7 @@
 
 	<!---------------------------------------- LOGIN ------------------------------------------>
 		<div id="loginScreen" class="screen">
-			<h1>Login</h1>
+			<h2>Login</h2>
 			<form id="loginForm">
 				{% csrf_token %}
 				<input type="text" name="username" placeholder="Username">
@@ -52,8 +52,8 @@
 		<div id="menuScreen" class="screen">
 			<button id="profile" class="wideButton">Profile</button>
 			<button id="playClassic" class="wideButton">Play Classic</button>
-			<button id="playRemote" class="wideButton">Play Remote</button>
 			<button id="playMultiplayer" class="wideButton">Play Multiplayer</button>
+			<button id="playRemote" class="wideButton">Play Remote</button>
 		</div>
 
 	<!--------------------------------------- PROFILE ----------------------------------------->
@@ -76,7 +76,7 @@
 
 	<!--------------------------------------- FRIEND ----------------------------------------->
 		<div id="friendScreen" class="screen">
-			<h3>Friend List</h3>
+			<h2>Friend List</h2>
 			<div id="friendsList"></div>
 			<h3>Add a Friend</h3>
 			<input type="text" id="friendUsername" placeholder="Username">
@@ -110,21 +110,18 @@
 				<button id="cancelEditProfile" class="wideButton">Cancel</button>
 			</form>
 		</div>
-	<!---------------------------------- CLASSIC PONG GAME ------------------------------------>
-	<!-- Mode Selection Screen -->
-		<div id="modeSelectionScreen" class="screen">
-			<h2>Select Game Mode</h2>
-			<button id="modeVsAI" class="wideButton">Player vs AI</button>
-			<button id="mode2Players" class="wideButton">2 Players</button>
-		</div>
-		
-	<!-- Input Parameters Screen -->
-		<div id="parametersScreen" class="screen">
+	
+	<!---------------------------------- SETTINGS ------------------------------------>
+		<div id="settingsScreen" class="screen">
+
 			<!-- Main Title -->
-			<h2>Parameters</h2>
+			<h2>Settings</h2>
+
 			<!-- Players Names Input -->
 			<div id="enterYourNames">
 				<h3>Enter your names</h3>
+
+				<!-- Player 1 -->
 				<div id="player1LabelField" class="inputField">
 					<label for="player1Input">Player 1:</label>
 					<input type="text" id="player1Input" placeholder="Enter Player 1 name" maxlength="8">
@@ -132,6 +129,8 @@
 				<div>
 					<p id="player1InputError" class="error-message"></p>
 				</div>
+
+				<!-- Player 2 -->
 				<div id="player2LabelField" class="inputField">
 					<label for="player2Input">Player 2:</label>
 					<input type="text" id="player2Input" placeholder="Enter Player 2 name" maxlength="8">
@@ -139,23 +138,54 @@
 				<div>
 					<p id="player2InputError" class="error-message"></p>
 				</div>
+
+				<!-- Player 3 -->
+				<div id="player3LabelField" class="inputField">
+					<label for="player3Input">Player 3:</label>
+					<input type="text" id="player3Input" placeholder="Enter Player 3 name" maxlength="8">
+				</div>
+				<div>
+					<p id="player3InputError" class="error-message"></p>
+				</div>
+
+				<!-- Player 4 -->
+				<div id="player4LabelField" class="inputField">
+					<label for="player4Input">Player 4:</label>
+					<input type="text" id="player4Input" placeholder="Enter Player 4 name" maxlength="8">
+				</div>
+				<div>
+					<p id="player4InputError" class="error-message"></p>
+				</div>
 			</div>
+
 			<!-- Difficulty Selection -->
 			<div id="difficultySelection">
-				<h3>Choose Difficulty</h3>
+				<h3>Choose difficulty</h3>
 				<div id="difficultyButtons">
 					<button id="easyButton" class="difficultyButton selected">Easy</button>
 					<button id="mediumButton" class="difficultyButton">Medium</button>
 					<button id="hardButton" class="difficultyButton">Hard</button>
 				</div>
 			</div>
+
 			<!-- Start Game Button -->
 			<button id="startGameWithParameters" class="wideButton">Start Game</button>
+			<button id="backFromSettings" class="backButton">Back</button>
+		</div>
+
+	<!---------------------------------- CLASSIC PONG GAME ------------------------------------>
+	<!-- Mode Selection Screen -->
+		<div id="modeSelectionScreen" class="screen">
+			<h2>Select Game Mode</h2>
+			<button id="modeVsAI" class="wideButton">1 Player</button>
+			<button id="mode2Players" class="wideButton">2 Players</button>
+			<button id="backFromClassicModeSelection" class="backButton">Back</button>
 		</div>
 
 	<!-- Game Screen -->
 		<div id="gameScreen" class="screen">
-			<!-- Player Labels and Scores -->
+
+			<!-- Player labels and scores -->
 			<div id="scoreBoard">
 				<span id="player1Label" class="playerLabel">Player 1</span>
 				<div class="scores">
@@ -165,7 +195,8 @@
 				</div>
 				<span id="player2Label" class="playerLabel">Player 2</span>
 			</div>
-			<!-- Player Controls -->
+
+			<!-- Player controls -->
 			<div id="controlsDisplay">
 				<div id="leftControls">
 					<h3>Controls</h3>
@@ -182,10 +213,23 @@
 					</div>
 				</div>
 			</div>
-			<!-- Game Canvas -->
+
+			<!-- Game canvas -->
 			<div id="gameWrapper">
 				<canvas id="gameCanvas" width="1000" height="500"></canvas>
 			</div>
+
+			<!-- Player labels and scores for multiplayer mode-->
+			<div id="scoreBoard2">
+				<span id="player3Label" class="playerLabel">Player 3</span>
+				<div class="scores">
+					<span id="player3Score">0</span>
+					<span>-</span>
+					<span id="player4Score">0</span>
+				</div>
+				<span id="player4Label" class="playerLabel">Player 4</span>
+			</div>
+
 		</div>
 
 	<!-- End Screen -->
@@ -194,8 +238,19 @@
 			<button id="restartClassicGame" class="wideButton">Restart</button>
 			<button id="menuFromClassicEnd" class="wideButton">Back to Menu</button>
 		</div>
-	</div>
 
+	<!-------------------------------- MULTIPLAYER PONG GAME ---------------------------------->
+	<!-- Mode Selection Screen -->
+		<div id="multiModeSelectionScreen" class="screen">
+			<h2>Select Game Mode</h2>
+			<button id="onePlayerMode" class="wideButton">1 Player</button>
+			<button id="twoPlayersMode" class="wideButton">2 Players</button>
+			<button id="threePlayersMode" class="wideButton">3 Players</button>
+			<button id="fourPlayersMode" class="wideButton">4 Players</button>
+			<button id="backFromMultiModeSelection" class="backButton">Back</button>
+		</div>
+
+	</div>
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	<script src="../static/js/main.js"></script>
 	<script src="../static/js/login.js"></script>
@@ -203,11 +258,13 @@
 	<script src="../static/js/menu.js"></script>
 	<script src="../static/js/profile.js"></script>
 	<script src="../static/js/editProfile.js"></script>
+	<script src="../static/js/friend.js"></script>
+	<script src="../static/js/settings.js"></script>
 	<script src="../static/js/classicStart.js"></script>
 	<script src="../static/js/classic.js"></script>
 	<script src="../static/js/classicEnd.js"></script>
+	<script src="../static/js/multiStart.js"></script>
 	<script src="../static/js/updateScore.js"></script>
-	<script src="../static/js/friend.js"></script>
 
 </body>
 </html>

@@ -16,10 +16,13 @@ let currentGameInstance = null;
 const MAX_SCORE = 5;
 
 // Number of players
-let nbPlayers = 2;
+let nbPlayers = 1;
 
-// AI Difficulty
-let aiDifficulty = 1;
+// Mode ('classic' or 'multi')
+let gameMode = 'classic';
+
+// AI Difficulty (0 for no AI, 1 for easy, 2 for medium, 3 for hard)
+let aiDifficulty = 0;
 
 // Paddles and ball sizes
 const BALL_RADIUS = canvas.height * 0.02;
@@ -48,9 +51,15 @@ function switchScreen(screenId)
 				displayControls();
 				classicPongGame();
 				break;
-			case 'parametersScreen':
+			case 'settingsScreen':
 				adjustPlayerNamesScreen();
 				displayDifficultyButtons();
+				break;
+			case 'modeSelectionScreen':
+				document.getElementById('scoreBoard2').style.display = 'none';
+				break;
+			case 'multiModeSelectionScreen':
+				document.getElementById('scoreBoard2').style.display = 'flex';
 				break;
 			default:
 				break;

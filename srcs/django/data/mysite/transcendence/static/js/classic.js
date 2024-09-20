@@ -125,7 +125,7 @@ function detectPaddleCollision(game, paddle)
 		if (Math.abs(game.ball.dx) > 10)
 			game.ball.dx = 10 * game.ball.dx / Math.abs(game.ball.dx);
 
-		if (game.ball.dx < 0 && nbPlayers === 1)
+		if (game.ball.dx < 0 && aiDifficulty > 0)
 			game.ai.hitCount++;
 	}
 }
@@ -224,7 +224,7 @@ function aiDecision(game)
 // AI movements
 function simulateAIInput(game)
 {
-	if (nbPlayers === 1 && ((game.ball.x >= canvas.width / 2 && game.ball.dx > 0)
+	if (aiDifficulty > 0 && ((game.ball.x >= canvas.width / 2 && game.ball.dx > 0)
 		|| (game.ball.x >= 3 * canvas.width / 4 && game.ball.dx < 0)))
 	{
 		const paddleCenter = game.paddle2.y + game.paddle2.height / 2;
@@ -237,8 +237,6 @@ function simulateAIInput(game)
 			rand2 *= 4;
 		else if (aiDifficulty === 2)
 			rand2 *= 2;
-
-		console.log(`Difficulty = ${aiDifficulty} | rand = ${rand} | rand2 = ${rand2}`);
 		
 		if (rand > rand2)
 		{
@@ -310,13 +308,13 @@ function handleKeyDown(e, game)
 			game.paddle1.dy = 8;
 			break;
 		case 'ArrowUp':
-			if (nbPlayers === 1)
+			if (aiDifficulty > 0)
 				game.paddle1.dy = -8;
 			else
 				game.paddle2.dy = -8;
 			break;
 		case 'ArrowDown':
-			if (nbPlayers === 1)
+			if (aiDifficulty > 0)
 				game.paddle1.dy = 8;
 			else
 				game.paddle2.dy = 8;
@@ -340,7 +338,7 @@ function handleKeyUp(e, game)
 			break;
 		case 'ArrowUp':
 		case 'ArrowDown':
-			if (nbPlayers === 1)
+			if (aiDifficulty > 0)
 				game.paddle1.dy = 0;
 			else
 				game.paddle2.dy = 0;
@@ -461,7 +459,7 @@ function classicPongGame()
 	game.eventListeners.push({ type: 'keyup', listener: keyupListener });
 
 	// If Player vs AI mode, set a 1 second interval for IA to make decisions
-	if (nbPlayers === 1)
+	if (aiDifficulty > 0)
 		game.ai.interval = setInterval(() => aiDecision(game), 1000);
 
 	// Reset all positions and launch the main loop of the game

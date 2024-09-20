@@ -3,8 +3,9 @@
 document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('playClassic').addEventListener('click', function ()
 	{
+		gameMode = 'classic';
 		switchScreen('modeSelectionScreen');
-		console.log('Selecting a game mode');
+		console.log('Selecting a game mode for classic Pong');
 	});
 });
 
@@ -12,8 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('playMultiplayer').addEventListener('click', function ()
 	{
-		switchScreen('gameScreen');
-		console.log('Launching a multiplayer pong game');
+		gameMode = 'multi';
+		switchScreen('multiModeSelectionScreen');
+		console.log('Selecting a game mode for multiplayer Pong');
 	});
 });
 
@@ -21,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('playRemote').addEventListener('click', function ()
 	{
-		nbPlayers = 1;
+		gameMode = 'classic';
+		aiDifficulty = 1;
 		switchScreen('gameScreen');
 		console.log('Launching a game in remote');
 	});

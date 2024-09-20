@@ -25,16 +25,28 @@ header {
 	flex-shrink: 0; /* Ensure the header will not be reduced */
 }
 
-h1 {
-	font-size: 4vh; /* Dynamic font size relative to viewport height */
+header h1 {
+	font-size: 3.5vh;
 	margin: 0;
 }
 
-h2 {
-	font-size: 3.5vh;
+h1 {
+	font-size: 3vh;
 	text-align: center;
 	margin-top: 1.5vh;
-	margin-bottom: 1vh;
+	margin-bottom: 2vh;
+}
+
+h2 {
+	font-size: 2.5vh;
+	text-align: center;
+	margin-bottom: 3vh;
+}
+
+h3 {
+	font-size: 2vh;
+	text-align: center;
+	margin: 1vh 0;
 }
 
 /* The #app container holds all screens */
@@ -52,27 +64,32 @@ h2 {
 button {
 	display: block;
 	margin: 1vh 0; /* Space between buttons */
-	padding: 1vh;
+	padding: 1.5vh;
 	background-color: #fff;
 	border: 2px solid #fff;
 	cursor: pointer;
 	/* Font */
 	font-family: 'Press Start 2P', cursive;
 	color: #000;
-	font-size: 1.8vh;
+	font-size: 1.5vh;
 	text-align: center;
 }
 
 /* Wide buttons */
 .wideButton {
-	width: 30vw;
+	width: 15vw;
+}
+
+/* 'Back' buttons */
+.backButton {
+	margin-top: 3vh;
 }
 
 
 
 /******************************** GAME SCREEN ********************************/
 /* Flex layout for the scoreboard, keeping it responsive */
-#scoreBoard {
+#scoreBoard, #scoreBoard2 {
 	display: flex;
 	justify-content: space-between;
 	width: 65vw; /* Scoreboard takes same width as canvas */
@@ -82,7 +99,7 @@ button {
 
 /* Ensure player labels are centered over their half of the canvas */
 .playerLabel {
-	font-size: 3vh;
+	font-size: 2.5vh;
 	color: #fff;
 	width: 32.5vw; /* Half the width of the canvas */
 	text-align: center;
@@ -90,7 +107,7 @@ button {
 
 /* Scores should be centered in the middle of the canvas */
 .scores {
-	font-size: 3vh;
+	font-size: 2.5vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -115,6 +132,93 @@ button {
 	align-items: center;
 	margin-bottom: 2vh;
 }
+
+
+/****************************** SETTINGS SCREEN ******************************/
+/* Enter your Names Section */
+#enterYourNames {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+/* Text, above input fields */
+#settingsScreen label {
+	width: 40%;
+	text-align: right;
+	padding-right: 1.5vw;
+	white-space: nowrap;
+}
+
+/* Forms (text inputs, error-messages for fields...) */
+input[type="text"] {
+	width: 60%;
+	padding: 0.5vh;
+	font-size: 1.5vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+}
+
+/* Input fields */
+#settingsScreen .inputField {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1vh;
+}
+
+/* Error message if names are not valid */
+.error-message {
+	color: red;
+	font-size: 0.8vh;
+	height: 1em;
+	text-align: center;
+	margin-bottom: 1vh;
+	margin-top: 0.4vh;
+}
+
+/* Difficulty Selection Styles */
+#difficultySelection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+/* Difficulty buttons (all) */
+#difficultyButtons {
+	display: flex;
+	justify-content: center;
+	gap: 2vh; /* Space between buttons */
+}
+
+/* Difficulty button (one) */
+.difficultyButton {
+	display: inline-block;
+	width: auto; /* Override inherited width */
+	padding: 1vh 2vh; /* Adjust padding for smaller size */
+	margin: 0; /* Remove margin */
+	font-size: 1.5vh; /* Smaller font size */
+	background-color: #fff;
+	border: 2px solid #fff;
+	color: #000;
+	cursor: pointer;
+}
+
+/* Difficulty button (when selected) */
+.difficultyButton.selected {
+	background-color: #4CAF50;
+	color: white;
+}
+
+/* Button to launch the game with choosed parameters */
+#startGameWithParameters {
+	margin-top: 4vh;
+	width: 10vw;
+}
+
 
 /***************************** CONTROLS DISPLAY ******************************/
 /* Controls display (general) */
@@ -173,121 +277,6 @@ button {
 	color: white;
 }
 
-
-
-/*************************** MODE SELECTION SCREEN ***************************/
-/* Mode Selection Screen */
-#modeSelectionScreen h2 {
-	font-size: 2.5vh;
-	margin-bottom: 4vh;
-}
-
-#modeSelectionScreen button {
-	width: 30vw;
-	padding: 1.5vh;
-	margin: 2vh 0;
-}
-
-
-/***************************** PARAMETERS SCREEN *****************************/
-/* Main Title */
-#parametersScreen h2 {
-	font-size: 3.5vh; /* Same size as other h2 elements */
-	margin-bottom: 2vh;
-	text-align: center;
-}
-
-/* Subtitles */
-#parametersScreen h3 {
-	font-size: 2.5vh; /* Adjusted font size for h3 headings */
-	margin-bottom: 2vh;
-	text-align: center;
-}
-
-/* Enter your Names Section */
-#enterYourNames {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-}
-
-/* Text, above input fields */
-#parametersScreen label {
-	width: 40%;
-	text-align: right;
-	padding-right: 1.5vw;
-	white-space: nowrap;
-}
-
-/* Forms (text inputs, error-messages for fields...) */
-input[type="text"] {
-	width: 60%;
-	padding: 0.5vh;
-	font-size: 1.5vh;
-	border: 2px solid #fff;
-	background-color: #000;
-	color: #fff;
-}
-
-/* Input fields */
-#parametersScreen .inputField {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 1vh;
-}
-
-/* Error message if names are not valid */
-.error-message {
-	color: red;
-	font-size: 1vh;
-	height: 1em;
-	text-align: center;
-	margin-bottom: 1vh;
-	margin-top: 0.4vh;
-}
-
-/* Difficulty Selection Styles */
-#difficultySelection {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 2vh;
-	text-align: center;
-}
-
-/* Difficulty buttons (all) */
-#difficultyButtons {
-	display: flex;
-	justify-content: center;
-	gap: 2vh; /* Space between buttons */
-}
-
-/* Difficulty button (one) */
-.difficultyButton {
-	display: inline-block;
-	width: auto; /* Override inherited width */
-	padding: 1vh 2vh; /* Adjust padding for smaller size */
-	margin: 0; /* Remove margin */
-	font-size: 1.5vh; /* Smaller font size */
-	background-color: #fff;
-	border: 2px solid #fff;
-	color: #000;
-	cursor: pointer;
-}
-
-/* Difficulty button (when selected) */
-.difficultyButton.selected {
-	background-color: #4CAF50;
-	color: white;
-}
-
-/* Button to launch the game with choosed parameters */
-#startGameWithParameters {
-	margin-top: 4vh;
-	width: 15vw;
-}
 
 /******************************** ALL SCREENS ********************************/
 /* Screens (hidden by default) */
