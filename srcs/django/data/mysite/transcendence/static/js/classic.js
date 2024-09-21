@@ -58,6 +58,7 @@ function setScore(player, score)
 // At the end, clear the AI interval and remove the event listeners
 function endGame(game)
 {
+	console.log("==GAME END==");
 	if (game.ai.interval)
 	{
 		clearInterval(game.ai.interval);
@@ -384,11 +385,13 @@ function classicPongLoop(game)
 			break;
 		case 'end1':
 			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player1Label').textContent} won!`;
+			closeSocketConnection();
 			endGame(game);
 			switchScreen('classicEndScreen');
 			return;
 		case 'end2':
 			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player2Label').textContent} won!`;
+			closeSocketConnection();
 			endGame(game);
 			switchScreen('classicEndScreen');
 			return;
@@ -449,6 +452,9 @@ function classicPongGame()
 		endGame(currentGameInstance);
 	}
 	currentGameInstance = game;
+
+	console.log("==GAME LAUNCH==");
+	chatConnection();
 
 	// Add event listeners for player controls and store them in the game object
 	const keydownListener = (e) => handleKeyDown(e, game);

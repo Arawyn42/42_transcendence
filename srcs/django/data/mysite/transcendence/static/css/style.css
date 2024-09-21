@@ -116,6 +116,32 @@ button {
 	margin-bottom: 2vh;
 }
 
+#liveChat {
+	position: relative;
+	background-color: grey;
+	width: 300px;
+	height: 700px;
+}
+
+#chatInput {
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin: 0px;
+}
+
+#messageInput {
+	height: 50px;
+	width: 100%;
+	margin: 0;
+	font-size: 24px;
+}
+
+#sendButton {
+	margin: 0;
+}
+
 /***************************** CONTROLS DISPLAY ******************************/
 /* Controls display (general) */
 #controlsDisplay {

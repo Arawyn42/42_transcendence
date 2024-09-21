@@ -13,7 +13,7 @@ const RED = '#FF0000';
 let currentGameInstance = null;
 
 // Scores
-const MAX_SCORE = 5;
+const MAX_SCORE = 1;
 
 // Number of players
 let nbPlayers = 2;
@@ -25,6 +25,9 @@ let aiDifficulty = 1;
 const BALL_RADIUS = canvas.height * 0.02;
 const PADDLE_WIDTH = canvas.height * 0.015;
 const PADDLE_HEIGHT = canvas.height * 0.2;
+
+// WebSocket for livechat
+let chatSocket;
 
 
 /******************************** FUNCTIONS *********************************/
