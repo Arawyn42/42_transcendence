@@ -1,0 +1,8 @@
+FROM debian:bullseye
+
+RUN apt update -y
+RUN apt install -y redis
+
+EXPOSE 6379
+
+CMD [ "redis-server", "--protected-mode", "no" ]
