@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('restartClassicGame').addEventListener('click', function ()
 	{
 		switchScreen('gameScreen');
-		classicPongGame();
+		// classicPongGame();
 		console.log('Restarting game');
 	});
 });

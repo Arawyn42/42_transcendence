@@ -1,3 +1,7 @@
 Django
 psycopg[binary]
 Pillow
+daphne
+channels
+channels_redis
+whitenoise
