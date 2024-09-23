@@ -193,49 +193,83 @@
 				</form>
 			</div>
 
-			<!-- Player labels and scores -->
-			<div id="scoreBoard">
-				<span id="player1Label" class="playerLabel">Player 1</span>
-				<div class="scores">
-					<span id="player1Score">0</span>
-					<span>-</span>
-					<span id="player2Score">0</span>
+			<!-- Top Section -->
+			<div id="topSection" class="game-section">
+				<!-- Player 3 name and controls -->
+				<div class="top-controls-row">
+					<span id="player3Label" class="playerLabel">Player 3</span>
+					<span class="controlsText">Controls</span>
+					<span class="key">J</span>
+					<span class="key">L</span>
 				</div>
-				<span id="player2Label" class="playerLabel">Player 2</span>
+				<!-- Player 3 Score -->
+				<div class="top-score-row">
+					<span id="player3Score" class="playerScore">0</span>
+				</div>
 			</div>
-
-			<!-- Player controls -->
-			<div id="controlsDisplay">
-				<div id="leftControls">
-					<h3>Controls</h3>
-					<div class="controlKeys">
+		
+			<!-- Middle Section -->
+			<div id="middleSection" class="game-section">
+				<!-- Left Controls Section -->
+				<div id="leftControlsSection" class="game-subsection">
+					<!-- Player 1 -->
+					<div class="playerInfo">
+						<span id="player1Label" class="playerLabel">Player 1</span>
+					</div>
+					<!-- Player 1 Controls -->
+					<div id="leftControls" class="controlKeys">
+						<span class="controlsText">Controls</span>
 						<p>W</p>
 						<p>S</p>
 					</div>
 				</div>
-				<div id="rightControls">
-					<h3>Controls</h3>
-					<div class="controlKeys">
+		
+				<!-- Left Score Section -->
+				<div id="leftScoreSection" class="score-section">
+					<span id="player1Score" class="playerScore">0</span>
+				</div>
+		
+				<!-- Center Section -->
+				<div id="centerSection" class="game-subsection">
+					<!-- Game canvas -->
+					<div id="gameWrapper">
+						<canvas id="gameCanvas" width="1000" height="500"></canvas>
+					</div>
+				</div>
+		
+				<!-- Right Score Section -->
+				<div id="rightScoreSection" class="score-section">
+					<span id="player2Score" class="playerScore">0</span>
+				</div>
+		
+				<!-- Right Controls Section -->
+				<div id="rightControlsSection" class="game-subsection">
+					<!-- Player 2 -->
+					<div class="playerInfo">
+						<span id="player2Label" class="playerLabel">Player 2</span>
+					</div>
+					<!-- Player 2 Controls -->
+					<div id="rightControls" class="controlKeys">
+						<span class="controlsText">Controls</span>
 						<p>&uarr;</p>
 						<p>&darr;</p>
 					</div>
 				</div>
 			</div>
-
-			<!-- Game canvas -->
-			<div id="gameWrapper">
-				<canvas id="gameCanvas" width="1000" height="500"></canvas>
-			</div>
-
-			<!-- Player labels and scores for multiplayer mode-->
-			<div id="scoreBoard2">
-				<span id="player3Label" class="playerLabel">Player 3</span>
-				<div class="scores">
-					<span id="player3Score">0</span>
-					<span>-</span>
-					<span id="player4Score">0</span>
+		
+			<!-- Bottom Section -->
+			<div id="bottomSection" class="game-section">
+				<!-- Player 4 Score -->
+				<div class="bottom-score-row">
+					<span id="player4Score" class="playerScore">0</span>
 				</div>
-				<span id="player4Label" class="playerLabel">Player 4</span>
+				<!-- Player 4 Name and controls -->
+				<div class="bottom-controls-row">
+					<span id="player4Label" class="playerLabel">Player 4</span>
+					<span class="controlsText">Controls</span>
+					<span class="key">1</span>
+					<span class="key">3</span>
+				</div>
 			</div>
 
 		</div>

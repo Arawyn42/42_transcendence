@@ -1,9 +1,14 @@
 /********************************** GENERAL **********************************/
+/* margin and padding by default for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
-	margin: 0;
-	padding: 0;
 	background-color: #000;
 	font-family: 'Press Start 2P', cursive;
 	color: #fff;
@@ -11,30 +16,27 @@ html, body {
 
 body {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between; /* Space between the header and the canvas */
+    flex-direction: column;
 }
 
 header {
 	width: 100%;
-	background-color: #fff;
-	color: #000;
-	padding: 2vh 0;
-	text-align: center;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 	flex-shrink: 0; /* Ensure the header will not be reduced */
 }
 
 header h1 {
 	font-size: 3.5vh;
-	margin: 0;
+	padding: 1vh 0;
 }
 
 h1 {
 	font-size: 3vh;
 	text-align: center;
-	margin-top: 1.5vh;
-	margin-bottom: 2vh;
 }
 
 h2 {
@@ -49,15 +51,17 @@ h3 {
 	margin: 1vh 0;
 }
 
+/* 'Pong' Title */
+#pongTitle {
+    padding: 1vh 0;
+}
+
 /* The #app container holds all screens */
 #app {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	flex-grow: 1;
-	padding: 0;
-	width: 100%;
 }
 
 /* Buttons */
@@ -86,41 +90,84 @@ button {
 }
 
 
-
 /******************************** GAME SCREEN ********************************/
-/* Flex layout for the scoreboard, keeping it responsive */
-#scoreBoard, #scoreBoard2 {
+/* Game Screen Sections */
+#gameScreen {
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
-	width: 65vw; /* Scoreboard takes same width as canvas */
+	flex-direction: column;
 	align-items: center;
-	margin: 1vh 0;
 }
 
-/* Ensure player labels are centered over their half of the canvas */
-.playerLabel {
-	font-size: 2.5vh;
-	color: #fff;
-	width: 32.5vw; /* Half the width of the canvas */
-	text-align: center;
+.game-section {
+	box-sizing: border-box;
 }
 
-/* Scores should be centered in the middle of the canvas */
-.scores {
-	font-size: 2.5vh;
-	display: flex;
+/************** TOP SECTION (PLAYER 3) **************/
+#topSection {
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top controls and scores*/
+.top-controls-row, .top-score-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5vh 0;
+}
+
+/****** MIDDLE SECTION (PLAYER 1 AND PLAYER 2) ******/
+#middleSection {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Subsections within Middle Section */
+.game-subsection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/************* LEFT SECTION (PLAYER 1) **************/
+/* Left Controls Section */
+#leftControlsSection {
+    width: 12%;
+	height: 100%;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Left Score Section */
+#leftScoreSection {
+    width: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/************ CENTER SECTION (GAME AREA) ************/
+#centerSection {
+    width: 70%; /* Because left and right are 15% or viewport width */
+	height: 100%; /* Same as middle section height */
+    display: flex;
+    align-items: center;
 	justify-content: center;
-	align-items: center;
-	gap: 3vw; /* Space between the two scores */
-	flex-shrink: 0;
 }
 
 /* Game canvas */
 #gameCanvas {
-	width: 65vw;
-	height: calc(65vw * 0.55); /* Maintain aspect ratio */
-	background-color: #fff;
-	image-rendering: pixelated;
+	width: 100%; /* Fills the width of center section */
+	height: auto;
+    background-color: #fff;
+    image-rendering: pixelated;
 }
 
 /* Adjust the game canvas */
@@ -130,7 +177,107 @@ button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 2vh;
+}
+
+/************* RIGHT SECTION (PLAYER 2) *************/
+/* Right Score Section */
+#rightScoreSection {
+    width: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Right Controls Section */
+#rightControlsSection {
+    width: 12%;
+	height: 100%;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/************ BOTTOM SECTION (PLAYER 4) *************/
+#bottomSection {
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Bottom score and controls */
+.bottom-score-row, .bottom-controls-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5vh 0;
+}
+
+/************ PLAYERS LABELS AND SCORES *************/
+/* Player Info Styles */
+.playerInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0;
+	padding:0;
+}
+
+/* Player labels */
+.playerLabel {
+	font-size: 2vh;
+	margin: 0 2vh;
+}
+
+/* Player scores */
+.playerScore {
+	font-size: 3vh;
+}
+
+/***************** CONTROLS DISPLAY *****************/
+/* Title 'Controls' for for all sections */
+.controlsText {
+    font-size: 2vh;
+	margin-left: 8vh;
+}
+
+/* Keys style (general) for left and right sections*/
+.controlKeys {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 8vh;
+}
+
+/* Keys style for all sections */
+.key, .controlKeys p {
+    width: 2.5vh;
+    height: 2.5vh;
+	font-size: 1.5vh;
+    padding: 0.5vh;
+    border: 2px solid #fff;
+    text-align: center;
+    margin: 0.5vh;
+    background-color: transparent;
+    color: #fff;
+}
+
+
+/*********** CLASSIC MODE (HIDE SECTIONS) ***********/
+/* Hide top and bottom section in classic mode */
+.classic-mode #topSection,
+.classic-mode #bottomSection {
+	display: none;
+}
+
+.classic-mode #leftControlsSection,
+.classic-mode #rightControlsSection {
+    width: 20%;
+}
+
+.classic-mode #centerSection {
+	width: 60%;
 }
 
 
@@ -219,8 +366,9 @@ input[type="text"] {
 	width: 10vw;
 }
 
-
+/********************************* LIVE CHAT *********************************/
 #liveChat {
+	display: none; /* A ENLEVER, TEMPORAIREMENT CACHER LE CHAT POUR PLUS DE CLARTE !! */
 	position: relative;
 	background-color: grey;
 	width: 300px;
@@ -244,63 +392,6 @@ input[type="text"] {
 
 #sendButton {
 	margin: 0;
-}
-
-/***************************** CONTROLS DISPLAY ******************************/
-/* Controls display (general) */
-#controlsDisplay {
-	position: absolute;
-	top: 50%; /* Vertically center */
-	transform: translateY(-50%);  /* Vertically adjust */
-	display: flex;
-	justify-content: space-between;
-	width: calc(100%);
-	left: 0;
-	right: 0;
-}
-
-/* Controls display in Player vs AI Mode */
-#controlsDisplay.ai-mode {
-	justify-content: flex-start;
-	flex-direction: column;
-	align-items: flex-start;
-	width: auto;
-	margin-left: 5vw;
-}
-
-/* Hide the h3 of the second control in AI Mode */
-#controlsDisplay.ai-mode #rightControls h3 {
-	visibility: hidden;
-}
-
-/* Controls display in Player vs Player Mode */
-#controlsDisplay.normal-mode {
-	justify-content: space-between;
-	flex-direction: row;
-	width: calc(90vw); /* So we have 5vw for margin left and right */
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* Keys style */
-.controlKeys {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-bottom: 0.3vh;
-}
-
-/* Keys style (paragraphes) */
-.controlKeys p {
-	font-size: 1.5vw;
-	padding: 0.5vw;
-	border: 0.2vw solid white;
-	width: 3vw;
-	height: 1.5vw;
-	text-align: center;
-	margin: 0.3vw 0;
-	background-color: transparent;
-	color: white;
 }
 
 

@@ -13,7 +13,7 @@ const RED = '#FF0000';
 let currentGameInstance = null;
 
 // Scores
-const MAX_SCORE = 1;
+const MAX_SCORE = 5;
 
 // Number of players
 let nbPlayers = 1;
@@ -51,7 +51,6 @@ function switchScreen(screenId)
 		switch (screenId)
 		{
 			case 'gameScreen':
-				displayControls();
 				classicPongGame();
 				break;
 			case 'settingsScreen':
@@ -59,10 +58,8 @@ function switchScreen(screenId)
 				displayDifficultyButtons();
 				break;
 			case 'modeSelectionScreen':
-				document.getElementById('scoreBoard2').style.display = 'none';
 				break;
 			case 'multiModeSelectionScreen':
-				document.getElementById('scoreBoard2').style.display = 'flex';
 				break;
 			default:
 				break;

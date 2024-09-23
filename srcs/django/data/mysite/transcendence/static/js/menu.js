@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('playClassic').addEventListener('click', function ()
 	{
 		gameMode = 'classic';
+		document.getElementById('gameScreen').classList.add('classic-mode');
 		switchScreen('modeSelectionScreen');
 		console.log('Selecting a game mode for classic Pong');
 	});
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('playMultiplayer').addEventListener('click', function ()
 	{
 		gameMode = 'multi';
+		document.getElementById('gameScreen').classList.remove('classic-mode');
 		switchScreen('multiModeSelectionScreen');
 		console.log('Selecting a game mode for multiplayer Pong');
 	});

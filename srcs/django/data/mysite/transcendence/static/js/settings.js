@@ -202,29 +202,3 @@ document.getElementById('backFromSettings').addEventListener('click', function (
 		console.error(`Can't detect the game mode (from 'Back' button at Settings)`);
 });
 
-
-/**************************** CONTROLS DISPLAY ******************************/
-// Function to display the controls according to the mode
-function displayControls()
-{
-	const controlsDisplay = document.getElementById('controlsDisplay');
-	const leftControls = document.getElementById('leftControls');
-	const rightControls = document.getElementById('rightControls');
-
-	if (aiDifficulty > 0)
-	{
-		// AI Mode
-		controlsDisplay.classList.remove('normal-mode');
-		controlsDisplay.classList.add('ai-mode');
-		leftControls.style.display = 'block';
-		rightControls.style.display = 'block';
-	}
-	else
-	{
-		// 2 Players Mode
-		controlsDisplay.classList.remove('ai-mode');
-		controlsDisplay.classList.add('normal-mode');
-		leftControls.style.display = 'block';
-		rightControls.style.display = 'block';
-	}
-}
