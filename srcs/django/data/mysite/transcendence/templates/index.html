@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="hidden">
 
 	<!-------------------------------------- PAGE TITLE --------------------------------------->
 	<header>
@@ -295,22 +295,39 @@
 		</div>
 
 	</div>
+
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
+	<!-- Session -->
+	<script src="{% static 'js/Session/register.js' %}"></script>
+	<script src="{% static 'js/Session/login.js' %}"></script>
+	<script src="{% static 'js/Session/profile.js' %}"></script>
+	<script src="{% static 'js/Session/editProfile.js' %}"></script>
+	<script src="{% static 'js/Session/friends.js' %}"></script>
+	<script src="{% static 'js/Session/updateScore.js' %}"></script>
+
+	<!-- Screens -->
+	<script src="{% static 'js/Screens/menu.js' %}"></script>
+	<script src="{% static 'js/Screens/classicModeSelection.js' %}"></script>
+	<script src="{% static 'js/Screens/multiModeSelection.js' %}"></script>
+	<script src="{% static 'js/Screens/settings.js' %}"></script>
+	<script src="{% static 'js/Screens/endScreen.js' %}"></script>
+
+	<!-- Game -->
+	<script src="{% static 'js/Game/loop.js' %}"></script>
+	<script src="{% static 'js/Game/events.js' %}"></script>
+	<script src="{% static 'js/Game/countdown.js' %}"></script>
+	<script src="{% static 'js/Game/paddles.js' %}"></script>
+	<script src="{% static 'js/Game/ball.js' %}"></script>
+	<script src="{% static 'js/Game/collisions.js' %}"></script>
+	<script src="{% static 'js/Game/reset.js' %}"></script>
+	<script src="{% static 'js/Game/scores.js' %}"></script>
+	<script src="{% static 'js/Game/ai.js' %}"></script>
+
+	<!-- Live -->
+	<script src="{% static 'js/Live/liveChat.js' %}"></script>
+
 	<script src="{% static 'js/main.js' %}"></script>
-	<script src="{% static 'js/login.js' %}"></script>
-	<script src="{% static 'js/register.js' %}"></script>
-	<script src="{% static 'js/menu.js' %}"></script>
-	<script src="{% static 'js/profile.js' %}"></script>
-	<script src="{% static 'js/editProfile.js' %}"></script>
-	<script src="{% static 'js/friend.js' %}"></script>
-	<script src="{% static 'js/settings.js' %}"></script>
-	<script src="{% static 'js/classicStart.js' %}"></script>
-	<script src="{% static 'js/classic.js' %}"></script>
-	<script src="{% static 'js/classicEnd.js' %}"></script>
-	<script src="{% static 'js/multiStart.js' %}"></script>
-	<script src="{% static 'js/updateScore.js' %}"></script>
-	<script src="{% static 'js/liveChat.js' %}"></script>
 
 </body>
 </html>

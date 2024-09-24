@@ -16,7 +16,7 @@ let currentGameInstance = null;
 const MAX_SCORE = 5;
 
 // Number of players
-let nbPlayers = 1;
+let nbPlayers = 0;
 
 // Mode ('classic' or 'multi')
 let gameMode = 'classic';
@@ -39,10 +39,7 @@ function switchScreen(screenId)
 {
 	// Hide all screens
 	const screens = document.querySelectorAll('.screen');
-	screens.forEach(screen =>
-	{
-		screen.style.display = 'none';
-	});
+	screens.forEach(screen => screen.style.display = 'none');
 
 	// Show the selected screen
 	const activeScreen = document.getElementById(screenId);
@@ -51,7 +48,7 @@ function switchScreen(screenId)
 		switch (screenId)
 		{
 			case 'gameScreen':
-				classicPongGame();
+				launchGame();
 				break;
 			case 'settingsScreen':
 				adjustPlayerNamesScreen();
@@ -66,6 +63,7 @@ function switchScreen(screenId)
 		}
 
 		activeScreen.style.display = 'flex';
+		console.log(`Switching screen to: ${screenId}`);
 
 		const currentState = window.history.state;
 		if (!currentState || currentState.screenId !== screenId)
@@ -94,6 +92,15 @@ window.addEventListener('popstate', (event) =>
 // Display the menu on start
 document.addEventListener('DOMContentLoaded', function ()
 {
-	const hash = window.location.hash.replace('#', '') || 'loginScreen';
+	document.body.classList.remove('hidden'); // Display content only when DOM is loaded
+
+	let hash = window.location.hash.replace('#', '') || 'loginScreen';
+
+	if (hash === 'gameScreen' && (nbPlayers < 1 || nbPlayers > 4))
+	{
+		console.log("Invalid parameters, redirecting to menuScreen");
+		hash = 'menuScreen';
+	}
+
 	switchScreen(hash);
 });

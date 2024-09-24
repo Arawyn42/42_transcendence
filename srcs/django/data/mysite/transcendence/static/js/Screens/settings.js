@@ -182,7 +182,7 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 		else if (nbPlayers === 4)
 			console.log(`Starting a multiplayer game with 4 players: '${player1Name}', '${player2Name}', '${player3Name}', '${player4Name}'`);
 		else
-			console.error(`Starting a game but can't find the mode...`);
+			console.error(`Starting a game with wrong number of players...`);
 	}
 });
 

@@ -260,7 +260,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 12vh;
+	margin-bottom: 8vh;
 }
 
 /* Keys style for all sections */
@@ -429,6 +429,10 @@ input[type="text"] {
 	height: 100%;
 	flex-direction: column;
 	align-items: center;
+}
+
+.hidden {
+	visibility: hidden;
 }
 
 /********************************** PROFILE **********************************/
