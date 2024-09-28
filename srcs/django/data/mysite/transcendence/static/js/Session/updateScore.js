@@ -21,7 +21,3 @@ function sendScoreUpdate(result) {
         console.error('Error:', error);
     });
 }
-
-// Appelle cette fonction lorsque la partie est terminée
-// Exemple :
-// sendScoreUpdate('win');

@@ -14,4 +14,7 @@ urlpatterns = [
  	path('list-friend-requests/', views.list_friend_requests, name='list_friend_requests'),
     path('accept-friend-request/', views.accept_friend_request, name='accept_friend_request'),
     path('list-friends/', views.list_friends, name='list_friends'),
+    path('enable-2fa/', views.enable_2fa, name='enable_2fa'),
+    path('verify-2fa/', views.verify_2fa, name='verify_2fa'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

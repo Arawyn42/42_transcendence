@@ -9,7 +9,9 @@ from django.views.decorators.csrf import csrf_protect
 from .forms import ProfileForm, UserForm
 from .models import Friendship
 from .models import FriendRequest
+from .utils import send_email_code
 import json
+import random
 def home(request):
 	return render(request, 'index.html')
 
@@ -56,28 +58,31 @@ def edit_profile_view(request):
     
     return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
     
-@csrf_protect
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return JsonResponse({'success': True})
+            user_profile = user.userprofile
+            verification_code = generate_verification_code()
+            request.session['2fa_code'] = verification_code
+            send_email_code(user.email, verification_code)
+            request.session['username_2fa'] = username
+            return JsonResponse({'success': True, '2fa_required': True})
         else:
-            return JsonResponse({'success': False, 'error': 'Identifiants incorrects'})
+            return JsonResponse({'success': False, 'error': 'Incorrect login'})
     
-    return JsonResponse({'success': False, 'error': 'Méthode non supportée'}, status=400)
+    return JsonResponse({'success': False, 'error': 'method not supported'}, status=400)
 
 @login_required
 def profile_view(request):
     user = request.user
-    # Récupérer les requêtes d'amis adressées à l'utilisateur
     friend_requests = FriendRequest.objects.filter(to_user=user)
     friends = user.userprofile.friends.all()
-    # Préparer les données des requêtes d'amis
     friend_requests_data = [
         {
             'id': friend_request.id,
@@ -89,14 +94,13 @@ def profile_view(request):
     friends_data = [
         friend.user.username for friend in friends
     ]
-    # Préparer les données de l'utilisateur
     data = {
         'username': user.username,
         'email': user.email,
         'first_name': user.first_name,
         'victory_count': user.userprofile.victory_count,
         'defeat_count': user.userprofile.defeat_count,
-        'friend_requests': friend_requests_data,  # Inclure les requêtes d'amis dans les données JSON
+        'friend_requests': friend_requests_data,
         'friends': friends_data,
     }
 
@@ -104,18 +108,16 @@ def profile_view(request):
 @login_required
 def update_scores(request):
     if request.method == 'POST':
-        result = request.POST.get('result')  # 'win' ou 'lose'
+        result = request.POST.get('result')  # 'win' or 'lose'
         
-        # Récupère le profil de l'utilisateur actuel
         profile = request.user.userprofile
         
-        # Met à jour les compteurs en fonction du résultat
         if result == 'win':
             profile.victory_count += 1
         elif result == 'loose':
             profile.defeat_count += 1
         
-        profile.save()  # Sauvegarde les modifications
+        profile.save()
         
         return JsonResponse({'success': True})
     
@@ -154,14 +156,11 @@ def accept_friend_request(request):
         request_id = data.get('request_id')
 
         try:
-            # Récupère la requête d'ami
             friend_request = FriendRequest.objects.get(id=request_id, to_user=request.user)
 
-            # Récupère le profil des deux utilisateurs
             from_user_profile = friend_request.from_user.userprofile
             to_user_profile = request.user.userprofile
 
-            # Ajoute l'ami pour les deux utilisateurs
             to_user_profile.friends.add(from_user_profile)
             from_user_profile.friends.add(to_user_profile)
 
@@ -184,3 +183,58 @@ def list_friends(request):
     ]
 
     return JsonResponse({'friends': friends_data})
+
+def enable_2fa(request):
+    if request.method == 'POST':
+        verification_code = generate_verification_code()
+        request.session['2fa_code'] = verification_code 
+
+        email = request.user.email
+        send_email_code(email, verification_code)  
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False, 'error': 'method not supported'}, status=400)
+
+def verify_2fa(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)  
+            code_entered = data.get('2fa_code')  
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid data format'}, status=400)
+
+        stored_code = request.session.get('2fa_code')
+
+        if not stored_code:
+            return JsonResponse({
+                'success': False,
+                'error': 'No 2FA code found in session'
+            }, status=400)
+
+        if code_entered == stored_code:
+            del request.session['2fa_code']
+
+            #refresh = RefreshToken.for_user(request.user)
+            #access_token = str(refresh.access_token)
+
+            # Log success
+            print(f"User {request.user} successfully verified 2FA.")
+
+            # Return JWT for success
+            return JsonResponse({
+                'success': True,
+                # 'access_token': access_token,
+                # 'refresh_token': str(refresh)
+            })  # , status=200)
+        else:
+            # Log incorrect 2FA attempt
+            print(f"Incorrect 2FA code entered: {code_entered}")
+            return JsonResponse({
+                'success': False,
+                'error': 'Code 2FA incorrect'
+            }, status=400)
+
+    return JsonResponse({'success': False, 'error': 'method not supported'}, status=400)
+
+def generate_verification_code():
+    return str(random.randint(100000, 999999))

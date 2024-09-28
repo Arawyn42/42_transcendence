@@ -36,17 +36,18 @@
 		</div>
 
 	<!---------------------------------------- LOGIN ------------------------------------------>
-		<div id="loginScreen" class="screen">
-			<h2>Login</h2>
-			<form id="loginForm">
-				{% csrf_token %}
-				<input type="text" name="username" placeholder="Username">
-				<input type="password" name="password" placeholder="Password">
-				<button type="submit" class="wideButton">Login</button>
-				<button id="registerFromLogin" class="wideButton">Not an account yet ? Register</button>
-				<button id="playAsGuest" class="wideButton">Play as guest</button>
-			</form>
-		</div>
+	
+	<div id="loginScreen" class="screen">
+		<h2>Login</h2>
+		<form id="loginForm">
+			{% csrf_token %}
+			<input type="text" name="username" placeholder="Username">
+			<input type="password" name="password" placeholder="Password">
+			<button type="submit" class="wideButton">Login</button>
+		</form>
+		<button id="registerFromLogin" class="wideButton">Not an account yet ? Register</button>
+		<button id="playAsGuest" class="wideButton">Play as guest</button>	
+	</div>
 	
 	<!----------------------------------------- MENU ------------------------------------------>
 		<div id="menuScreen" class="screen">
@@ -68,10 +69,20 @@
 			<p><strong>Email:</strong> <span id="profileEmail">{{ user.email }}</span></p>
 			<p><strong>First Name:</strong> <span id="profileFirstName">{{ user.first_name }}</span></p>
 			<p><strong>Wins:</strong> <span id="profileWins">{{ user.userprofile.victory_count }}</span></p>
-			<p><strong>Looses:</strong> <span id="profileLosses">{{ user.userprofile.defeat_count }}</span></p>
+			<p><strong>Losses:</strong> <span id="profileLosses">{{ user.userprofile.defeat_count }}</span></p>
 			<button id="editProfile" class="wideButton">Edit profile</button>
 			<button id="friendFromProfile" class="wideButton">Friend</button>
 			<button id="menuFromProfile" class="wideButton">Back to menu</button>
+		</div>
+
+	<!----------------------------------------- 2FA ------------------------------------------->
+
+		<div id="2faScreen" class="screen">
+			<h2>Vérification 2FA</h2>
+			<form id="2faForm" method="POST">
+				<input type="text" id="twoFaCode" name="2fa_code" placeholder="Entrez le code 2FA reçu par SMS">
+				<button type="submit">Valider</button>
+			</form>
 		</div>
 
 	<!--------------------------------------- FRIEND ----------------------------------------->
@@ -93,7 +104,7 @@
 					<li>No friend requests</li>
 				{% endfor %}
 			</ul>
-			<button id="profileFromFriend" class="wideButton">Profile</button>
+			<button id="profileFromFriend" class="wideButton">Cancel</button>
 		</div>
 	<!------------------------------------ EDIT PROFILE -------------------------------------->
 	
@@ -305,6 +316,7 @@
 	<script src="{% static 'js/Session/editProfile.js' %}"></script>
 	<script src="{% static 'js/Session/friends.js' %}"></script>
 	<script src="{% static 'js/Session/updateScore.js' %}"></script>
+	<script src="{% static 'js/Session/2fa.js' %}"></script>
 
 	<!-- Screens -->
 	<script src="{% static 'js/Screens/menu.js' %}"></script>

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
-// Button 'Login'
+
 document.getElementById("loginForm").onsubmit = function(event) {
 
 	// Temporary: Do nothing if the 'Skip and go to menu' button is clicked
@@ -17,12 +17,11 @@ document.getElementById("loginForm").onsubmit = function(event) {
 
 	event.preventDefault();
 	
-	// Envoie de la requête de connexion à Django
 	fetch('/login/', {
 		method: 'POST',
 		body: new FormData(document.getElementById('loginForm')),
 		headers: {
-			'X-CSRFToken': getCookie('csrftoken')  // Récupération du token CSRF
+			'X-CSRFToken': getCookie('csrftoken')
 		}
 	})
 	.then(response => {
@@ -37,7 +36,8 @@ document.getElementById("loginForm").onsubmit = function(event) {
 	.then(data => {
 		if (data.success) {
 			document.getElementById('profileUsername').textContent = data.username;
-			switchScreen('menuScreen');
+			alert('2FA required. Please enter the code sent to your email.');
+			switchScreen('2faScreen');
 		} else {
 			alert('Error: ' + data.error);
 		}
@@ -63,21 +63,6 @@ function getCookie(name) {
 	}
 	return cookieValue;
 }
-
-const csrftoken = getCookie('csrftoken');
-
-fetch('/login/', {
-	method: 'POST',
-	body: new FormData(document.getElementById('loginForm')),
-	headers: {
-		'X-CSRFToken': csrftoken  // Ajout du token CSRF dans l'en-tête
-	}
-}).then(response => {
-	// Gestion de la réponse
-});
-
-
-
 
 // TEMPORARY: Button to skip login and go directly to 'Menu'
 document.addEventListener('DOMContentLoaded', function () {

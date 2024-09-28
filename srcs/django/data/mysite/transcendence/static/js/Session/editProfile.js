@@ -23,7 +23,7 @@ function showEditProfile() {
         document.getElementById('editFirstName').value = data.first_name;
     })
     .catch(error => {
-        console.error('Erreur lors de la récupération des données du profil:', error);
+        console.error('Error retrieving profile data:', error);
     });
 }
 
