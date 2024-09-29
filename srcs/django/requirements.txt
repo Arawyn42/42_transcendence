@@ -5,3 +5,5 @@ daphne
 channels
 channels_redis
 whitenoise
+djangorestframework
+djangorestframework-simplejwt

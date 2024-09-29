@@ -37,6 +37,7 @@ document.getElementById("loginForm").onsubmit = function(event) {
 		if (data.success) {
 			document.getElementById('profileUsername').textContent = data.username;
 			alert('2FA required. Please enter the code sent to your email.');
+			document.getElementById('loginForm').reset();
 			switchScreen('2faScreen');
 		} else {
 			alert('Error: ' + data.error);
@@ -47,6 +48,14 @@ document.getElementById("loginForm").onsubmit = function(event) {
 		console.error('Connection error:', error);
 	});
 };
+
+document.getElementById('logoutButton').addEventListener('click', function() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+
+    switchScreen('loginScreen');
+    console.log('Déconnexion réussie, tokens supprimés');
+});
 
 
 function getCookie(name) {

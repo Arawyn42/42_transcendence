@@ -26,7 +26,8 @@ function showProfile() {
     fetch('/profile/', {
         method: 'GET',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         },
 
         success: function(response) {
@@ -36,8 +37,19 @@ function showProfile() {
         }
     })
     .then(response => {
-        console.log(response);
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        } else if (response.status === 401) {
+            return response.json().then(data => {
+                if (data.redirect) {
+                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                }
+                throw new Error(data.error || 'Unauthorized');
+            });
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    
     })
     .then(data => {
         document.getElementById('profileUsername').textContent = data.username;
@@ -67,6 +79,7 @@ function showProfile() {
         console.error('Error recovering user data:', error);
     });
 }
+
 
 // Fonction pour obtenir le cookie CSRF
 function getCookie(name) {

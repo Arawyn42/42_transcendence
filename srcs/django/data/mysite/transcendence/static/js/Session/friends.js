@@ -13,11 +13,25 @@ document.getElementById('addFriendButton').addEventListener('click', function() 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         },
         body: JSON.stringify({ username: username })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else if (response.status === 401) {
+            return response.json().then(data => {
+                if (data.redirect) {
+                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                }
+                throw new Error(data.error || 'Unauthorized');
+            });
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
     .then(data => {
         if (data.success) {
             alert('Friend request sent!');
@@ -39,11 +53,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 },
                 body: JSON.stringify({ request_id: requestId })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status === 401) {
+                    return response.json().then(data => {
+                        if (data.redirect) {
+                            switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                        }
+                        throw new Error(data.error || 'Unauthorized');
+                    });
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
             .then(data => {
                 if (data.success) {
                     alert('Friend request accepted!');
@@ -58,13 +86,27 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-fetch('/list-friends/', {
+fetch('/friends/', {
     method: 'GET',
     headers: {
-        'X-CSRFToken': getCookie('csrftoken')
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     },
 })
-.then(response => response.json())
+.then(response => {
+    if (response.ok) {
+        return response.json();
+    } else if (response.status === 401) {
+        return response.json().then(data => {
+            if (data.redirect) {
+                switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+            }
+            throw new Error(data.error || 'Unauthorized');
+        });
+    } else {
+        throw new Error('Network response was not ok.');
+    }
+})
 .then(data => {
     const friendsListDiv = document.getElementById('friendsList');
     if (data.friends && data.friends.length > 0) {

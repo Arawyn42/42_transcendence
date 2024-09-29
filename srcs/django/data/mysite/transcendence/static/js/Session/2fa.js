@@ -4,7 +4,7 @@ document.getElementById('2faForm').addEventListener('submit', function(event) {
     // catch 2FA code
     const twoFaCode = document.getElementById('twoFaCode').value; // Assurez-vous que l'ID est correct
 
-    fetch('/verify-2fa/', {
+    fetch('/2fa/verify/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json', 
@@ -22,8 +22,10 @@ document.getElementById('2faForm').addEventListener('submit', function(event) {
     })
     .then(data => {
         if (data.success) {
-            //localStorage.setItem('access_token', data.access_token); 
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('refresh_token', data.refresh_token);
             alert('Successful login!');
+			document.getElementById('2faForm').reset();
             switchScreen('menuScreen');
         } else {
             alert('Erreur: ' + data.error);
@@ -36,9 +38,10 @@ document.getElementById('2faForm').addEventListener('submit', function(event) {
 
 
 function sendemail() {
-    fetch('/enable-2fa/', {
+    fetch('/2fa/enable/', {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json', 
             'X-CSRFToken': getCookie('csrftoken')
         }
     })

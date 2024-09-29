@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CustomUserCreationForm
 from .models import UserProfile
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -12,6 +12,11 @@ from .models import FriendRequest
 from .utils import send_email_code
 import json
 import random
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+
 def home(request):
 	return render(request, 'index.html')
 
@@ -39,9 +44,10 @@ def register_view(request):
 
     return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
-@login_required
-def edit_profile_view(request):
-    if request.method == 'POST':
+class EditProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
 
@@ -55,9 +61,11 @@ def edit_profile_view(request):
                 'profile_form_errors': profile_form.errors,
             }
             return JsonResponse({'success': False, 'errors': errors}, status=400)
+    def get(self, request):
+        return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
     
-    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
-    
+
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -67,47 +75,57 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            user_profile = user.userprofile
+
             verification_code = generate_verification_code()
             request.session['2fa_code'] = verification_code
             send_email_code(user.email, verification_code)
             request.session['username_2fa'] = username
             return JsonResponse({'success': True, '2fa_required': True})
         else:
-            return JsonResponse({'success': False, 'error': 'Incorrect login'})
+            return JsonResponse({'success': False, 'error': 'Identifiants incorrects'}, status=401)
+
+    return JsonResponse({'success': False, 'error': 'Méthode non supportée'}, status=405)
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
     
-    return JsonResponse({'success': False, 'error': 'method not supported'}, status=400)
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
 
-@login_required
-def profile_view(request):
-    user = request.user
-    friend_requests = FriendRequest.objects.filter(to_user=user)
-    friends = user.userprofile.friends.all()
-    friend_requests_data = [
-        {
-            'id': friend_request.id,
-            'from_user': friend_request.from_user.username
+    def get(self, request):
+        user = request.user
+        friend_requests = FriendRequest.objects.filter(to_user=user)
+        friends = user.userprofile.friends.all()
+
+        friend_requests_data = [
+            {
+                'id': friend_request.id,
+                'from_user': friend_request.from_user.username
+            }
+            for friend_request in friend_requests
+        ]
+
+        friends_data = [
+            friend.user.username for friend in friends
+        ]
+
+        data = {
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'victory_count': user.userprofile.victory_count,
+            'defeat_count': user.userprofile.defeat_count,
+            'friend_requests': friend_requests_data,
+            'friends': friends_data,
         }
-        for friend_request in friend_requests
-    ]
 
-    friends_data = [
-        friend.user.username for friend in friends
-    ]
-    data = {
-        'username': user.username,
-        'email': user.email,
-        'first_name': user.first_name,
-        'victory_count': user.userprofile.victory_count,
-        'defeat_count': user.userprofile.defeat_count,
-        'friend_requests': friend_requests_data,
-        'friends': friends_data,
-    }
+        return JsonResponse(data, status=200)
 
-    return JsonResponse(data)
-@login_required
-def update_scores(request):
-    if request.method == 'POST':
+class UpdateScoreView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
         result = request.POST.get('result')  # 'win' or 'lose'
         
         profile = request.user.userprofile
@@ -121,11 +139,13 @@ def update_scores(request):
         
         return JsonResponse({'success': True})
     
-    return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+    def get(self, request):
+        return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
 
-@csrf_protect
-def send_friend_request(request):
-    if request.method == 'POST':
+class SendFriendRequestView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
         data = json.loads(request.body)
         target_username = data.get('username')
         
@@ -141,17 +161,27 @@ def send_friend_request(request):
         except User.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'User not found.'})
     
-    return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    def get(self, request):
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
-@login_required
-def list_friend_requests(request):
-    # List the friend requests received by the current user
-    friend_requests = FriendRequest.objects.filter(to_user=request.user)
-    return render(request, 'list_friend_requests.html', {'friend_requests': friend_requests})
+class ListFriendRequestsView(APIView):
+    permission_classes = [IsAuthenticated]
 
-@login_required
-def accept_friend_request(request):
-    if request.method == 'POST':
+    def get(self, request):
+        friend_requests = FriendRequest.objects.filter(to_user=request.user)
+        friend_requests_data = [
+            {
+                'id': friend_request.id,
+                'from_user': friend_request.from_user.username
+            }
+            for friend_request in friend_requests
+        ]
+        return JsonResponse({'friend_requests': friend_requests_data}, status=200)
+
+class AcceptFriendRequestView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
         data = json.loads(request.body)
         request_id = data.get('request_id')
 
@@ -171,18 +201,20 @@ def accept_friend_request(request):
         except FriendRequest.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Friend request not found'}, status=404)
 
-    return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
+    def get(self, request):
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
 
-@login_required
-def list_friends(request):
-    user_profile = request.user.userprofile
-    friends = user_profile.friends.all()
+class ListFriendsView(APIView):
+    permission_classes = [IsAuthenticated]
 
-    friends_data = [
-        {'username': friend.user.username} for friend in friends
-    ]
+    def get(self, request):
+        user_profile = request.user.userprofile
+        friends = user_profile.friends.all()
 
-    return JsonResponse({'friends': friends_data})
+        friends_data = [
+            {'username': friend.user.username} for friend in friends
+        ]
+        return JsonResponse({'friends': friends_data}, status=200)
 
 def enable_2fa(request):
     if request.method == 'POST':
@@ -214,21 +246,15 @@ def verify_2fa(request):
         if code_entered == stored_code:
             del request.session['2fa_code']
 
-            #refresh = RefreshToken.for_user(request.user)
-            #access_token = str(refresh.access_token)
+            refresh = RefreshToken.for_user(request.user)
+            access_token = str(refresh.access_token)
 
-            # Log success
-            print(f"User {request.user} successfully verified 2FA.")
-
-            # Return JWT for success
             return JsonResponse({
                 'success': True,
-                # 'access_token': access_token,
-                # 'refresh_token': str(refresh)
-            })  # , status=200)
+                'access_token': access_token,
+                'refresh_token': str(refresh)
+            }, status=200)
         else:
-            # Log incorrect 2FA attempt
-            print(f"Incorrect 2FA code entered: {code_entered}")
             return JsonResponse({
                 'success': False,
                 'error': 'Code 2FA incorrect'
@@ -238,3 +264,10 @@ def verify_2fa(request):
 
 def generate_verification_code():
     return str(random.randint(100000, 999999))
+
+
+class ProtectedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"message": "Tu as accédé à une ressource protégée"})
