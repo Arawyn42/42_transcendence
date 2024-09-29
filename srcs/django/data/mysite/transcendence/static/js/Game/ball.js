@@ -29,12 +29,14 @@ function moveBall(game)
 			if (game.ball.x - game.ball.radius < 0)
 			{
 				player2Score++;
+				console.log(`----- GOAL for player2! -----`);
 				setScore(2, player2Score);
 				checkScores(game);
 			}
 			else if (game.ball.x + game.ball.radius > canvas.width)
 			{
 				player1Score++;
+				console.log(`----- GOAL for player1! -----`);
 				setScore(1, player1Score);
 				checkScores(game);
 			}
@@ -43,24 +45,28 @@ function moveBall(game)
 			if (game.ball.x - game.ball.radius < 0 && player1Score > 0)
 			{
 				player1Score--;
+				console.log(`----- GOAL against player1! -----`);
 				setScore(1, player1Score);
 				checkScores(game);
 			}
 			else if (game.ball.x + game.ball.radius > canvas.width && player2Score > 0)
 			{
 				player2Score--;
+				console.log(`----- GOAL against player2! -----`);
 				setScore(2, player2Score);
 				checkScores(game);
 			}
 			else if (game.ball.y - game.ball.radius < 0 && player3Score > 0)
 			{
 				player3Score--;
+				console.log(`----- GOAL against player3! -----`);
 				setScore(3, player3Score);
 				checkScores(game);
 			}
 			else if (game.ball.y + game.ball.radius > canvas.height && player4Score > 0)
 			{
 				player4Score--;
+				console.log(`----- GOAL against player4! -----`);
 				setScore(4, player4Score);
 				checkScores(game);
 			}

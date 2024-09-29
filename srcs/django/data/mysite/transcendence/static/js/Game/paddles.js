@@ -1,12 +1,7 @@
 /********************************* DRAWING **********************************/
 // Draw all paddles
 function drawAllPaddles(game)
-{
-	const player1Score = parseInt(document.getElementById('player1Score').textContent);
-	const player2Score = parseInt(document.getElementById('player2Score').textContent);
-	const player3Score = parseInt(document.getElementById('player3Score').textContent);
-	const player4Score = parseInt(document.getElementById('player4Score').textContent);
-	
+{	
 	switch (gameMode)
 	{
 		case 'classic':
@@ -14,14 +9,10 @@ function drawAllPaddles(game)
 			drawPaddle(game.paddle2);
 			break;
 		case 'multi':
-			if (player1Score > 0)
-				drawPaddle(game.paddle1);
-			if (player2Score > 0)
-				drawPaddle(game.paddle2);
-			if (player3Score > 0)
-				drawPaddle(game.paddle3);
-			if (player4Score > 0)
-				drawPaddle(game.paddle4);
+			drawPaddle(game.paddle1);
+			drawPaddle(game.paddle2);
+			drawPaddle(game.paddle3);
+			drawPaddle(game.paddle4);
 			break;
 		default:
 			console.error('Wrong game mode');
@@ -32,6 +23,9 @@ function drawAllPaddles(game)
 // Draw a paddle (a rectangle)
 function drawPaddle(paddle)
 {
+	if (!paddle.alive)
+		return;
+
 	ctx.fillStyle = BLACK;
 	ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
@@ -41,11 +35,6 @@ function drawPaddle(paddle)
 // Move all paddles
 function moveAllPaddles(game)
 {
-	const player1Score = parseInt(document.getElementById('player1Score').textContent);
-	const player2Score = parseInt(document.getElementById('player2Score').textContent);
-	const player3Score = parseInt(document.getElementById('player3Score').textContent);
-	const player4Score = parseInt(document.getElementById('player4Score').textContent);
-	
 	switch (gameMode)
 	{
 		case 'classic':
@@ -53,14 +42,10 @@ function moveAllPaddles(game)
 			movePaddle(game.paddle2);
 			break;
 		case 'multi':
-			if (player1Score > 0)
-				movePaddle(game.paddle1);
-			if (player2Score > 0)
-				movePaddle(game.paddle2);
-			if (player3Score > 0)
-				movePaddle(game.paddle3);
-			if (player4Score > 0)
-				movePaddle(game.paddle4);
+			movePaddle(game.paddle1);
+			movePaddle(game.paddle2);
+			movePaddle(game.paddle3);
+			movePaddle(game.paddle4);
 			break;
 		default:
 			console.error('Wrong game mode');
@@ -71,6 +56,9 @@ function moveAllPaddles(game)
 // Move one paddle
 function movePaddle(paddle)
 {
+	if (!paddle.alive)
+		return;
+
 	if ('dy' in paddle)
 	{
 		paddle.y += paddle.dy;

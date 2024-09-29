@@ -11,11 +11,14 @@ function gameLoop(game)
 	// Clear the canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+	// Count frames for AIs
+	countFrames(game);
+
 	switch (game.state)
 	{
 		case 'playing':
-			// Move AI if it's enabled
-			simulateAIInput(game);
+			// Move active AIs
+			moveActiveAIs(game);
 
 			// Move and draw paddles
 			moveAllPaddles(game);
@@ -84,7 +87,8 @@ function launchGame()
 		y: canvas.height / 2 - PADDLE_HEIGHT / 2,
 		width: PADDLE_WIDTH,
 		height: PADDLE_HEIGHT,
-		dy: 0
+		dy: 0,
+		alive: true
 	};
 
 	const paddle2 = {
@@ -92,7 +96,8 @@ function launchGame()
 		y: canvas.height / 2 - PADDLE_HEIGHT / 2,
 		width: PADDLE_WIDTH,
 		height: PADDLE_HEIGHT,
-		dy: 0
+		dy: 0,
+		alive: true
 	};
 
 	const paddle3 = {
@@ -100,7 +105,8 @@ function launchGame()
 		y: BALL_RADIUS / 4,
 		width: PADDLE_HEIGHT,
 		height: PADDLE_WIDTH,
-		dx: 0
+		dx: 0,
+		alive: true
 	};
 
 	const paddle4 = {
@@ -108,36 +114,63 @@ function launchGame()
 		y: canvas.height - PADDLE_WIDTH - BALL_RADIUS / 4,
 		width: PADDLE_HEIGHT,
 		height: PADDLE_WIDTH,
-		dx: 0
+		dx: 0,
+		alive: true
 	};
 
 	const ball = {
 		x: canvas.width / 2,
 		y: canvas.height / 2,
 		dx: 4 * (Math.random() > 0.5 ? 1 : -1),
-		dy: -4,
+		dy: 4 * (Math.random() > 0.5 ? 1 : -1),
 		radius: BALL_RADIUS
 	};
 
-	const ai = {
+	const ai2 = {
+		time: -1,
 		framesCount: 0,
+		fps: 60,
 		interval: null,
 		hitCount: 0,
 		previousPos: null,
-		distanceForBall: null
+		distanceForBall: null,
+		active: false
+	}
+
+	const ai3 = {
+		time: -1,
+		framesCount: 0,
+		fps: 60,
+		interval: null,
+		hitCount: 0,
+		previousPos: null,
+		distanceForBall: null,
+		active: false
+	}
+
+	const ai4 = {
+		time: -1,
+		framesCount: 0,
+		fps: 60,
+		interval: null,
+		hitCount: 0,
+		previousPos: null,
+		distanceForBall: null,
+		active: false
 	}
 
 	const game = {
 		state: 'countdown',
 		countdown: 3,
 		eventListeners: [],
-		framesPerSecond: 60,
 		paddle1: paddle1,
 		paddle2: paddle2,
 		paddle3: paddle3,
 		paddle4: paddle4,
 		ball: ball,
-		ai: ai
+		ai2: ai2,
+		ai3: ai3,
+		ai4: ai4
 	};
 
 	if (currentGameInstance)
@@ -160,9 +193,8 @@ function launchGame()
 	game.eventListeners.push({ type: 'keydown', listener: keydownListener });
 	game.eventListeners.push({ type: 'keyup', listener: keyupListener });
 
-	// If Player vs AI mode, set a 1 second interval for IA to make decisions
-	if (aiDifficulty > 0)
-		game.ai.interval = setInterval(() => aiDecision(game), 1000);
+	// If AI enabled, set an interval every second
+	setAIIntervals(game);
 
 	// Full reset the game and launch the game loop
 	fullResetGame(game)

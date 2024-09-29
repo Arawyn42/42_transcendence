@@ -6,15 +6,29 @@ function fullResetGame(game)
 	switch (gameMode)
 	{
 		case 'classic':
-			setScore(0, 0);			// Set all scores on 0
+			document.getElementById('gameScreen').classList.add('classic-mode');
+			setScore(0, 0);				// Set all scores on 0
+			game.paddle3.alive = false;	// Enable paddle3
+			game.paddle4.alive = false;	// Enable paddle4
+			document.getElementById()
 			break;
 		case 'multi':
-			setScore(0, MAX_SCORE);	// Set all scores on max score
+			document.getElementById('gameScreen').classList.remove('classic-mode');
+			setScore(0, MAX_SCORE);		// Set all scores on max score
+			game.paddle3.alive = true;	// Enable paddle3
+			game.paddle4.alive = true;	// Enable paddle4
 			break;
 		default:
 			console.error(`Wrong game mode value`);
 			break;
 	}
+
+	// Enable paddle1 and paddle2
+	game.paddle1.alive = true;
+	game.paddle2.alive = true;
+
+	// Set which AIs are active
+	activateAI(game);
 
 	// Reset game objects
 	resetGame(game);
@@ -37,12 +51,22 @@ function resetGame(game)
 	game.ball.x = canvas.width / 2;
 	game.ball.y = canvas.height / 2;
 	game.ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
-	game.ball.dy = -4;
+	game.ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
 
-	// Reset AI
-	game.ai.hitCount = 0;
-	game.ai.previousPos = null;
-	game.ai.distanceForBall = null;
+	// Reset AI 2
+	game.ai2.hitCount = 0;
+	game.ai2.previousPos = null;
+	game.ai2.distanceForBall = null;
+
+	// Reset AI 3
+	game.ai3.hitCount = 0;
+	game.ai3.previousPos = null;
+	game.ai3.distanceForBall = null;
+
+	// Reset AI 4
+	game.ai4.hitCount = 0;
+	game.ai4.previousPos = null;
+	game.ai4.distanceForBall = null;
 
 	// Starts the countdown (3, 2, 1... GO)
 	startCountdown(game);
@@ -54,10 +78,20 @@ function endGame(game)
 {
 	console.log("==GAME END==");
 
-	if (game.ai.interval)
+	if (game.ai2.interval)
 	{
-		clearInterval(game.ai.interval);
-		game.ai.interval = null;
+		clearInterval(game.ai2.interval);
+		game.ai2.interval = null;
+	}
+	if (game.ai3.interval)
+	{
+		clearInterval(game.ai3.interval);
+		game.ai3.interval = null;
+	}
+	if (game.ai4.interval)
+	{
+		clearInterval(game.ai4.interval);
+		game.ai4.interval = null;
 	}
 
 	game.eventListeners.forEach(({ type, listener }) => {

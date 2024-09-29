@@ -29,6 +29,11 @@ const BALL_RADIUS = canvas.height * 0.02;
 const PADDLE_WIDTH = canvas.height * 0.015;
 const PADDLE_HEIGHT = canvas.height * 0.2;
 
+// Ball speed
+const BALL_MAX_SPEED = 20;
+const BALL_ACCELERATION_X = 1.04;
+const BALL_ACCELERATION_Y = 1.02;
+
 // WebSocket for livechat
 let chatSocket;
 
@@ -47,16 +52,19 @@ function switchScreen(screenId)
 	{
 		switch (screenId)
 		{
+			case 'menuScreen':
+				const username = document.getElementById('profileUsername').textContent;
+				if (username.length < 1)
+					document.getElementById('profile').style.display = 'none';
+				else
+					document.getElementById('profile').style.display = 'flex';
+				break;
 			case 'gameScreen':
 				launchGame();
 				break;
 			case 'settingsScreen':
 				adjustPlayerNamesScreen();
 				displayDifficultyButtons();
-				break;
-			case 'modeSelectionScreen':
-				break;
-			case 'multiModeSelectionScreen':
 				break;
 			default:
 				break;

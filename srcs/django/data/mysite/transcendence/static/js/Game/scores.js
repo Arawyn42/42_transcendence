@@ -31,6 +31,7 @@ function checkScores(game)
 		case 'classic':
 			if (player1Score >= MAX_SCORE) // Player 1 wins
 			{
+				console.log(`----- Player 1 won! -----`);
 				sendScoreUpdate('win');
 				setScore(0, 0);
 				game.state = 'end1';
@@ -38,6 +39,7 @@ function checkScores(game)
 			}
 			if (player2Score >= MAX_SCORE) // Player 2 wins
 			{
+				console.log(`----- Player 2 won! -----`);
 				sendScoreUpdate('loose');
 				setScore(0, 0);
 				game.state = 'end2';
@@ -45,9 +47,19 @@ function checkScores(game)
 			}
 			break;
 		case 'multi':
+			if (game.paddle1.alive && player1Score <= 0)
+				game.paddle1.alive = false;
+			if (game.paddle2.alive && player2Score <= 0)
+				game.paddle2.alive = false;
+			if (game.paddle3.alive && player3Score <= 0)
+				game.paddle3.alive = false;
+			if (game.paddle4.alive && player4Score <= 0)
+				game.paddle4.alive = false;
+
 			if (player2Score <= 0 && player3Score <= 0 // Player 1 wins
 				&& player4Score <= 0)
 			{
+				console.log(`----- Player 1 won! -----`);
 				sendScoreUpdate('win');
 				setScore(0, MAX_SCORE);
 				game.state = 'end1';
@@ -56,6 +68,7 @@ function checkScores(game)
 			if (player1Score <= 0 && player3Score <= 0 // Player 2 wins
 				&& player4Score <= 0)
 			{
+				console.log(`----- Player 2 won! -----`);
 				sendScoreUpdate('loose');
 				setScore(0, MAX_SCORE);
 				game.state = 'end2';
@@ -64,6 +77,7 @@ function checkScores(game)
 			if (player1Score <= 0 && player2Score <= 0 // Player 3 wins
 				&& player4Score <= 0)
 			{
+				console.log(`----- Player 3 won! -----`);
 				sendScoreUpdate('loose');
 				setScore(0, MAX_SCORE);
 				game.state = 'end3';
@@ -72,6 +86,7 @@ function checkScores(game)
 			if (player1Score <= 0 && player2Score <= 0 // Player 4 wins
 				&& player3Score <= 0)
 			{
+				console.log(`----- Player 4 won! -----`);
 				sendScoreUpdate('loose');
 				setScore(0, MAX_SCORE);
 				game.state = 'end4';

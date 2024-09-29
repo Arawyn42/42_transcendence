@@ -3,61 +3,65 @@
 function detectCollisions(game)
 {
 	// Detect wall collisions
-	detectVerticalCollision(game.ball);
-	detectHorizontalCollision(game.ball);
+	detectVerticalCollision(game);
+	detectHorizontalCollision(game);
 
 	// Detect paddles collisions
 	detectPaddleCollision(game, game.paddle1);
 	detectPaddleCollision(game, game.paddle2);
-
-	if (gameMode === 'multi')
-	{
-		detectPaddleCollision(game, game.paddle3);
-		detectPaddleCollision(game, game.paddle4);
-	}
+	detectPaddleCollision(game, game.paddle3);
+	detectPaddleCollision(game, game.paddle4);
 }
 
 // Vertical wall collisions
-function detectVerticalCollision(ball)
+function detectVerticalCollision(game)
 {
-	const player3Score = parseInt(document.getElementById('player3Score').textContent);
-	const player4Score = parseInt(document.getElementById('player4Score').textContent);
-
 	switch (gameMode)
 	{
 		case 'classic':
-			if (ball.y + ball.radius >= canvas.height || ball.y - ball.radius <= 0)
-				ball.dy *= -1;
+			if (game.ball.y + game.ball.radius >= canvas.height || game.ball.y - game.ball.radius <= 0)
+			{
+				game.ball.dx *= BALL_ACCELERATION_X;
+				game.ball.dy *= -BALL_ACCELERATION_Y;
+			}
 			break;
 		case 'multi':
-			if ((ball.y + ball.radius >= canvas.height && player4Score <= 0)
-				|| (ball.y - ball.radius <= 0 && player3Score <= 0))
-				ball.dy *= -1;
+			if ((game.ball.y + game.ball.radius >= canvas.height && !game.paddle4.alive)
+				|| (game.ball.y - game.ball.radius <= 0 && !game.paddle3.alive))
+			{
+				game.ball.dx *= BALL_ACCELERATION_X;
+				game.ball.dy *= -BALL_ACCELERATION_Y;
+			}
 			break;
 	}
+
+	if (Math.abs(game.ball.dx) > BALL_MAX_SPEED)
+		game.ball.dx = BALL_MAX_SPEED * game.ball.dx / Math.abs(game.ball.dx);
+	if (Math.abs(game.ball.dy) > BALL_MAX_SPEED)
+		game.ball.dy = BALL_MAX_SPEED * game.ball.dy / Math.abs(game.ball.dy);
 }
 
 // Horizontal wall collisions
-function detectHorizontalCollision(ball)
+function detectHorizontalCollision(game)
 {
 	if (gameMode === 'classic')
 		return;
-
-	const player1Score = parseInt(document.getElementById('player1Score').textContent);
-	const player2Score = parseInt(document.getElementById('player2Score').textContent);
 	
-	if ((ball.x + ball.radius >= canvas.width && player2Score <= 0)
-		|| ball.x - ball.radius <= 0 && player1Score <= 0)
+	if ((game.ball.x + game.ball.radius >= canvas.width && !game.paddle2.alive)
+		|| (game.ball.x - game.ball.radius <= 0 && !game.paddle1.alive))
 	{
-		ball.dx *= -1.03;
-		if (Math.abs(ball.dx) > 10)
-			ball.dx = 10 * ball.dx / Math.abs(ball.dx);
+		game.ball.dx *= -BALL_ACCELERATION_X;
+		if (Math.abs(game.ball.dx) > BALL_MAX_SPEED)
+			game.ball.dx = BALL_MAX_SPEED * game.ball.dx / Math.abs(game.ball.dx);
 	}
 }
 
 // Paddle collisions
 function detectPaddleCollision(game, paddle)
 {
+	if (!paddle.alive)
+		return;
+
 	if (game.ball.x - game.ball.radius <= paddle.x + paddle.width
 		&& game.ball.x + game.ball.radius >= paddle.x
 		&& game.ball.y + game.ball.radius >= paddle.y
@@ -65,16 +69,23 @@ function detectPaddleCollision(game, paddle)
 	{
 		if ('dy' in paddle)
 		{
-			game.ball.dx *= -1.03;
-			if (Math.abs(game.ball.dx) > 10)
-				game.ball.dx = 10 * game.ball.dx / Math.abs(game.ball.dx);
+			game.ball.dx *= -BALL_ACCELERATION_X;
+			if (Math.abs(game.ball.dx) > BALL_MAX_SPEED)
+				game.ball.dx = BALL_MAX_SPEED * game.ball.dx / Math.abs(game.ball.dx);
 	
-			if (game.ball.dx < 0 && aiDifficulty > 0)
-				game.ai.hitCount++;
+			if (game.ball.dx < 0 && aiDifficulty > 0 && nbPlayers === 1)
+				game.ai2.hitCount++;
 		}
 		else if ('dx' in paddle)
 		{
-			game.ball.dy *= -1;
+			game.ball.dy *= -BALL_ACCELERATION_Y;
+			if (Math.abs(game.ball.dy) > BALL_MAX_SPEED)
+				game.ball.dx = BALL_MAX_SPEED * game.ball.dy / Math.abs(game.ball.dy);
+
+			if (game.ball.dy < 0 && nbPlayers < 4)
+				game.ai4.hitCount++;
+			else if (game.ball.dy > 0 && nbPlayers < 3)
+				game.ai3.hitCount++;
 		}
 	}
 }

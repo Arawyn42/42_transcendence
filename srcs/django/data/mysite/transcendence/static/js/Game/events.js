@@ -40,11 +40,11 @@ function handleKeyDown(e, game)
 		// Player 4 controls
 		case '1':
 			if (nbPlayers === 4)
-				game.paddle3.dx = -8;
+				game.paddle4.dx = -8;
 			break;
 		case '3':
 			if (nbPlayers === 4)
-				game.paddle3.dx = 8;
+				game.paddle4.dx = 8;
 			break;
 	}
 }

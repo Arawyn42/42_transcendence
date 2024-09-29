@@ -73,7 +73,7 @@ function getCookie(name) {
 	return cookieValue;
 }
 
-// TEMPORARY: Button to skip login and go directly to 'Menu'
+// Button 'Play as guest'
 document.addEventListener('DOMContentLoaded', function () {
 	const skipButton = document.getElementById('playAsGuest');
 	
