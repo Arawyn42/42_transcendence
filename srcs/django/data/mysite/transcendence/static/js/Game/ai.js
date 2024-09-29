@@ -148,10 +148,7 @@ function AICanSeeBallPositionX(game, ai)
 		// Case 1: No bounce | Case 2: Bounce on left wall | Case 3: Bounce on right wall
 		if ((game.ball.dx > 0 && ai.previousPos > 0)
 			|| (game.ball.dx < 0 && ai.previousPos < 0))
-		{
 			ai.distanceForBall = Math.abs(currentPos - prevPos);
-			console.log(`----- Distance to do: ${ai.distanceForBall} (case 1)`);
-		}
 		else if ((game.ball.dx > 0 && ai.previousPos < 0))
 		{
 			if (game.paddle1.alive)
@@ -159,7 +156,6 @@ function AICanSeeBallPositionX(game, ai)
 								   - 2 * (BALL_RADIUS + 2 + PADDLE_WIDTH);
 			else
 				ai.distanceForBall = currentPos + prevPos - 2 * BALL_RADIUS;
-				console.log(`----- Distance to do: ${ai.distanceForBall} (case 2)`);
 		}
 		else if (game.ball.dx < 0 && ai.previousPos > 0)
 		{
@@ -170,27 +166,23 @@ function AICanSeeBallPositionX(game, ai)
 			else
 				ai.distanceForBall = (canvas.width - currentPos)
 								   + (canvas.width - prevPos) - 2 * BALL_RADIUS;
-				console.log(`----- Distance to do: ${ai.distanceForBall} (case 3)`);
 		}
 		
 		const rand = Math.random();
 		let rand2 = Math.random();
 		if (aiDifficulty === 1)
-			rand2 *= 5;
+			rand2 *= 10;
 		else if (aiDifficulty === 2)
-			rand2 *= 2.5;
+			rand2 *= 5;
 
 		if (rand > 0.5)
-			ai.distanceForBall += 1.3 * ai.hitCount * rand2;
+			ai.distanceForBall += 1.25 * ai.hitCount * rand2;
 		else
-			ai.distanceForBall -= 1.3 * ai.hitCount * rand2;
+			ai.distanceForBall -= 1.25 * ai.hitCount * rand2;
 	}
 	
 	if (prevPos === currentPos || !ai.distanceForBall)
-	{
 		ai.distanceForBall = Math.abs(game.ball.dx) * 60;
-		console.log(`----- Distance to do: ${ai.distanceForBall} (case 4)`);
-	}
 	
 	ai.previousPos = currentPos * game.ball.dx / Math.abs(game.ball.dx);
 }
@@ -279,15 +271,6 @@ function countFrames(game)
 	game.ai4.framesCount++;
 	if (game.ai4.framesCount > game.ai4.fps)
 		game.ai4.fps = game.ai4.framesCount;
-
-	if (game.state === 'playing')
-	{
-		console.log(`AI 2: ${game.ai2.framesCount} / ${game.ai2.fps} | Times: ${game.ai2.time} | Hits: ${game.ai2.hitCount}`);
-		console.log(`AI 3: ${game.ai3.framesCount} / ${game.ai3.fps} | Times: ${game.ai3.time} | Hits: ${game.ai3.hitCount}`);
-		console.log(`AI 4: ${game.ai4.framesCount} / ${game.ai4.fps} | Times: ${game.ai4.time} | Hits: ${game.ai4.hitCount}`);
-		console.log('');
-	}
-
 }
 
 // AI 2 movements
@@ -306,9 +289,9 @@ function moveAI2(game)
 		let rand2 = Math.round(0.04 * game.ai2.hitCount * (1 + Math.random() / 2) * 100);
 
 		if (aiDifficulty === 1)
-			rand2 *= 6;
+			rand2 *= 4;
 		else if (aiDifficulty === 2)
-			rand2 *= 3;
+			rand2 *= 2;
 		
 		if (rand > rand2)
 		{
