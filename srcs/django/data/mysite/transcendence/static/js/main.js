@@ -9,6 +9,9 @@ const BLACK = '#000';
 const GREEN = '#00FF00';
 const RED = '#FF0000';
 
+// Username
+let USERNAME = '';
+
 // Game instance
 let currentGameInstance = null;
 
@@ -54,10 +57,11 @@ function switchScreen(screenId)
 		{
 			case 'menuScreen':
 				const username = document.getElementById('profileUsername').textContent;
-				if (username.length < 1)
-					document.getElementById('profile').style.display = 'none';
-				else
-					document.getElementById('profile').style.display = 'flex';
+				console.log(`username: '${username}' | USERNAME: '${USERNAME}'`);
+				// if (username.length < 1)
+				// 	document.getElementById('profile').style.display = 'none';
+				// else
+				// 	document.getElementById('profile').style.display = 'flex';
 				break;
 			case 'gameScreen':
 				launchGame();

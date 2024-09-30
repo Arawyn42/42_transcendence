@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.getElementById("loginForm").onsubmit = function(event) {
 
-	// Temporary: Do nothing if the 'Skip and go to menu' button is clicked
+	// Do nothing if the 'Play as guest' button is clicked
 	if (document.activeElement === document.getElementById('playAsGuest'))
         return;
 
