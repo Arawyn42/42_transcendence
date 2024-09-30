@@ -10,7 +10,6 @@ function fullResetGame(game)
 			setScore(0, 0);				// Set all scores on 0
 			game.paddle3.alive = false;	// Enable paddle3
 			game.paddle4.alive = false;	// Enable paddle4
-			document.getElementById()
 			break;
 		case 'multi':
 			document.getElementById('gameScreen').classList.remove('classic-mode');
