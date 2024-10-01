@@ -21,7 +21,7 @@ body {
 
 header {
 	width: 100%;
-    background-color: #c05252;
+    background-color: #fff;
     color: #000;
     display: flex;
     align-items: center;
@@ -91,11 +91,11 @@ button {
 
 /* Language Selection */
 .languageSelector {
+	display: flex;
 	position: fixed;
 	top: 10px;
 	right: 10px;
 	z-index: 1000;
-	display: flex;
 }
 
 .languageButton {

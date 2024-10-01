@@ -17,12 +17,39 @@ function translate(key) {
 	return translations[currentLanguage][key] || translations['en'][key] || key;
 }
 
-function applyTranslations() {
+// function applyTranslations() {
+// 	document.querySelectorAll('[textTranslated]').forEach(element => {
+// 		const key = element.getAttribute('textTranslated');
+// 		element.textContent = translate(key);
+// 	});
+// }
+
+function applyTranslations()
+{
 	document.querySelectorAll('[textTranslated]').forEach(element => {
 		const key = element.getAttribute('textTranslated');
-		element.textContent = translate(key);
+		if (key.startsWith('dynamic'))
+		{
+			// Pour les éléments dynamiques, préservez le contenu original
+			const originalText = element.textContent.trim();
+			if (originalText !== '') {
+			  element.textContent = translate(key) + ': ' + originalText;
+			} else {
+			  // Si le contenu est vide, n'affichez que la traduction
+			  element.textContent = translate(key);}
+		}
+		else if (element.tagName === 'INPUT')
+		{
+			// Pour les éléments input, traduisez le placeholder
+			element.placeholder = translate(key);
+		}
+		else
+		{
+			// Pour les éléments statiques, remplacez simplement le texte
+			element.textContent = translate(key);
+		}
 	});
-}
+  }
 
 let currentLanguage = 'en'; // Default language
 
@@ -30,14 +57,14 @@ function setLanguage(lang) {
 	if (translations[lang]) {
 		currentLanguage = lang;
 	}
-	else {
-		console.warn(`Language ${lang} not found, falling back to English`);
-		currentLanguage = 'en';
-	}
+	// else {
+	// 	console.warn(`Language ${lang} not found, falling back to English`);
+	// 	currentLanguage = 'en';
+	// }
 }
 
 // Exportez les fonctions pour les utiliser dans d'autres fichiers
-export { setLanguage, translate, applyTranslations };
+// export { setLanguage, translate, applyTranslations };
 
 
 const translations = {
@@ -47,6 +74,10 @@ const translations = {
 		pongTitle: "PONG",//Page subtitle
 		//Register
 		register: "Register",
+		usernamePlaceholder: "Username",
+		emailPlaceholder: "Email",
+		firstNamePlaceholder: "First name",
+		passwordPlaceholder: "Password",
 		loginFromRegister: "Already have an account? Login",
 		//Login
 		login: "Login",
@@ -60,16 +91,22 @@ const translations = {
 		//Profile
 		userProfile: "User Profile",
 		username: "Username:",
+		dynamicUsername: "Username:",
 		email: "Email:",
+		dynamicEmail: "Email:",
 		firstName: "First Name:",
+		dynamicFirstName: "First Name:",
 		wins: "Wins:",
+		dynamicWins: "Wins:",
 		losses: "Losses:",
+		dynamicLosses: "Losses:",
 		editProfile: "Edit profile",
 		friend: "Friend",
 		backToMenu: "Back to menu",
 		logout: "Logout",
 		//2FA
 		twoFA_Verification: "2FA Verification",
+		twoFA_placeholder: "Enter the 2FA code received by email",
 		validate: "Validate",
 		//Friend
 		friendsList: "Friends List",
@@ -85,9 +122,13 @@ const translations = {
 		settings: "Settings",
 		yourName: "Enter your name",
 		player1: "Player 1",
+		player1Placeholder: "Enter Player 1 name",
 		player2: "Player 2",
+		player2Placeholder: "Enter Player 2 name",
 		player3: "Player 3",
+		player3Placeholder: "Enter Player 3 name",
 		player4: "Player 4",
+		player4Placeholder: "Enter Player 4 name",
 		difficulty: "Choose difficulty",
 		easy: "Easy",
 		medium: "Medium",
@@ -114,6 +155,10 @@ const translations = {
 		pongTitle: "PONG",
 		//Register
 		register: "S'inscrire",
+		usernamePlaceholder: "Nom d'utilisateur",
+		emailPlaceholder: "E-mail",
+		firstNamePlaceholder: "Prénom",
+		passwordPlaceholder: "Mot de passe",
 		loginFromRegister: "Vous avez déjà un compte ? Connectez-vous",
 		//Login
 		login: "Connexion",
@@ -127,16 +172,22 @@ const translations = {
 		//Profile
 		userProfile: "Profil Utilisateur",
 		username: "Nom d'utilisateur :",
+		dynamicUsername: "Nom d'utilisateur :",
 		email: "E-mail :",
+		dynamicEmail: "E-mail :",
 		firstName: "Prénom :",
+		dynamicFirstName: "Prénom :",
 		wins: "Victoires :",
+		dynamicWins: "Victoires :",
 		losses: "Défaites :",
+		dynamicLosses: "Défaites :",
 		editProfile: "Modifier le profil",
 		friend: "Ami",
 		backToMenu: "Retour au menu",
 		logout: "Déconnexion",
 		//2FA
 		twoFA_Verification: "Vérification 2FA",
+		twoFA_placeholder: "Entrez le code 2FA reçu par e-mail",
 		validate: "Valider",
 		//Friend
 		friendsList: "Liste d'amis",
@@ -152,9 +203,13 @@ const translations = {
 		settings: "Paramètres",
 		yourName: "Entrez votre nom",
 		player1: "Joueur 1",
+		player1Placeholder: "Entrez le nom du Joueur 1",
 		player2: "Joueur 2",
+		player2Placeholder: "Entrez le nom du Joueur 2",
 		player3: "Joueur 3",
+		player3Placeholder: "Entrez le nom du Joueur 3",
 		player4: "Joueur 4",
+		player4Placeholder: "Entrez le nom du Joueur 4",
 		difficulty: "Choisissez la difficulté",
 		easy: "Facile",
 		medium: "Moyen",
@@ -175,12 +230,16 @@ const translations = {
 		fourPlayers: "4 Joueurs",
     },
 
-    sp: {
+    es: {
 		head: "Transcendencia - Juego de Pong",
 		pageTitle: "Transcendencia",
 		pongTitle: "PONG",
 		//Register
 		register: "Registrarse",
+		usernamePlaceholder: "Nombre de usuario",
+		emailPlaceholder: "Correo electrónico",
+		firstNamePlaceholder: "Nombre",
+		passwordPlaceholder: "Contraseña",
 		loginFromRegister: "¿Ya tienes una cuenta? Inicia sesión",
 		//Login
 		login: "Iniciar sesión",
@@ -194,16 +253,22 @@ const translations = {
 		//Profile
 		userProfile: "Perfil de Usuario",
 		username: "Nombre de usuario:",
+		dynamicUsername: "Nombre de usuario:",
 		email: "Correo electrónico:",
+		dynamicEmail: "Correo electrónico:",
 		firstName: "Nombre:",
+		dynamicFirstName: "Nombre:",
 		wins: "Victorias:",
+		dynamicWins: "Victorias:",
 		losses: "Derrotas:",
+		dynamicLosses: "Derrotas:",
 		editProfile: "Editar perfil",
 		friend: "Amigo",
 		backToMenu: "Volver al menú",
 		logout: "Cerrar sesión",
 		//2FA
 		twoFA_Verification: "Verificación 2FA",
+		twoFA_placeholder: "Introduzca el código 2FA recibido por correo electrónico",
 		validate: "Validar",
 		//Friend
 		friendsList: "Lista de amigos",
@@ -219,9 +284,13 @@ const translations = {
 		settings: "Configuraciones",
 		yourName: "Ingresa tu nombre",
 		player1: "Jugador 1",
+		player1Placeholder: "Ingrese el nombre del Jugador 1",
 		player2: "Jugador 2",
+		player2Placeholder: "Ingrese el nombre del Jugador 2",
 		player3: "Jugador 3",
+		player3Placeholder: "Ingrese el nombre del Jugador 3",
 		player4: "Jugador 4",
+		player4Placeholder: "Ingrese el nombre del Jugador 4",
 		difficulty: "Elige la dificultad",
 		easy: "Fácil",
 		medium: "Medio",
@@ -248,6 +317,10 @@ const translations = {
 		pongTitle: "PONG",
 		//Register
 		register: "Registrieren",
+		usernamePlaceholder: "Benutzername",
+		emailPlaceholder: "E-Mail",
+		firstNamePlaceholder: "Vorname",
+		passwordPlaceholder: "Passwort",
 		loginFromRegister: "Bereits ein Konto? Anmelden",
 		//Login
 		login: "Anmelden",
@@ -261,16 +334,22 @@ const translations = {
 		//Profile
 		userProfile: "Benutzerprofil",
 		username: "Benutzername:",
+		dynamicUsername: "Benutzername:",
 		email: "E-Mail:",
+		dynamicEmail: "E-Mail:",
 		firstName: "Vorname:",
+		dynamicFirstName: "Vorname:",
 		wins: "Siege:",
+		dynamicWins: "Siege:",
 		losses: "Niederlagen:",
+		dynamicLosses: "Niederlagen:",
 		editProfile: "Profil bearbeiten",
 		friend: "Freund",
 		backToMenu: "Zurück zum Menü",
 		logout: "Abmelden",
 		//2FA
 		twoFA_Verification: "2FA-Verifizierung",
+		twoFA_placeholder: "Geben Sie den per E-Mail erhaltenen 2FA-Code ein",
 		validate: "Bestätigen",
 		//Friend
 		friendsList: "Freundesliste",
@@ -286,9 +365,13 @@ const translations = {
 		settings: "Einstellungen",
 		yourName: "Geben Sie Ihren Namen ein",
 		player1: "Spieler 1",
+		player1Placeholder: "Namen für Spieler 1 eingeben",
 		player2: "Spieler 2",
+		player2Placeholder: "Namen für Spieler 2 eingeben",
 		player3: "Spieler 3",
+		player3Placeholder: "Namen für Spieler 3 eingeben",
 		player4: "Spieler 4",
+		player4Placeholder: "Namen für Spieler 4 eingeben",
 		difficulty: "Schwierigkeitsgrad wählen",
 		easy: "Leicht",
 		medium: "Mittel",

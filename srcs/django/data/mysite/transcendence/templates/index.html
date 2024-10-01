@@ -8,7 +8,7 @@
 	<title textTranslated="head">Transcendence - Pong Game</title>
 	<link rel="stylesheet" href="../static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css">
 </head>
 <body class="hidden">
 
@@ -26,11 +26,11 @@
 			<h2 textTranslated="register">Register</h2>
 			<form id="registerForm">
 				{% csrf_token %}
-				<input type="text" name="username" placeholder="Username" required>
-				<input type="email" name="email" placeholder="Email" required>
-				<input type="text" name="first_name" placeholder="First name" required>  
-				<input type="password" name="password" placeholder="Password" required>
-				<button type="submit" class="wideButton">Register</button>
+				<input type="text" name="username" placeholder="Username" textTranslated="usernamePlaceholder" required>
+				<input type="email" name="email" placeholder="Email" textTranslated="emailPlaceholder" required>
+				<input type="text" name="first_name" placeholder="First name" textTranslated="firstNamePlaceholder" required>  
+				<input type="password" name="password" placeholder="Password" textTranslated="passwordPlaceholder" required>
+				<button type="submit" class="wideButton" textTranslated="register">Register</button>
 				<button id="loginFromRegister" class="wideButton" textTranslated="loginFromRegister">Already have an account? Login</button>
 			</form>
 			
@@ -42,9 +42,9 @@
 		<h2 textTranslated="login">Login</h2>
 		<form id="loginForm">
 			{% csrf_token %}
-			<input type="text" name="username" placeholder="Username">
-			<input type="password" name="password" placeholder="Password">
-			<button type="submit" class="wideButton">Login</button>
+			<input type="text" name="username" placeholder="Username" textTranslated="usernamePlaceholder">
+			<input type="password" name="password" placeholder="Password" textTranslated="passwordPlaceholder">
+			<button type="submit" class="wideButton" textTranslated="login">Login</button>
 		</form>
 		<button id="registerFromLogin" class="wideButton" textTranslated="registerFromLogin">Not an account yet ? Register</button>
 		<button id="playAsGuest" class="wideButton" textTranslated="playAsGuest">Play as guest</button>	
@@ -66,11 +66,11 @@
 			{% else %}
 				<img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="profile-picture">
 			{% endif %}
-			<p><strong textTranslated="username">Username:</strong> <span id="profileUsername">{{ user.username }}</span></p>
-			<p><strong textTranslated="email">Email:</strong> <span id="profileEmail">{{ user.email }}</span></p>
-			<p><strong textTranslated="firstName">First Name:</strong> <span id="profileFirstName">{{ user.first_name }}</span></p>
-			<p><strong textTranslated="wins">Wins:</strong> <span id="profileWins">{{ user.userprofile.victory_count }}</span></p>
-			<p><strong textTranslated="losses">Losses:</strong> <span id="profileLosses">{{ user.userprofile.defeat_count }}</span></p>
+			<p><strong textTranslated="username">Username:</strong> <span id="profileUsername" textTranslated="dynamicUsername">{{ user.username }}</span></p>
+			<p><strong textTranslated="email">Email:</strong> <span id="profileEmail" textTranslated="dynamicEmail">{{ user.email }}</span></p>
+			<p><strong textTranslated="firstName">First Name:</strong> <span id="profileFirstName" textTranslated="dynamicFirstName">{{ user.first_name }}</span></p>
+			<p><strong textTranslated="wins">Wins:</strong> <span id="profileWins" textTranslated="dynamicWins">{{ user.userprofile.victory_count }}</span></p>
+			<p><strong textTranslated="losses">Losses:</strong> <span id="profileLosses" textTranslated="dynamicLosses">{{ user.userprofile.defeat_count }}</span></p>
 			<button id="editProfile" class="wideButton" textTranslated="editProfile">Edit profile</button>
 			<button id="friendFromProfile" class="wideButton" textTranslated="friend">Friend</button>
 			<button id="menuFromProfile" class="wideButton" textTranslated="backToMenu">Back to menu</button>
@@ -82,7 +82,7 @@
 		<div id="2faScreen" class="screen">
 			<h2 textTranslated="twoFA_Verification">2FA Verification</h2>
 			<form id="2faForm" method="POST">
-				<input type="text" id="twoFaCode" name="2fa_code" placeholder="Entrez le code 2FA reçu par SMS">
+				<input type="text" id="twoFaCode" name="2fa_code" placeholder="Enter the 2FA code received by email" textTranslated="twoFA_placeholder">
 				<button type="submit" textTranslated="validate">Validate</button>
 			</form>
 		</div>
@@ -92,7 +92,7 @@
 			<h2 textTranslated="friendsList">Friends List</h2>
 			<div id="friendsList"></div>
 			<h3 textTranslated="addFriend">Add a Friend</h3>
-			<input type="text" id="friendUsername" placeholder="Username">
+			<input type="text" id="friendUsername" placeholder="Username" textTranslated="usernamePlaceholder">
 			<button id="addFriendButton" class="wideButton" textTranslated="addFriendButton">Add Friend</button>
 	
 			<h3 textTranslated="friendsRequests">Friend Requests</h3>
@@ -114,10 +114,10 @@
 			<h2 textTranslated="editProfile">Edit Profile</h2>
 			<form id="editProfileForm" enctype="multipart/form-data">
 				{% csrf_token %}
-				<input type="text" id="editUsername" name="username" placeholder="Username" required>
-				<input type="email" id="editEmail" name="email" placeholder="Email" required>
-				<input type="text" id="editFirstName" name="first_name" placeholder="First name" required>
-				<input type="password" id="editPassword" name="password" placeholder="Password">
+				<input type="text" id="editUsername" name="username" placeholder="Username" textTranslated="usernamePlaceholder" required>
+				<input type="email" id="editEmail" name="email" placeholder="Email" textTranslated="emailPlaceholder" required>
+				<input type="text" id="editFirstName" name="first_name" placeholder="First name" textTranslated="firstNamePlaceholder" required>
+				<input type="password" id="editPassword" name="password" placeholder="Password" textTranslated="passwordPlaceholder">
 				<input type="file" id="editProfilePicture" name="profile_picture">
 				<button type="submit" class="wideButton" textTranslated="saveChanges">Save changes</button>
 			</form>
@@ -137,7 +137,7 @@
 				<!-- Player 1 -->
 				<div id="player1LabelField" class="inputField">
 					<label for="player1Input" textTranslated="player1">Player 1:</label>
-					<input type="text" id="player1Input" placeholder="Enter Player 1 name" maxlength="8">
+					<input type="text" id="player1Input" placeholder="Enter Player 1 name" textTranslated="player1Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player1InputError" class="error-message"></p>
@@ -146,7 +146,7 @@
 				<!-- Player 2 -->
 				<div id="player2LabelField" class="inputField">
 					<label for="player2Input" textTranslated="player2">Player 2:</label>
-					<input type="text" id="player2Input" placeholder="Enter Player 2 name" maxlength="8">
+					<input type="text" id="player2Input" placeholder="Enter Player 2 name" textTranslated="player2Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player2InputError" class="error-message"></p>
@@ -155,7 +155,7 @@
 				<!-- Player 3 -->
 				<div id="player3LabelField" class="inputField">
 					<label for="player3Input" textTranslated="player3">Player 3:</label>
-					<input type="text" id="player3Input" placeholder="Enter Player 3 name" maxlength="8">
+					<input type="text" id="player3Input" placeholder="Enter Player 3 name" textTranslated="player3Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player3InputError" class="error-message"></p>
@@ -164,7 +164,7 @@
 				<!-- Player 4 -->
 				<div id="player4LabelField" class="inputField">
 					<label for="player4Input" textTranslated="player4">Player 4:</label>
-					<input type="text" id="player4Input" placeholder="Enter Player 4 name" maxlength="8">
+					<input type="text" id="player4Input" placeholder="Enter Player 4 name" textTranslated="player4Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player4InputError" class="error-message"></p>
@@ -299,7 +299,7 @@
 	<!-------------------------------- MULTIPLAYER PONG GAME ---------------------------------->
 	<!-- Mode Selection Screen -->
 		<div id="multiModeSelectionScreen" class="screen">
-			<h2>Select Game Mode</h2>
+			<h2 textTranslated="gameMode">Select Game Mode</h2>
 			<button id="onePlayerMode" class="wideButton" textTranslated="onePlayer">1 Player</button>
 			<button id="twoPlayersMode" class="wideButton" textTranslated="twoPlayers">2 Players</button>
 			<button id="threePlayersMode" class="wideButton" textTranslated="threePlayers">3 Players</button>
@@ -311,14 +311,7 @@
 
 	<!-------------------------------- LANGUAGE SELECTION ---------------------------------->
 
-	<!-- <select id="languageSelector">
-		<option value="en">English</option>
-		<option value="fr">Français</option>
-		<option value="es">Español</option>
-		<option value="de">Deutsh</option>
-	</select> -->
-
-	<div id="languageSelector" class="screen">
+	<div id="languageSelector" class="languageSelector">
 		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
 		<button id="fr" class="languageButton"><span class="fi fi-fr"></span></button>
 		<button id="es" class="languageButton"><span class="fi fi-es"></span></button>
