@@ -17,37 +17,27 @@ function translate(key) {
 	return translations[currentLanguage][key] || translations['en'][key] || key;
 }
 
-// function applyTranslations() {
-// 	document.querySelectorAll('[textTranslated]').forEach(element => {
-// 		const key = element.getAttribute('textTranslated');
-// 		element.textContent = translate(key);
-// 	});
-// }
-
 function applyTranslations()
 {
 	document.querySelectorAll('[textTranslated]').forEach(element => {
 		const key = element.getAttribute('textTranslated');
 		if (key.startsWith('dynamic'))
 		{
-			// Pour les éléments dynamiques, préservez le contenu original
-			const originalText = element.textContent.trim();
-			if (originalText !== '') {
-			  element.textContent = translate(key) + ': ' + originalText;
-			} else {
-			  // Si le contenu est vide, n'affichez que la traduction
-			  element.textContent = translate(key);}
+			const originalText = element.textContent;
+			const toFind = originalText.indexOf(': ');
+			if (toFind !== -1)
+			{
+				const dynamicPart = originalText.substring(toFind + 2).trim();
+				if (dynamicPart !== '') {
+					element.textContent = translate(key) + ' ' + dynamicPart;}
+				else {
+					element.textContent = translate(key) + ' ';}
+			}
 		}
-		else if (element.tagName === 'INPUT')
-		{
-			// Pour les éléments input, traduisez le placeholder
-			element.placeholder = translate(key);
-		}
-		else
-		{
-			// Pour les éléments statiques, remplacez simplement le texte
-			element.textContent = translate(key);
-		}
+		else if (element.tagName === 'INPUT') {
+			element.placeholder = translate(key);}
+		else {
+			element.textContent = translate(key);}
 	});
   }
 
@@ -57,15 +47,7 @@ function setLanguage(lang) {
 	if (translations[lang]) {
 		currentLanguage = lang;
 	}
-	// else {
-	// 	console.warn(`Language ${lang} not found, falling back to English`);
-	// 	currentLanguage = 'en';
-	// }
 }
-
-// Exportez les fonctions pour les utiliser dans d'autres fichiers
-// export { setLanguage, translate, applyTranslations };
-
 
 const translations = {
 	en: {
@@ -103,7 +85,7 @@ const translations = {
 		editProfile: "Edit profile",
 		friend: "Friend",
 		backToMenu: "Back to menu",
-		logout: "Logout",
+		logOut: "Logout",
 		//2FA
 		twoFA_Verification: "2FA Verification",
 		twoFA_placeholder: "Enter the 2FA code received by email",
@@ -184,7 +166,7 @@ const translations = {
 		editProfile: "Modifier le profil",
 		friend: "Ami",
 		backToMenu: "Retour au menu",
-		logout: "Déconnexion",
+		logOut: "Déconnexion",
 		//2FA
 		twoFA_Verification: "Vérification 2FA",
 		twoFA_placeholder: "Entrez le code 2FA reçu par e-mail",
@@ -265,7 +247,7 @@ const translations = {
 		editProfile: "Editar perfil",
 		friend: "Amigo",
 		backToMenu: "Volver al menú",
-		logout: "Cerrar sesión",
+		logOut: "Cerrar sesión",
 		//2FA
 		twoFA_Verification: "Verificación 2FA",
 		twoFA_placeholder: "Introduzca el código 2FA recibido por correo electrónico",
@@ -346,7 +328,7 @@ const translations = {
 		editProfile: "Profil bearbeiten",
 		friend: "Freund",
 		backToMenu: "Zurück zum Menü",
-		logout: "Abmelden",
+		logOut: "Abmelden",
 		//2FA
 		twoFA_Verification: "2FA-Verifizierung",
 		twoFA_placeholder: "Geben Sie den per E-Mail erhaltenen 2FA-Code ein",
