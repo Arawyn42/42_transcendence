@@ -310,7 +310,29 @@
 
 	</div>
 
-	<!-------------------------------- LANGUAGE SELECTION ---------------------------------->
+	<!-------------------------------------- TOURNAMENT --------------------------------------->
+	<div id="tournamentScreen" class="screen">
+		<h1 textTranslated="tournamentTitle">Tournament</h1>
+		<h2 id="tournamentStage" textTranslated="tournamentStage">First game</h2>
+		
+		<div id="tournamentMatchup">
+			<div class="tournamentPlayer">
+				<span id="tournamentPlayer1" class="playerLabel">Player 1</span>
+				<span id="tournamentPlayer1Score" class="playerScore">0</span>
+			</div>
+
+			<div id="versus" class="versusLabel">VS</div>
+
+			<div class="tournamentPlayer">
+				<span id="tournamentPlayer2" class="playerLabel">Player 2</span>
+				<span id="tournamentPlayer2Score" class="playerScore">0</span>
+			</div>
+		</div>
+
+		<button id="startTournamentMatch" textTranslated="startGame">Start Game</button>
+	</div>
+
+	<!---------------------------------- LANGUAGE SELECTION ----------------------------------->
 
 	<div id="languageSelector" class="languageSelector">
 		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
@@ -321,6 +343,7 @@
 
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
+	<!-- Languages -->
 	<script src="{% static 'js/translations.js' %}"></script>
 
 	<!-- Session -->
@@ -349,6 +372,7 @@
 	<script src="{% static 'js/Game/reset.js' %}"></script>
 	<script src="{% static 'js/Game/scores.js' %}"></script>
 	<script src="{% static 'js/Game/ai.js' %}"></script>
+	<script src="{% static 'js/Game/tournament.js' %}"></script>
 
 	<!-- Live -->
 	<script src="{% static 'js/Live/liveChat.js' %}"></script>

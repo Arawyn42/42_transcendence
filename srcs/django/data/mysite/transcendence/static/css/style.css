@@ -330,6 +330,46 @@ button {
 }
 
 
+/***************************** TOURNAMENT SCREEN *****************************/
+/* Tournament screen */
+#tournamentScreen {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Stage title */
+#tournamentStage {
+    font-size: 2.5vh;
+    margin-bottom: 2vh;
+}
+
+/* Matchup : Player1 VS Player2 */
+#tournamentMatchup {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 3vh 0;
+}
+
+/* Player name and score */
+.tournamentPlayer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 'VS' Label */
+.versusLabel {
+    font-size: 4vh;
+    font-weight: bold;
+    margin: 0 2vh;
+}
+
+
 /****************************** SETTINGS SCREEN ******************************/
 /* Enter your Names Section */
 #enterYourNames {

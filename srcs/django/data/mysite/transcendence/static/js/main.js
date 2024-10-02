@@ -91,6 +91,14 @@ function switchScreen(screenId)
 				adjustPlayerNamesScreen();
 				displayDifficultyButtons();
 				break;
+			case 'tournamentScreen':
+				if (!setUpTournament())
+				{
+					resetTournament();
+					switchScreen('menuScreen');
+					return;
+				}
+				break;
 			default:
 				break;
 		}

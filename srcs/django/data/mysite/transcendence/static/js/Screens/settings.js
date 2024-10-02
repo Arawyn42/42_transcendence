@@ -166,7 +166,7 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 			tournament.player2 = player2Name;
 			tournament.player3 = player3Name;
 			tournament.player4 = player4Name;
-			setUpTournament();
+			switchScreen('tournamentScreen');
 			return;
 		}
 
