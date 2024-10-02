@@ -1,17 +1,27 @@
 /****************************** TRANSLATIONS ******************************/
 
+function loadDefaultLanguage() {
+    const savedLanguage = getLanguageCookie();
+    if (savedLanguage && translations[savedLanguage]) {
+        setLanguage(savedLanguage);}
+	else {
+        setLanguage('en');} // Default language if no cookie.
+    applyTranslations();
+}
+
 // Buttons Language Selection
 document.addEventListener('DOMContentLoaded', function() {
+	loadDefaultLanguage();
     document.querySelectorAll('.languageButton').forEach(button => {
         button.addEventListener('click', function() {
             const lang = this.id;
             setLanguage(lang);
+			setLanguageCookie(lang);
             applyTranslations();
             console.log('Language selected: ' + lang);
         });
     });
 });
-
 
 function translate(key) {
 	return translations[currentLanguage][key] || translations['en'][key] || key;
@@ -39,15 +49,54 @@ function applyTranslations()
 		else {
 			element.textContent = translate(key);}
 	});
-  }
+}
+  
+function getLanguageCookie()
+{
+	const name = "userLanguage=";
+	const decodedCookie = decodeURIComponent(document.cookie);
+	const cookieArray = decodedCookie.split(';');
+	for (let i = 0; i < cookieArray.length; i++)
+	{
+		let cookie = cookieArray[i];
+		while (cookie.charAt(0) == ' ') {
+			cookie = cookie.substring(1);}
+		if (cookie.indexOf(name) == 0) {
+			return cookie.substring(name.length, cookie.length);}
+	}
+	return "";
+}
+
+function setLanguageCookie(lang)
+{
+	document.cookie = "userLanguage=" + lang + "; path=/; max-age=31536000; SameSite=Lax";
+}
 
 let currentLanguage = 'en'; // Default language
 
-function setLanguage(lang) {
+function setLanguage(lang)
+{
 	if (translations[lang]) {
 		currentLanguage = lang;
-	}
+		updateLanguageButtonUI(lang);}
+	else {
+        console.warn(`Language ${lang} not found, falling back to English`);
+        currentLanguage = 'en';
+		updateLanguageButtonUI('en');}
 }
+
+function updateLanguageButtonUI(lang)
+{
+    document.querySelectorAll('.languageButton').forEach(button => {
+        button.classList.remove('active');
+    });
+    const activeButton = document.getElementById(lang);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+}
+
+//Vocabulary
 
 const translations = {
 	en: {

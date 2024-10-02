@@ -112,6 +112,10 @@ button {
     font-size: 2em; /* Ajustez la taille selon vos besoins */
 }
 
+.languageButton.active {
+    border: 2px solid #007bff;
+}
+
 
 /******************************** GAME SCREEN ********************************/
 /* Game Screen Sections */
