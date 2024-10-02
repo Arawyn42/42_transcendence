@@ -101,4 +101,16 @@ function endGame(game)
 
 	game.state = 'stopped';
 	currentGameInstance = null;
+
+	if (tournament.running)
+	{
+		document.getElementById('nextTournamentGame').style.display = 'flex';
+		document.getElementById('restartClassicGame').style.display = 'none';
+	}
+	else
+	{
+		document.getElementById('nextTournamentGame').style.display = 'none';
+		document.getElementById('restartClassicGame').style.display = 'flex';
+	}
+
 }

@@ -302,3 +302,8 @@ function resetTournament()
 	tournament.player4 = '';
 	tournament.player4Score = 0;
 }
+
+// Button 'Start Game'
+document.getElementById('startTournamentGame').addEventListener('click', function () {
+    switchScreen('gameScreen');
+});

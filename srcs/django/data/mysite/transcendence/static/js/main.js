@@ -82,9 +82,9 @@ function switchScreen(screenId)
 				// 	document.getElementById('profile').style.display = 'none';
 				// else
 				// 	document.getElementById('profile').style.display = 'flex';
+				resetTournament();
 				break;
 			case 'gameScreen':
-				setUpTournament();
 				launchGame();
 				break;
 			case 'settingsScreen':
