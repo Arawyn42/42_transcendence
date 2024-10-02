@@ -1,36 +1,37 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Transcendance - Pong Game</title>
+	<title textTranslated="head">Transcendence - Pong Game</title>
 	<link rel="stylesheet" href="../static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css">
 </head>
 <body class="hidden">
 
 	<!-------------------------------------- PAGE TITLE --------------------------------------->
 	<header>
-		<h1>Transcendance</h1>
+		<h1 textTranslated="pageTitle">Transcendence</h1>
 	</header>
 
 	<div id="app">
 	<!--------------------------------- PAGE SUBTITLE 'PONG' ---------------------------------->
-		<h1 id="pongTitle">PONG</h1>
+		<h1 id="pongTitle" textTranslated="pongTitle">PONG</h1>
 
 	<!--------------------------------------- REGISTER ---------------------------------------->
 		<div id="registerScreen" class="screen">
-			<h2>Register</h2>
+			<h2 textTranslated="register">Register</h2>
 			<form id="registerForm">
 				{% csrf_token %}
-				<input type="text" name="username" placeholder="Username" required>
-				<input type="email" name="email" placeholder="Email" required>
-				<input type="text" name="first_name" placeholder="First name" required>  
-				<input type="password" name="password" placeholder="Password" required>
-				<button type="submit" class="wideButton">Register</button>
-				<button id="loginFromRegister" class="wideButton">Already have an account ? Login</button>
+				<input type="text" name="username" placeholder="Username" textTranslated="usernamePlaceholder" required>
+				<input type="email" name="email" placeholder="Email" textTranslated="emailPlaceholder" required>
+				<input type="text" name="first_name" placeholder="First name" textTranslated="firstNamePlaceholder" required>  
+				<input type="password" name="password" placeholder="Password" textTranslated="passwordPlaceholder" required>
+				<button type="submit" class="wideButton" textTranslated="register">Register</button>
+				<button id="loginFromRegister" class="wideButton" textTranslated="loginFromRegister">Already have an account? Login</button>
 			</form>
 			
 		</div>
@@ -38,105 +39,105 @@
 	<!---------------------------------------- LOGIN ------------------------------------------>
 	
 	<div id="loginScreen" class="screen">
-		<h2>Login</h2>
+		<h2 textTranslated="login">Login</h2>
 		<form id="loginForm">
 			{% csrf_token %}
-			<input type="text" name="username" placeholder="Username">
-			<input type="password" name="password" placeholder="Password">
-			<button type="submit" class="wideButton">Login</button>
+			<input type="text" name="username" placeholder="Username" textTranslated="usernamePlaceholder">
+			<input type="password" name="password" placeholder="Password" textTranslated="passwordPlaceholder">
+			<button type="submit" class="wideButton" textTranslated="login">Login</button>
 		</form>
-		<button id="registerFromLogin" class="wideButton">Not an account yet ? Register</button>
-		<button id="playAsGuest" class="wideButton">Play as guest</button>	
+		<button id="registerFromLogin" class="wideButton" textTranslated="registerFromLogin">Not an account yet ? Register</button>
+		<button id="playAsGuest" class="wideButton" textTranslated="playAsGuest">Play as guest</button>	
 	</div>
 	
 	<!----------------------------------------- MENU ------------------------------------------>
 		<div id="menuScreen" class="screen">
-			<button id="profile" class="wideButton">Profile</button>
-			<button id="playClassic" class="wideButton">Play Classic</button>
-			<button id="playMultiplayer" class="wideButton">Play Multiplayer</button>
-			<button id="playRemote" class="wideButton">Play Remote</button>
+			<button id="profile" class="wideButton" textTranslated="profile">Profile</button>
+			<button id="playClassic" class="wideButton" textTranslated="playClassic">Play Classic</button>
+			<button id="playMultiplayer" class="wideButton" textTranslated="playMultiplayer">Play Multiplayer</button>
+			<button id="playRemote" class="wideButton" textTranslated="playRemote">Play Remote</button>
 		</div>
 
 	<!--------------------------------------- PROFILE ----------------------------------------->
 		<div id="profileScreen" class="screen">
-			<h2>User Profile</h2>
+			<h2 textTranslated="userProfile">User Profile</h2>
 			{% if user.userprofile.profile_picture %}
 				<img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
 			{% else %}
 				<img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="profile-picture">
 			{% endif %}
-			<p><strong>Username:</strong> <span id="profileUsername">{{ user.username }}</span></p>
-			<p><strong>Email:</strong> <span id="profileEmail">{{ user.email }}</span></p>
-			<p><strong>First Name:</strong> <span id="profileFirstName">{{ user.first_name }}</span></p>
-			<p><strong>Wins:</strong> <span id="profileWins">{{ user.userprofile.victory_count }}</span></p>
-			<p><strong>Losses:</strong> <span id="profileLosses">{{ user.userprofile.defeat_count }}</span></p>
-			<button id="editProfile" class="wideButton">Edit profile</button>
-			<button id="friendFromProfile" class="wideButton">Friend</button>
-			<button id="menuFromProfile" class="wideButton">Back to menu</button>
-			<button id="logoutButton">Se déconnecter</button>
+			<p><strong textTranslated="username">Username:</strong> <span id="profileUsername" textTranslated="dynamicUsername">{{ user.username }}</span></p>
+			<p><strong textTranslated="email">Email:</strong> <span id="profileEmail" textTranslated="dynamicEmail">{{ user.email }}</span></p>
+			<p><strong textTranslated="firstName">First Name:</strong> <span id="profileFirstName" textTranslated="dynamicFirstName">{{ user.first_name }}</span></p>
+			<p><strong textTranslated="wins">Wins:</strong> <span id="profileWins" textTranslated="dynamicWins">{{ user.userprofile.victory_count }}</span></p>
+			<p><strong textTranslated="losses">Losses:</strong> <span id="profileLosses" textTranslated="dynamicLosses">{{ user.userprofile.defeat_count }}</span></p>
+			<button id="editProfile" class="wideButton" textTranslated="editProfile">Edit profile</button>
+			<button id="friendFromProfile" class="wideButton" textTranslated="friend">Friend</button>
+			<button id="menuFromProfile" class="wideButton" textTranslated="backToMenu">Back to menu</button>
+			<button id="logoutButton" textTranslated="logOut">Logout</button>
 		</div>
 
 	<!----------------------------------------- 2FA ------------------------------------------->
 
 		<div id="2faScreen" class="screen">
-			<h2>Vérification 2FA</h2>
+			<h2 textTranslated="twoFA_Verification">2FA Verification</h2>
 			<form id="2faForm" method="POST">
-				<input type="text" id="twoFaCode" name="2fa_code" placeholder="Entrez le code 2FA reçu par SMS">
-				<button type="submit">Valider</button>
+				<input type="text" id="twoFaCode" name="2fa_code" placeholder="Enter the 2FA code received by email" textTranslated="twoFA_placeholder">
+				<button type="submit" textTranslated="validate">Validate</button>
 			</form>
 		</div>
 
 	<!---------------------------------------- FRIEND ----------------------------------------->
 		<div id="friendScreen" class="screen">
-			<h2>Friend List</h2>
+			<h2 textTranslated="friendsList">Friends List</h2>
 			<div id="friendsList"></div>
-			<h3>Add a Friend</h3>
-			<input type="text" id="friendUsername" placeholder="Username">
-			<button id="addFriendButton" class="wideButton">Add Friend</button>
+			<h3 textTranslated="addFriend">Add a Friend</h3>
+			<input type="text" id="friendUsername" placeholder="Username" textTranslated="usernamePlaceholder">
+			<button id="addFriendButton" class="wideButton" textTranslated="addFriendButton">Add Friend</button>
 	
-			<h3>Friend Requests</h3>
+			<h3 textTranslated="friendsRequests">Friend Requests</h3>
 			<ul id="friendRequestsList">
 				{% for friend_request in friend_requests %}
 					<li>
 						<span>{{ friend_request.from_user.username }}</span>
-						<button class="acceptFriendButton" data-request-id="{{ friend_request.id }}">Accept</button>
+						<button class="acceptFriendButton" data-request-id="{{ friend_request.id }}" textTranslated="accept">Accept</button>
 					</li>
 				{% empty %}
-					<li>No friend requests</li>
+					<li textTranslated="noFriendRequest">No friend requests</li>
 				{% endfor %}
 			</ul>
-			<button id="profileFromFriend" class="wideButton">Cancel</button>
+			<button id="profileFromFriend" class="wideButton" textTranslated="cancel">Cancel</button>
 		</div>
 	<!------------------------------------- EDIT PROFILE -------------------------------------->
 	
 		<div id="editProfileScreen" class="screen">
-			<h2>Edit Profile</h2>
+			<h2 textTranslated="editProfile">Edit Profile</h2>
 			<form id="editProfileForm" enctype="multipart/form-data">
 				{% csrf_token %}
-				<input type="text" id="editUsername" name="username" placeholder="Username" required>
-				<input type="email" id="editEmail" name="email" placeholder="Email" required>
-				<input type="text" id="editFirstName" name="first_name" placeholder="First name" required>
-				<input type="password" id="editPassword" name="password" placeholder="Password">
+				<input type="text" id="editUsername" name="username" placeholder="Username" textTranslated="usernamePlaceholder" required>
+				<input type="email" id="editEmail" name="email" placeholder="Email" textTranslated="emailPlaceholder" required>
+				<input type="text" id="editFirstName" name="first_name" placeholder="First name" textTranslated="firstNamePlaceholder" required>
+				<input type="password" id="editPassword" name="password" placeholder="Password" textTranslated="passwordPlaceholder">
 				<input type="file" id="editProfilePicture" name="profile_picture">
-				<button type="submit" class="wideButton">Save changes</button>
+				<button type="submit" class="wideButton" textTranslated="saveChanges">Save changes</button>
 			</form>
-			<button id="cancelEditProfile" class="wideButton">Cancel</button>
+			<button id="cancelEditProfile" class="wideButton" textTranslated="cancel">Cancel</button>
 		</div>
 	
 	<!--------------------------------------- SETTINGS ---------------------------------------->
 		<div id="settingsScreen" class="screen">
 
 			<!-- Main Title -->
-			<h2>Settings</h2>
+			<h2 textTranslated="settings">Settings</h2>
 
 			<!-- Players Names Input -->
 			<div id="enterYourNames">
-				<h3>Enter your names</h3>
+				<h3 textTranslated="yourName">Enter your name</h3>
 
 				<!-- Player 1 -->
 				<div id="player1LabelField" class="inputField">
-					<label for="player1Input">Player 1:</label>
-					<input type="text" id="player1Input" placeholder="Enter Player 1 name" maxlength="8">
+					<label for="player1Input" textTranslated="player1">Player 1:</label>
+					<input type="text" id="player1Input" placeholder="Enter Player 1 name" textTranslated="player1Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player1InputError" class="error-message"></p>
@@ -144,8 +145,8 @@
 
 				<!-- Player 2 -->
 				<div id="player2LabelField" class="inputField">
-					<label for="player2Input">Player 2:</label>
-					<input type="text" id="player2Input" placeholder="Enter Player 2 name" maxlength="8">
+					<label for="player2Input" textTranslated="player2">Player 2:</label>
+					<input type="text" id="player2Input" placeholder="Enter Player 2 name" textTranslated="player2Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player2InputError" class="error-message"></p>
@@ -153,8 +154,8 @@
 
 				<!-- Player 3 -->
 				<div id="player3LabelField" class="inputField">
-					<label for="player3Input">Player 3:</label>
-					<input type="text" id="player3Input" placeholder="Enter Player 3 name" maxlength="8">
+					<label for="player3Input" textTranslated="player3">Player 3:</label>
+					<input type="text" id="player3Input" placeholder="Enter Player 3 name" textTranslated="player3Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player3InputError" class="error-message"></p>
@@ -162,8 +163,8 @@
 
 				<!-- Player 4 -->
 				<div id="player4LabelField" class="inputField">
-					<label for="player4Input">Player 4:</label>
-					<input type="text" id="player4Input" placeholder="Enter Player 4 name" maxlength="8">
+					<label for="player4Input" textTranslated="player4">Player 4:</label>
+					<input type="text" id="player4Input" placeholder="Enter Player 4 name" textTranslated="player4Placeholder" maxlength="8">
 				</div>
 				<div>
 					<p id="player4InputError" class="error-message"></p>
@@ -172,17 +173,17 @@
 
 			<!-- Difficulty Selection -->
 			<div id="difficultySelection">
-				<h3>Choose difficulty</h3>
+				<h3 textTranslated="difficulty">Choose difficulty</h3>
 				<div id="difficultyButtons">
-					<button id="easyButton" class="difficultyButton selected">Easy</button>
-					<button id="mediumButton" class="difficultyButton">Medium</button>
-					<button id="hardButton" class="difficultyButton">Hard</button>
+					<button id="easyButton" class="difficultyButton selected" textTranslated="easy">Easy</button>
+					<button id="mediumButton" class="difficultyButton" textTranslated="medium">Medium</button>
+					<button id="hardButton" class="difficultyButton" textTranslated="hard">Hard</button>
 				</div>
 			</div>
 
 			<!-- Start Game Button -->
-			<button id="startGameWithParameters" class="wideButton">Start Game</button>
-			<button id="backFromSettings" class="backButton">Back</button>
+			<button id="startGameWithParameters" class="wideButton" textTranslated="startGame">Start Game</button>
+			<button id="backFromSettings" class="backButton" textTranslated="back">Back</button>
 		</div>
 
 	<!----------------------------------------- GAME ------------------------------------------>
@@ -202,7 +203,7 @@
 				<div id="messages"></div>
 				<form id="chatInput">
 					<input type="text" name="message" id="messageInput"/>
-					<button type="submit" id="sendButton">Send</button>
+					<button type="submit" id="sendButton" textTranslated="send">Send</button>
 				</form>
 			</div>
 
@@ -210,8 +211,8 @@
 			<div id="topSection" class="game-section">
 				<!-- Player 3 name and controls -->
 				<div class="top-controls-row">
-					<span id="player3Label" class="playerLabel">Player 3</span>
-					<span id="player3ControlsLabel" class="controlsTextTopBot">(Controls</span>
+					<span id="player3Label" class="playerLabel" textTranslated="player3">Player 3</span>
+					<span id="player3ControlsLabel" class="controlsTextTopBot" textTranslated="controlsP">(Controls</span>
 					<span id="player3Key1Label" class="key">J</span>
 					<span id="player3Key2Label" class="key">L</span>
 					<span id="player3EndKeysLabel" class="controlsTextTopBot">)</span>
@@ -228,11 +229,11 @@
 				<div id="leftControlsSection" class="game-subsection">
 					<!-- Player 1 -->
 					<div class="playerInfo">
-						<span id="player1Label" class="playerLabel">Player 1</span>
+						<span id="player1Label" class="playerLabel" textTranslated="player1">Player 1</span>
 					</div>
 					<!-- Player 1 Controls -->
 					<div id="leftControls" class="controlKeys">
-						<span class="controlsTextLeftRight">Controls</span>
+						<span class="controlsTextLeftRight" textTranslated="controls">Controls</span>
 						<p>W</p>
 						<p>S</p>
 					</div>
@@ -260,11 +261,11 @@
 				<div id="rightControlsSection" class="game-subsection">
 					<!-- Player 2 -->
 					<div class="playerInfo">
-						<span id="player2Label" class="playerLabel">Player 2</span>
+						<span id="player2Label" class="playerLabel" textTranslated="player2">Player 2</span>
 					</div>
 					<!-- Player 2 Controls -->
 					<div id="rightControls" class="controlKeys">
-						<span class="controlsTextLeftRight">Controls</span>
+						<span class="controlsTextLeftRight" textTranslated="controls">Controls</span>
 						<p>&uarr;</p>
 						<p>&darr;</p>
 					</div>
@@ -279,8 +280,8 @@
 				</div>
 				<!-- Player 4 Name and controls -->
 				<div class="bottom-controls-row">
-					<span id="player4Label" class="playerLabel">Player 4</span>
-					<span id="player4ControlsLabel" class="controlsTextTopBot">(Controls</span>
+					<span id="player4Label" class="playerLabel" textTranslated="player4">Player 4</span>
+					<span id="player4ControlsLabel" class="controlsTextTopBot" textTranslated="controlsP">(Controls</span>
 					<span id="player4Key1Label" class="key">1</span>
 					<span id="player4Key2Label" class="key">3</span>
 					<span id="player4EndKeysLabel" class="controlsTextTopBot">)</span>
@@ -291,26 +292,37 @@
 
 	<!-- End Screen -->
 		<div id="classicEndScreen" class="screen">
-			<h2 id="classicWinMessage">Player Wins!</h2>
-			<button id="restartClassicGame" class="wideButton">Restart</button>
-			<button id="menuFromClassicEnd" class="wideButton">Back to Menu</button>
+			<h2 id="classicWinMessage" textTranslated="playerWins">Player Wins!</h2>
+			<button id="restartClassicGame" class="wideButton" textTranslated="restart">Restart</button>
+			<button id="menuFromClassicEnd" class="wideButton" textTranslated="backToMenu">Back to Menu</button>
 		</div>
 
 	<!-------------------------------- MULTIPLAYER PONG GAME ---------------------------------->
 	<!-- Mode Selection Screen -->
 		<div id="multiModeSelectionScreen" class="screen">
-			<h2>Select Game Mode</h2>
-			<button id="onePlayerMode" class="wideButton">1 Player</button>
-			<button id="twoPlayersMode" class="wideButton">2 Players</button>
-			<button id="threePlayersMode" class="wideButton">3 Players</button>
-			<button id="fourPlayersMode" class="wideButton">4 Players</button>
-			<button id="backFromMultiModeSelection" class="backButton">Back</button>
+			<h2 textTranslated="gameMode">Select Game Mode</h2>
+			<button id="onePlayerMode" class="wideButton" textTranslated="onePlayer">1 Player</button>
+			<button id="twoPlayersMode" class="wideButton" textTranslated="twoPlayers">2 Players</button>
+			<button id="threePlayersMode" class="wideButton" textTranslated="threePlayers">3 Players</button>
+			<button id="fourPlayersMode" class="wideButton" textTranslated="fourPlayers">4 Players</button>
+			<button id="backFromMultiModeSelection" class="backButton" textTranslated="back">Back</button>
 		</div>
 
 	</div>
 
+	<!-------------------------------- LANGUAGE SELECTION ---------------------------------->
+
+	<div id="languageSelector" class="languageSelector">
+		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
+		<button id="fr" class="languageButton"><span class="fi fi-fr"></span></button>
+		<button id="es" class="languageButton"><span class="fi fi-es"></span></button>
+		<button id="de" class="languageButton"><span class="fi fi-de"></span></button>
+	</div>
+
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
+	<script src="{% static 'js/translations.js' %}"></script>
+
 	<!-- Session -->
 	<script src="{% static 'js/Session/register.js' %}"></script>
 	<script src="{% static 'js/Session/login.js' %}"></script>
