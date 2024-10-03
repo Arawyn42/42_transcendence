@@ -16,7 +16,7 @@ let USERNAME = '';
 let currentGameInstance = null;
 
 // Scores
-const MAX_SCORE = 1;
+const MAX_SCORE = 5;
 
 // Number of players
 let nbPlayers = 0;
