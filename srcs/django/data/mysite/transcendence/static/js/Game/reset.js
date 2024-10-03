@@ -104,13 +104,23 @@ function endGame(game)
 
 	if (tournament.running)
 	{
-		document.getElementById('nextTournamentGame').style.display = 'flex';
+		if (tournament.playedGames > 3)
+		{
+			document.getElementById('tournamentResults').style.display = 'block';
+			document.getElementById('nextTournamentGame').style.display = 'none';
+		}
+		else
+		{
+			document.getElementById('tournamentResults').style.display = 'none';
+			document.getElementById('nextTournamentGame').style.display = 'block';
+		}
 		document.getElementById('restartClassicGame').style.display = 'none';
 	}
 	else
 	{
 		document.getElementById('nextTournamentGame').style.display = 'none';
-		document.getElementById('restartClassicGame').style.display = 'flex';
+		document.getElementById('tournamentResults').style.display = 'none';
+		document.getElementById('restartClassicGame').style.display = 'block';
 	}
 
 }

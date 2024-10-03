@@ -2,12 +2,30 @@
 // Update the tournament screen according to the stage
 function updateTournamentScreen(stage)
 {
-	const stages = ['First game:', 'Second game:', 'Small Final game', 'Final game:'];
+	const stages = [	'First game:',
+						'Second game:',
+						'Small Final game:',
+						'Final game:',
+						'We have a winner! Well played all!'];
+	
 	document.getElementById('tournamentStage').textContent = stages[stage];
 
-	// Update opponents names
-	document.getElementById('tournamentOpponent1').textContent = tournament.opponent1;
-	document.getElementById('tournamentOpponent2').textContent = tournament.opponent2;
+	if (tournament.playedGames > 3)
+	{
+		document.getElementById('tournamentMatchup').style.display = 'none';
+		document.getElementById('startTournamentGame').style.display = 'none';
+		document.getElementById('menuFromTournament').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('tournamentMatchup').style.display = 'block';
+		document.getElementById('startTournamentGame').style.display = 'block';
+		document.getElementById('menuFromTournament').style.display = 'none';
+
+		// Update opponents names
+		document.getElementById('tournamentOpponent1').textContent = tournament.opponent1;
+		document.getElementById('tournamentOpponent2').textContent = tournament.opponent2;
+	}
 
 	// Update ranking
 	updatePlayersRanks();
@@ -53,37 +71,42 @@ function setUpTournament()
 	switch (tournament.playedGames)
 	{
 		case 0:
-			SetUpTournamentFirstGame();
+			setUpTournamentFirstGame();
 			break;
 		case 1:
 			setUpTournamentSecondGame();
 			break;
 		case 2:
-			SetUpTournamentThirdGame();
+			setUpTournamentThirdGame();
 			break;
 		case 3:
-			SetUpTournamentFourthGame();
+			setUpTournamentFourthGame();
+			break;
+		case 4:
 			break;
 		default:
 			console.error(`Tournament: Too much games played... Returning to the menu`);
 			return (false);
 	}
 
-	if (tournament.opponent1 === null || tournament.opponent2 === null)
+	if (tournament.playedGames !== 4)
 	{
-		console.error(`Error while setting up tournament opponents`);
-		return (false);
+		if (tournament.opponent1 === null || tournament.opponent2 === null)
+		{
+			console.error(`Error while setting up tournament opponents`);
+			return (false);
+		}
+	
+		document.getElementById('player1Label').textContent = tournament.opponent1;
+		document.getElementById('player2Label').textContent = tournament.opponent2;
 	}
-
-	document.getElementById('player1Label').textContent = tournament.opponent1;
-	document.getElementById('player2Label').textContent = tournament.opponent2;
 
 	updateTournamentScreen(tournament.playedGames);
 
 	return (true);
 }
 
-function SetUpTournamentFirstGame()
+function setUpTournamentFirstGame()
 {
 	const rand = Math.random();
 	const rand2 = Math.random();
@@ -180,7 +203,7 @@ function setUpTournamentSecondGame()
 	console.log(`Setting second tournament game: ${tournament.opponent1} VS ${tournament.opponent2}`);
 }
 
-function SetUpTournamentThirdGame()
+function setUpTournamentThirdGame()
 {
 	let first;
 	let second;
@@ -227,7 +250,7 @@ function SetUpTournamentThirdGame()
 	console.log(`Setting 3rd tournament game (small final): ${tournament.opponent1} VS ${tournament.opponent2}`);
 }
 
-function SetUpTournamentFourthGame()
+function setUpTournamentFourthGame()
 {
 	let first;
 	let second;
@@ -379,4 +402,9 @@ function resetTournament()
 // Button 'Start Game'
 document.getElementById('startTournamentGame').addEventListener('click', function () {
 	switchScreen('gameScreen');
+});
+
+// Button 'Back to menu'
+document.getElementById('menuFromTournament').addEventListener('click', function () {
+	switchScreen('menuScreen');
 });
