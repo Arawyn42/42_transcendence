@@ -1,33 +1,43 @@
 /******************************** TOURNAMENT ********************************/
-// Update the tournament Screen according to the stage
+// Update the tournament screen according to the stage
 function updateTournamentScreen(stage)
 {
-	const stages = ['First game', 'Second game', 'Final game'];
+	const stages = ['First game:', 'Second game:', 'Small Final game', 'Final game:'];
 	document.getElementById('tournamentStage').textContent = stages[stage];
 
-	document.getElementById('tournamentPlayer1').textContent = tournament.opponent1;
-	document.getElementById('tournamentPlayer2').textContent = tournament.opponent2;
+	// Update opponents names
+	document.getElementById('tournamentOpponent1').textContent = tournament.opponent1;
+	document.getElementById('tournamentOpponent2').textContent = tournament.opponent2;
 
-	document.getElementById('tournamentPlayer1Score').textContent = getPlayerScore(tournament.opponent1);
-	document.getElementById('tournamentPlayer2Score').textContent = getPlayerScore(tournament.opponent2);
+	// Update ranking
+	updatePlayersRanks();
 }
 
-// Return the player's score (number of games won)
-function getPlayerScore(player)
+// Update the ranking panel in the tournament screen
+function updatePlayersRanks()
 {
-	switch (player)
-	{
-		case tournament.player1:
-			return tournament.player1Score;
-		case tournament.player2:
-			return tournament.player2Score;
-		case tournament.player3:
-			return tournament.player3Score;
-		case tournament.player4:
-			return tournament.player4Score;
-		default:
-			return 0;
-	}
+	const players = [
+        { name: tournament.player1, score: tournament.player1Score },
+        { name: tournament.player2, score: tournament.player2Score },
+        { name: tournament.player3, score: tournament.player3Score },
+        { name: tournament.player4, score: tournament.player4Score }
+    ];
+
+    // Trier le tableau par scores (ordre décroissant)
+    players.sort((a, b) => b.score - a.score);
+
+    // Mettre à jour le classement dans le HTML
+    document.getElementById('player1Rank').textContent = players[0].name;
+    document.getElementById('player1Wins').textContent = players[0].score;
+    
+    document.getElementById('player2Rank').textContent = players[1].name;
+    document.getElementById('player2Wins').textContent = players[1].score;
+
+    document.getElementById('player3Rank').textContent = players[2].name;
+    document.getElementById('player3Wins').textContent = players[2].score;
+
+    document.getElementById('player4Rank').textContent = players[3].name;
+    document.getElementById('player4Wins').textContent = players[3].score;
 }
 
 // Setup tournament, return false in case of error
@@ -35,6 +45,10 @@ function setUpTournament()
 {
 	if (!tournament.running)
 		return (false);
+
+	console.log(`== Tournament ==`);
+	console.log(`= Game n°${tournament.playedGames + 1} =`);
+	console.log(``);
 
 	switch (tournament.playedGames)
 	{
@@ -46,6 +60,9 @@ function setUpTournament()
 			break;
 		case 2:
 			SetUpTournamentThirdGame();
+			break;
+		case 3:
+			SetUpTournamentFourthGame();
 			break;
 		default:
 			console.error(`Tournament: Too much games played... Returning to the menu`);
@@ -168,11 +185,11 @@ function SetUpTournamentThirdGame()
 	let first;
 	let second;
 
-	if (tournament.player1Score > 0)
+	if (tournament.player1Score < 0)
 		first = tournament.player1;
-	else if (tournament.player2Score > 0)
+	else if (tournament.player2Score < 0)
 		first = tournament.player2;
-	else if (tournament.player3Score > 0)
+	else if (tournament.player3Score < 0)
 		first = tournament.player3;
 	else
 	{
@@ -182,11 +199,11 @@ function SetUpTournamentThirdGame()
 		return;
 	}
 
-	if (tournament.player2Score > 0 && first !== tournament.player2)
+	if (tournament.player2Score < 0 && first !== tournament.player2)
 		second = tournament.player2;
-	else if (tournament.player3Score > 0 && first !== tournament.player3)
+	else if (tournament.player3Score < 0 && first !== tournament.player3)
 		second = tournament.player3;
-	else if (tournament.player4Score > 0 && first !== tournament.player4)
+	else if (tournament.player4Score < 0 && first !== tournament.player4)
 		second = tournament.player4;
 	else
 	{
@@ -207,7 +224,54 @@ function SetUpTournamentThirdGame()
 		tournament.opponent2 = first;
 	}
 
-	console.log(`Setting last tournament game: ${tournament.opponent1} VS ${tournament.opponent2}`);
+	console.log(`Setting 3rd tournament game (small final): ${tournament.opponent1} VS ${tournament.opponent2}`);
+}
+
+function SetUpTournamentFourthGame()
+{
+	let first;
+	let second;
+
+	if (tournament.player1Score > 0)
+		first = tournament.player1;
+	else if (tournament.player2Score > 0)
+		first = tournament.player2;
+	else if (tournament.player3Score > 0)
+		first = tournament.player3;
+	else
+	{
+		console.log(`Error while setting 4th game opponents in tournament`);
+		tournament.opponent1 = null;
+		tournament.opponent2 = null;
+		return;
+	}
+
+	if (tournament.player2Score > 0 && first !== tournament.player2)
+		second = tournament.player2;
+	else if (tournament.player3Score > 0 && first !== tournament.player3)
+		second = tournament.player3;
+	else if (tournament.player4Score > 0 && first !== tournament.player4)
+		second = tournament.player4;
+	else
+	{
+		console.log(`Error while setting 4th game opponents in tournament`);
+		tournament.opponent1 = null;
+		tournament.opponent2 = null;
+		return;
+	}
+
+	if (Math.random() <= 0.5)
+	{
+		tournament.opponent1 = first;
+		tournament.opponent2 = second;
+	}
+	else
+	{
+		tournament.opponent1 = second;
+		tournament.opponent2 = first;
+	}
+
+	console.log(`Setting last tournament game (final): ${tournament.opponent1} VS ${tournament.opponent2}`);
 }
 
 function tournamentGameEnded(winner)
@@ -215,6 +279,7 @@ function tournamentGameEnded(winner)
 	if (!tournament.running)
 		return;
 
+	tournament.playedGames++;
 	if (winner === 1)
 	{
 		switch (tournament.opponent1)
@@ -235,16 +300,20 @@ function tournamentGameEnded(winner)
 		switch (tournament.opponent2)
 		{
 			case tournament.player1:
-				tournament.player1Score--;
+				if (tournament.player1Score === 0)
+					tournament.player1Score--;
 				break;
 			case tournament.player2:
-				tournament.player2Score--;
+				if (tournament.player2Score === 0)
+					tournament.player2Score--;
 				break;
 			case tournament.player3:
-				tournament.player3Score--;
+				if (tournament.player3Score === 0)
+					tournament.player3Score--;
 				break;
 			case tournament.player4:
-				tournament.player4Score--;
+				if (tournament.player4Score === 0)
+					tournament.player4Score--;
 				break;
 		}
 	}
@@ -268,16 +337,20 @@ function tournamentGameEnded(winner)
 		switch (tournament.opponent1)
 		{
 			case tournament.player1:
-				tournament.player1Score--;
+				if (tournament.player1Score === 0)
+					tournament.player1Score--;
 				break;
 			case tournament.player2:
-				tournament.player2Score--;
+				if (tournament.player2Score === 0)
+					tournament.player2Score--;
 				break;
 			case tournament.player3:
-				tournament.player3Score--;
+				if (tournament.player3Score === 0)
+					tournament.player3Score--;
 				break;
 			case tournament.player4:
-				tournament.player4Score--;
+				if (tournament.player4Score === 0)
+					tournament.player4Score--;
 				break;
 		}
 	}
@@ -305,5 +378,5 @@ function resetTournament()
 
 // Button 'Start Game'
 document.getElementById('startTournamentGame').addEventListener('click', function () {
-    switchScreen('gameScreen');
+	switchScreen('gameScreen');
 });

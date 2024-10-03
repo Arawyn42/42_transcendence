@@ -313,23 +313,35 @@
 
 	<!-------------------------------------- TOURNAMENT --------------------------------------->
 	<div id="tournamentScreen" class="screen">
-		<h1 textTranslated="tournamentTitle">Tournament</h1>
-		<h2 id="tournamentStage" textTranslated="tournamentStage">First game</h2>
-		
-		<div id="tournamentMatchup">
-			<div class="tournamentPlayer">
-				<span id="tournamentPlayer1" class="playerLabel">Player 1</span>
-				<span id="tournamentPlayer1Score" class="playerScore">0</span>
-			</div>
 
-			<div id="versus" class="versusLabel">VS</div>
-
-			<div class="tournamentPlayer">
-				<span id="tournamentPlayer2" class="playerLabel">Player 2</span>
-				<span id="tournamentPlayer2Score" class="playerScore">0</span>
-			</div>
+		<!-- 'Tournament' title -->
+		<h2 textTranslated="tournamentTitle">Tournament</h2>
+	
+		<!-- Players ranking -->
+		<div id="ranking" class="ranking-box">
+			<p>1. <span id="player1Rank">Player 1</span> (<span id="player1Wins">0</span> points)</p>
+			<p>2. <span id="player2Rank">Player 2</span> (<span id="player2Wins">0</span> points)</p>
+			<p>3. <span id="player3Rank">Player 3</span> (<span id="player3Wins">0</span> points)</p>
+			<p>4. <span id="player4Rank">Player 4</span> (<span id="player4Wins">0</span> points)</p>
 		</div>
 
+		<!-- Current Stage title -->
+		<h3 id="tournamentStage" textTranslated="tournamentStage">First game</h3>
+	
+		<!-- Match up: Opponent1 VS Opponent2 -->
+		<div id="tournamentMatchup" class="tournament-matchup">
+			<div class="tournamentOpponent">
+				<span id="tournamentOpponent1" class="opponentLabel">Player 1</span>
+			</div>
+	
+			<div id="versus" class="versusLabel">VS</div>
+	
+			<div class="tournamentOpponent">
+				<span id="tournamentOpponent2" class="opponentLabel">Player 2</span>
+			</div>
+		</div>
+	
+		<!-- 'Start Game' button -->
 		<button id="startTournamentGame" textTranslated="startGame">Start Game</button>
 	</div>
 
