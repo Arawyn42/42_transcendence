@@ -175,8 +175,9 @@ const translations = {
 		send: "Send",
 		controls: "Controls",
 		controlsP: "(Controls",
-		playerWins: "Player Wins!",
+		playerWins: "Player wins!",
 		restart: "Restart",
+		won: "won!",
 		//Multiplayers
 		threePlayers: "3 Players",
 		fourPlayers: "4 Players",
@@ -258,6 +259,7 @@ const translations = {
 		controlsP: "(Commandes",
 		playerWins: "Le joueur gagne !",
 		restart: "Recommencer",
+		won: "a gagné !",
 		//Multiplayers
 		threePlayers: "3 Joueurs",
 		fourPlayers: "4 Joueurs",
@@ -339,6 +341,7 @@ const translations = {
 		controlsP: "(Controles",
 		playerWins: "¡El jugador gana!",
 		restart: "Reiniciar",
+		won: "¡ganó!",
 		//Multiplayers
 		threePlayers: "3 Jugadores",
 		fourPlayers: "4 Jugadores",
@@ -420,6 +423,7 @@ const translations = {
 		controlsP: "(Steuerung",
 		playerWins: "Spieler gewinnt!",
 		restart: "Neustart",
+		won: "hat gewonnen!",
 		//Multiplayers
 		threePlayers: "3 Spieler",
 		fourPlayers: "4 Spieler",
