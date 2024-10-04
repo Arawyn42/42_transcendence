@@ -1,3 +1,5 @@
+// won non traduit et noms des joueurs non affichés quand changement de langue.
+
 /****************************** TRANSLATIONS ******************************/
 
 function loadDefaultLanguage() {
