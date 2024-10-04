@@ -33,9 +33,29 @@ const PADDLE_WIDTH = canvas.height * 0.015;
 const PADDLE_HEIGHT = canvas.height * 0.2;
 
 // Ball speed
-const BALL_MAX_SPEED = 20;
+const BALL_MAX_SPEED = 12;
 const BALL_ACCELERATION_X = 1.04;
 const BALL_ACCELERATION_Y = 1.02;
+
+// Tournament
+const tournament = {
+	running: false,
+	playedGames: 0,
+	opponent1: '',
+	opponent2: '',
+
+	player1: '',
+	player1Score: 0,
+
+	player2: '',
+	player2Score: 0,
+
+	player3: '',
+	player3Score: 0,
+
+	player4: '',
+	player4Score: 0
+}
 
 // WebSocket for livechat
 let chatSocket;
@@ -61,7 +81,8 @@ function switchScreen(screenId)
 				// if (username.length < 1)
 				// 	document.getElementById('profile').style.display = 'none';
 				// else
-				// 	document.getElementById('profile').style.display = 'flex';
+				// 	document.getElementById('profile').style.display = 'block';
+				resetTournament();
 				break;
 			case 'gameScreen':
 				launchGame();
@@ -69,6 +90,14 @@ function switchScreen(screenId)
 			case 'settingsScreen':
 				adjustPlayerNamesScreen();
 				displayDifficultyButtons();
+				break;
+			case 'tournamentScreen':
+				if (!setUpTournament())
+				{
+					resetTournament();
+					switchScreen('menuScreen');
+					return;
+				}
 				break;
 			default:
 				break;

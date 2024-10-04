@@ -1,9 +1,9 @@
 /********************************** GENERAL **********************************/
 /* margin and padding by default for all elements */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html, body {
@@ -16,16 +16,16 @@ html, body {
 
 body {
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 }
 
 header {
 	width: 100%;
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-color: #fff;
+	color: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-shrink: 0; /* Ensure the header will not be reduced */
 }
 
@@ -53,7 +53,7 @@ h3 {
 
 /* 'Pong' Title */
 #pongTitle {
-    padding: 1vh 0;
+	padding: 1vh 0;
 }
 
 /* The #app container holds all screens */
@@ -99,17 +99,17 @@ button {
 }
 
 .languageButton {
-    width: 40px;
-    height: 30px;
-    padding: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
+	width: 40px;
+	height: 30px;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
 	margin-left: 5px;
 }
 
 .languageButton .fi {
-    font-size: 2em; /* Ajustez la taille selon vos besoins */
+	font-size: 2em; /* Ajustez la taille selon vos besoins */
 }
 
 .languageButton.active {
@@ -133,61 +133,61 @@ button {
 /************** TOP SECTION (PLAYER 3) **************/
 #topSection {
 	width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 /* Top controls and scores*/
 .top-controls-row, .top-score-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5vh 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5vh 0;
 }
 
 /****** MIDDLE SECTION (PLAYER 1 AND PLAYER 2) ******/
 #middleSection {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 }
 
 /* Subsections within Middle Section */
 .game-subsection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 /************* LEFT SECTION (PLAYER 1) **************/
 /* Left Controls Section */
 #leftControlsSection {
 	width: 12%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Center the entire section */
-    text-align: center;
-    position: relative;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; /* Center the entire section */
+	text-align: center;
+	position: relative;
 }
 
 /* Left Score Section */
 #leftScoreSection {
-    width: 3%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 3%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /************ CENTER SECTION (GAME AREA) ************/
 #centerSection {
-    width: 70%; /* Because left and right are 15% or viewport width */
+	width: 70%; /* Because left and right are 15% or viewport width */
 	height: 100%; /* Same as middle section height */
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 	justify-content: center;
 }
 
@@ -195,8 +195,8 @@ button {
 #gameCanvas {
 	width: 100%; /* Fills the width of center section */
 	height: auto;
-    background-color: #fff;
-    image-rendering: pixelated;
+	background-color: #fff;
+	image-rendering: pixelated;
 }
 
 /* Adjust the game canvas */
@@ -211,38 +211,38 @@ button {
 /************* RIGHT SECTION (PLAYER 2) *************/
 /* Right Score Section */
 #rightScoreSection {
-    width: 3%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 3%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Right Controls Section */
 #rightControlsSection {
-    width: 12%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Center the entire section */
-    text-align: center;
-    position: relative;
+	width: 12%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; /* Center the entire section */
+	text-align: center;
+	position: relative;
 }
 
 /************ BOTTOM SECTION (PLAYER 4) *************/
 #bottomSection {
 	width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 /* Bottom score and controls */
 .bottom-score-row, .bottom-controls-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5vh 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5vh 0;
 }
 
 /************ PLAYERS LABELS AND SCORES *************/
@@ -252,8 +252,8 @@ button {
 	flex-direction: column;
 	align-items: center;
 	position: absolute;
-    top: 50%; /* Place it in the vertical center */
-    transform: translateY(-50%); /* Adjust for proper centering */
+	top: 50%; /* Place it in the vertical center */
+	transform: translateY(-50%); /* Adjust for proper centering */
 }
 
 /* Player labels (All sections) */
@@ -270,13 +270,13 @@ button {
 /***************** CONTROLS DISPLAY *****************/
 /* Title 'Controls' for for top and bottom */
 .controlsTextTopBot {
-    font-size: 2vh;
+	font-size: 2vh;
 	margin-right: 1vh;
 }
 
 /* Title 'Controls' for for left and right */
 .controlsTextLeftRight {
-    font-size: 2vh;
+	font-size: 2vh;
 	margin-bottom: 1vh;
 }
 
@@ -292,28 +292,28 @@ button {
 
 /* Keys style for all sections */
 .key, .controlKeys p {
-    border: 2px solid #fff;
-    text-align: center;
-    display: flex; /* Use flexbox for centering */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    margin: 0.5vh;
-    background-color: transparent;
-    color: #fff;
+	border: 2px solid #fff;
+	text-align: center;
+	display: flex; /* Use flexbox for centering */
+	align-items: center; /* Center vertically */
+	justify-content: center; /* Center horizontally */
+	margin: 0.5vh;
+	background-color: transparent;
+	color: #fff;
 }
 
 /* Keys style for top and bot sections */
 .key {
 	width: 2vh;
-    height: 2vh;
-    font-size: 1vh;
+	height: 2vh;
+	font-size: 1vh;
 }
 
 /* Keys style for left and right sections */
 .controlKeys p {
 	width: 4vh;
-    height: 4vh;
-    font-size: 2.5vh;
+	height: 4vh;
+	font-size: 2.5vh;
 }
 
 
@@ -326,11 +326,99 @@ button {
 
 .classic-mode #leftControlsSection,
 .classic-mode #rightControlsSection {
-    width: 20%;
+	width: 20%;
 }
 
 .classic-mode #centerSection {
 	width: 60%;
+}
+
+
+/***************************** TOURNAMENT SCREEN *****************************/
+/* Tournament screen */
+#tournamentScreen {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	justify-content: flex-start;
+	/* padding-top: 1vh; */
+}
+
+/* 'Tournament' title */
+#tournamentScreen h2 {
+	margin-bottom: 1vh;
+}
+
+/* Ranking box */
+.ranking-box {
+	display: inline-block; /* Width adapts to its content */
+	background-color: #fff;
+	color: #000;
+	padding: 1vh;
+	border-radius: 5px;
+	margin-bottom: 3vh;
+	text-align: left;
+}
+
+.ranking-box p {
+	margin: 0.5vh 0;
+	font-size: 2vh;
+	white-space: nowrap; /* No wrapping for the text inside the box */
+}
+
+/* Stage title */
+#tournamentStage {
+	font-size: 3vh;
+	margin-bottom: 9vh;
+	text-decoration: underline;
+}
+
+/* Matchup */
+.tournament-matchup {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 7vh;
+}
+
+/* Opponent label */
+.opponentLabel {
+	font-size: 3vh;
+	white-space: nowrap;
+	position: relative;
+	top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Opponent 1 */
+#tournamentOpponent1 { 
+	position: absolute;
+	right: calc(50% + 20vh);
+}
+
+/* Opponent 2 */
+#tournamentOpponent2 { 
+	position: absolute;
+	left: calc(50% + 20vh);
+}
+
+/* VS label */
+.versusLabel {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 4vh;
+	font-weight: bold;
+}
+
+/* Start button */
+#startTournamentGame {
+	margin-top: 3vh;
 }
 
 

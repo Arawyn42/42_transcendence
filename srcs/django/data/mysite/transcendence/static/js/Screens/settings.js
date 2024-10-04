@@ -17,7 +17,7 @@ function adjustPlayerNamesScreen()
 	}
 
 	// Display players fields according to the number of players
-	if (nbPlayers === 1)		// 1 Player
+	if (nbPlayers === 1)										// 1 Player
 	{
 		document.getElementById('player2LabelField').style.display = 'none';
 		document.getElementById('player2InputError').style.display = 'none';
@@ -26,7 +26,7 @@ function adjustPlayerNamesScreen()
 		document.getElementById('player4LabelField').style.display = 'none';
 		document.getElementById('player4InputError').style.display = 'none';
 	}
-	else if (nbPlayers === 2)	// 2 Players
+	else if (nbPlayers === 2 && !tournament.running)			// 2 Players
 	{
 		document.getElementById('player2LabelField').style.display = 'flex';
 		document.getElementById('player2InputError').style.display = 'flex';
@@ -35,7 +35,7 @@ function adjustPlayerNamesScreen()
 		document.getElementById('player4LabelField').style.display = 'none';
 		document.getElementById('player4InputError').style.display = 'none';
 	}
-	else if (nbPlayers === 3)	// 3 Players
+	else if (nbPlayers === 3)									// 3 Players
 	{
 		document.getElementById('player2LabelField').style.display = 'flex';
 		document.getElementById('player2InputError').style.display = 'flex';
@@ -44,7 +44,7 @@ function adjustPlayerNamesScreen()
 		document.getElementById('player4LabelField').style.display = 'none';
 		document.getElementById('player4InputError').style.display = 'none';
 	}
-	else						// 4 Players
+	else if (nbPlayers === 4 || tournament.running)				// 4 Players
 	{
 		document.getElementById('player2LabelField').style.display = 'flex';
 		document.getElementById('player2InputError').style.display = 'flex';
@@ -158,6 +158,18 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 	{
 		if (username.length > 0)
 			player1Name = username;
+
+		// If in tournament mode, call the Setup function and return
+		if (tournament.running)
+		{
+			tournament.player1 = player1Name;
+			tournament.player2 = player2Name;
+			tournament.player3 = player3Name;
+			tournament.player4 = player4Name;
+			switchScreen('tournamentScreen');
+			return;
+		}
+
 		document.getElementById('player1Label').textContent = player1Name;
 		if (nbPlayers >= 2)
 			document.getElementById('player2Label').textContent = player2Name;
@@ -166,21 +178,24 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 		if (nbPlayers === 4)
 			document.getElementById('player4Label').textContent = player4Name;
 
+
 		switchScreen('gameScreen');
 
 		// Display a log message in the console
 		if (nbPlayers === 1 && gameMode === 'classic')
 			console.log(`Starting a classic game with 1 player: '${player1Name}'`);
-		else if (nbPlayers === 2 && gameMode === 'classic')
+		else if (nbPlayers === 2 && gameMode === 'classic' && !tournament.running)
 			console.log(`Starting a classic game with 2 players: '${player1Name}', '${player2Name}'`);
 		else if (nbPlayers === 1 && gameMode === 'multi')
 			console.log(`Starting a multiplayer game with 1 player: '${player1Name}'`);
-		else if (nbPlayers === 2 && gameMode === 'multi')
+		else if (nbPlayers === 2 && gameMode === 'multi' && !tournament.running)
 			console.log(`Starting a multiplayer game with 2 players: '${player1Name}', '${player2Name}'`);
 		else if (nbPlayers === 3)
 			console.log(`Starting a multiplayer game with 3 players: '${player1Name}', '${player2Name}', '${player3Name}'`);
 		else if (nbPlayers === 4)
 			console.log(`Starting a multiplayer game with 4 players: '${player1Name}', '${player2Name}', '${player3Name}', '${player4Name}'`);
+		else if (tournament.running && nbPlayers === 2)
+			console.log(`Starting a tournament with 4 players: '${player1Name}', '${player2Name}', '${player3Name}', '${player4Name}'`);
 		else
 			console.error(`Starting a game with wrong number of players...`);
 	}

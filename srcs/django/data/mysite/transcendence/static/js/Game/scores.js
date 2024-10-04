@@ -33,6 +33,7 @@ function checkScores(game)
 			{
 				console.log(`----- Player 1 won! -----`);
 				sendScoreUpdate('win');
+				tournamentGameEnded(1);
 				setScore(0, 0);
 				game.state = 'end1';
 				return;
@@ -41,6 +42,7 @@ function checkScores(game)
 			{
 				console.log(`----- Player 2 won! -----`);
 				sendScoreUpdate('loose');
+				tournamentGameEnded(2);
 				setScore(0, 0);
 				game.state = 'end2';
 				return;

@@ -189,10 +189,11 @@
 	<!----------------------------------------- GAME ------------------------------------------>
 	<!-- Mode Selection Screen -->
 		<div id="modeSelectionScreen" class="screen">
-			<h2 textTranslated="gameMode">Select Game Mode</h2>
-			<button id="modeVsAI" class="wideButton" textTranslated="onePlayer">1 Player</button>
-			<button id="mode2Players" class="wideButton" textTranslated="twoPlayers">2 Players</button>
-			<button id="backFromClassicModeSelection" class="backButton" textTranslated="back">Back</button>
+			<h2>Select Game Mode</h2>
+			<button id="modeVsAI" class="wideButton">1 Player</button>
+			<button id="mode2Players" class="wideButton">2 Players</button>
+			<button id="modeTournament" class="wideButton">Tournament</button>
+			<button id="backFromClassicModeSelection" class="backButton">Back</button>
 		</div>
 
 	<!-- Game Screen -->
@@ -293,6 +294,8 @@
 		<div id="classicEndScreen" class="screen">
 			<h2 id="classicWinMessage" textTranslated="playerWins">Player Wins!</h2>
 			<button id="restartClassicGame" class="wideButton" textTranslated="restart">Restart</button>
+			<button id="nextTournamentGame" class="wideButton" textTranslated="nextGame">Next Game</button>
+			<button id="tournamentResults" class="wideButton" textTranslated="results">Results</button>
 			<button id="menuFromClassicEnd" class="wideButton" textTranslated="backToMenu">Back to Menu</button>
 		</div>
 
@@ -309,7 +312,42 @@
 
 	</div>
 
-	<!-------------------------------- LANGUAGE SELECTION ---------------------------------->
+	<!-------------------------------------- TOURNAMENT --------------------------------------->
+	<div id="tournamentScreen" class="screen">
+
+		<!-- 'Tournament' title -->
+		<h2 textTranslated="tournamentTitle">Tournament</h2>
+	
+		<!-- Players ranking -->
+		<div id="ranking" class="ranking-box">
+			<p>1. <span id="player1Rank">Player 1</span> (<span id="player1Wins">0</span> points)</p>
+			<p>2. <span id="player2Rank">Player 2</span> (<span id="player2Wins">0</span> points)</p>
+			<p>3. <span id="player3Rank">Player 3</span> (<span id="player3Wins">0</span> points)</p>
+			<p>4. <span id="player4Rank">Player 4</span> (<span id="player4Wins">0</span> points)</p>
+		</div>
+
+		<!-- Current Stage title -->
+		<h3 id="tournamentStage" textTranslated="tournamentStage">First game</h3>
+	
+		<!-- Match up: Opponent1 VS Opponent2 -->
+		<div id="tournamentMatchup" class="tournament-matchup">
+			<div class="tournamentOpponent">
+				<span id="tournamentOpponent1" class="opponentLabel">Player 1</span>
+			</div>
+	
+			<div id="versus" class="versusLabel">VS</div>
+	
+			<div class="tournamentOpponent">
+				<span id="tournamentOpponent2" class="opponentLabel">Player 2</span>
+			</div>
+		</div>
+	
+		<!-- 'Start Game' button -->
+		<button id="startTournamentGame" textTranslated="startGame">Start Game</button>
+		<button id="menuFromTournament" textTranslated="startGame">Back to Menu</button>
+	</div>
+
+	<!---------------------------------- LANGUAGE SELECTION ----------------------------------->
 
 	<div id="languageSelector" class="languageSelector">
 		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
@@ -320,6 +358,7 @@
 
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
+	<!-- Languages -->
 	<script src="{% static 'js/translations.js' %}"></script>
 
 	<!-- Session -->
@@ -348,6 +387,7 @@
 	<script src="{% static 'js/Game/reset.js' %}"></script>
 	<script src="{% static 'js/Game/scores.js' %}"></script>
 	<script src="{% static 'js/Game/ai.js' %}"></script>
+	<script src="{% static 'js/Game/tournament.js' %}"></script>
 
 	<!-- Live -->
 	<script src="{% static 'js/Live/liveChat.js' %}"></script>
