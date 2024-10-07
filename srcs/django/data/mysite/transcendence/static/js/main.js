@@ -38,7 +38,7 @@ const BALL_ACCELERATION_X = 1.04;
 const BALL_ACCELERATION_Y = 1.02;
 
 // Tournament
-const tournament = {
+let tournament = {
 	running: false,
 	playedGames: 0,
 	opponent1: '',
@@ -75,6 +75,9 @@ function switchScreen(screenId)
 	{
 		switch (screenId)
 		{
+			case 'loginScreen':
+				resetTournament();
+				break;
 			case 'menuScreen':
 				const username = document.getElementById('profileUsername').textContent;
 				console.log(`username: '${username}' | USERNAME: '${USERNAME}'`);
@@ -82,6 +85,12 @@ function switchScreen(screenId)
 				// 	document.getElementById('profile').style.display = 'none';
 				// else
 				// 	document.getElementById('profile').style.display = 'block';
+				resetTournament();
+				break;
+			case 'modeSelectionScreen':
+				resetTournament();
+				break;
+			case 'multiModeSelectionScreen':
 				resetTournament();
 				break;
 			case 'gameScreen':
@@ -99,6 +108,8 @@ function switchScreen(screenId)
 					return;
 				}
 				break;
+			case 'endScreen':
+				updateEndScreen();
 			default:
 				break;
 		}
@@ -129,19 +140,18 @@ window.addEventListener('popstate', (event) =>
 	}
 });
 
+
 /****************************** LAUNCH SCRIPTS ******************************/
-// Display the menu on start
+// Launch when window loads for the first time or when reloaded
 document.addEventListener('DOMContentLoaded', function ()
 {
-	document.body.classList.remove('hidden'); // Display content only when DOM is loaded
+	// Display content only when DOM is loaded
+	document.body.classList.remove('hidden');
 
+	// Load datas from cookies
+	loadDatas();
+	
+	// Switch to current screen (or loginScreen if no current screen)
 	let hash = window.location.hash.replace('#', '') || 'loginScreen';
-
-	if (hash === 'gameScreen' && (nbPlayers < 1 || nbPlayers > 4))
-	{
-		console.log("Invalid parameters, redirecting to menuScreen");
-		hash = 'menuScreen';
-	}
-
 	switchScreen(hash);
 });

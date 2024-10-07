@@ -166,10 +166,12 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 			tournament.player2 = player2Name;
 			tournament.player3 = player3Name;
 			tournament.player4 = player4Name;
+			saveTournament();
 			switchScreen('tournamentScreen');
 			return;
 		}
 
+		// Replace players names
 		document.getElementById('player1Label').textContent = player1Name;
 		if (nbPlayers >= 2)
 			document.getElementById('player2Label').textContent = player2Name;
@@ -178,7 +180,14 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 		if (nbPlayers === 4)
 			document.getElementById('player4Label').textContent = player4Name;
 
+		// Save settings in cookies
+		savePlayer(1);
+		savePlayer(2);
+		savePlayer(3);
+		savePlayer(4);
+		saveAiDifficulty();
 
+		// Launch the game with current settings
 		switchScreen('gameScreen');
 
 		// Display a log message in the console

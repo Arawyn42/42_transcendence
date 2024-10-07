@@ -34,3 +34,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		console.log('Back to Menu');
 	});
 });
+
+// Display the buttons according to the current mode
+function updateEndScreen()
+{
+	if (tournament.running)
+	{
+		if (tournament.playedGames > 3)
+		{
+			document.getElementById('tournamentResults').style.display = 'block';
+			document.getElementById('nextTournamentGame').style.display = 'none';
+		}
+		else
+		{
+			document.getElementById('tournamentResults').style.display = 'none';
+			document.getElementById('nextTournamentGame').style.display = 'block';
+		}
+		document.getElementById('restartClassicGame').style.display = 'none';
+	}
+	else
+	{
+		document.getElementById('nextTournamentGame').style.display = 'none';
+		document.getElementById('tournamentResults').style.display = 'none';
+		document.getElementById('restartClassicGame').style.display = 'block';
+	}
+}

@@ -15,6 +15,15 @@ document.getElementById('onePlayerMode').addEventListener('click', function () {
 	document.getElementById('player3Label').textContent = 'R2D2';
 	document.getElementById('player4Label').textContent = 'T33MO';
 
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	if (username.length > 0)
+		savePlayer(1);
+	savePlayer(2);
+	savePlayer(3);
+	savePlayer(4);
+
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');
 	console.log(`Choosing settings for 1 Player Mode - Multiplayer`);
@@ -35,6 +44,14 @@ document.getElementById('twoPlayersMode').addEventListener('click', function () 
 	document.getElementById('player3Label').textContent = 'R2D2';
 	document.getElementById('player4Label').textContent = 'T33MO';
 
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	if (username.length > 0)
+		savePlayer(1);
+	savePlayer(3);
+	savePlayer(4);
+
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');
 	console.log(`Choosing settings for 2 Players Mode - Multiplayer`);
@@ -54,6 +71,13 @@ document.getElementById('threePlayersMode').addEventListener('click', function (
 	// Set AI name
 	document.getElementById('player4Label').textContent = 'T33MO';
 
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	if (username.length > 0)
+		savePlayer(1);
+	savePlayer(4);
+
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');
 	console.log(`Choosing settings for 3 Players Mode - Multiplayer`);
@@ -69,6 +93,12 @@ document.getElementById('fourPlayersMode').addEventListener('click', function ()
 	const username = document.getElementById('profileUsername').textContent;
 	if (username.length > 0)
 		document.getElementById('player1Label').textContent = username;
+
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	if (username.length > 0)
+		savePlayer(1);
 
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');
