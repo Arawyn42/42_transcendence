@@ -14,6 +14,9 @@ function gameLoop(game)
 	// Count frames for AIs
 	countFrames(game);
 
+	const winMessage = document.createElement('span');
+	winMessage.setAttribute('textTranslated', 'won');
+	winMessage.textContent = 'won!';
 	switch (game.state)
 	{
 		case 'playing':
@@ -38,29 +41,44 @@ function gameLoop(game)
 			drawCountdown(game);
 			break;
 		case 'end1':
-			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player1Label').textContent} won!`;
+			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player1Label').textContent} `;
+			document.getElementById('classicWinMessage').appendChild(winMessage);
 			closeSocketConnection();
 			endGame(game);
 			switchScreen('classicEndScreen');
+			applyWinMessageTranslation();
 			return;
 		case 'end2':
-			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player2Label').textContent} won!`;
+			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player2Label').textContent} `;
+			document.getElementById('classicWinMessage').appendChild(winMessage);
 			closeSocketConnection();
 			endGame(game);
 			switchScreen('classicEndScreen');
+			applyWinMessageTranslation();
 			return;
 		case 'end3':
-			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player3Label').textContent} won!`;
+			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player3Label').textContent} `;
+			document.getElementById('classicWinMessage').appendChild(winMessage);
 			closeSocketConnection();
 			endGame(game);
 			switchScreen('classicEndScreen');
+			applyWinMessageTranslation();
 			return;
 		case 'end4':
-			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player4Label').textContent} won!`;
+			document.getElementById('classicWinMessage').textContent = `${document.getElementById('player4Label').textContent} `;
+			document.getElementById('classicWinMessage').appendChild(winMessage);
 			closeSocketConnection();
 			endGame(game);
 			switchScreen('classicEndScreen');
+			applyWinMessageTranslation();
 			return;
+	}
+
+	function applyWinMessageTranslation()
+	{
+		const winMessage = document.querySelector('#classicWinMessage [textTranslated="won"]');
+		if (winMessage) {
+			winMessage.textContent = translate('won');}
 	}
 
 	// Call this function recursively each frame

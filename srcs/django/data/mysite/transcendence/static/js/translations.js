@@ -1,3 +1,5 @@
+// won non traduit et noms des joueurs non affichés quand changement de langue.
+
 /****************************** TRANSLATIONS ******************************/
 
 function loadDefaultLanguage() {
@@ -174,7 +176,7 @@ const translations = {
 		send: "Send",
 		controls: "Controls",
 		controlsP: "(Controls",
-		playerWins: "Player Wins!",
+		playerWins: "Player wins!",
 		restart: "Restart",
 		won: "won!",
 		//Multiplayers
