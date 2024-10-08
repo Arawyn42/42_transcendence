@@ -185,10 +185,20 @@ const translations = {
 		playerWinsPrefix: " ",
 		playerWins: " wins!",
 		restart: "Restart",
+		nextGame: "Next Game",
+		results: "Results",
 		won: "won!",
 		//Multiplayers
 		threePlayers: "3 Players",
 		fourPlayers: "4 Players",
+		//Tournament
+		points: "points",
+		tournamentStage: "First game",
+		tournamentFirstGame: "First game:",
+        tournamentSecondGame: "Second game:",
+        tournamentSmallFinal: "Small Final game:",
+        tournamentFinal: "Final game:",
+        tournamentWinner: "We have a winner! Well played everybody!"
     },
 
     fr: {
@@ -269,10 +279,21 @@ const translations = {
 		playerWinsPrefix: " ",
 		playerWins: " gagne !",
 		restart: "Recommencer",
+		nextGame: "Match suivant",
+		results: "Résultats",
 		won: "a gagné !",
 		//Multiplayers
 		threePlayers: "3 Joueurs",
 		fourPlayers: "4 Joueurs",
+		//Tournament
+		points: "points",
+		tournamentStage: "Premier match",
+		tournamentFirstGame: "Premier match :",
+        tournamentSecondGame: "Deuxième match :",
+        tournamentSmallFinal: "Petite finale :",
+        tournamentFinal: "Finale :",
+        tournamentWinner: "Nous avons un gagnant ! Bien joué à tous !"
+		
     },
 
     es: {
@@ -353,10 +374,20 @@ const translations = {
 		playerWinsPrefix: "¡",
 		playerWins: " gana!",
 		restart: "Reiniciar",
+		nextGame: "Próximo Juego",
+		results: "Resultados",
 		won: "¡ganó!",
 		//Multiplayers
 		threePlayers: "3 Jugadores",
 		fourPlayers: "4 Jugadores",
+		//Tournament
+		points: "puntos",
+		tournamentStage: "Primer partido",
+		tournamentFirstGame: "Primer juego:",
+        tournamentSecondGame: "Segundo juego:",
+        tournamentSmallFinal: "Juego por el tercer puesto:",
+        tournamentFinal: "Juego final:",
+        tournamentWinner: "¡Tenemos un ganador! ¡Bien jugado todo el mundo!"
 	},
 
 	de: {
@@ -437,10 +468,20 @@ const translations = {
 		playerWinsPrefix: " ",
 		playerWins: " gewinnt!",
 		restart: "Neustart",
+		nextGame: "Nächstes Spiel",
+		results: "Ergebnisse",
 		won: "hat gewonnen!",
 		//Multiplayers
 		threePlayers: "3 Spieler",
 		fourPlayers: "4 Spieler",
+		//Tournament
+		points: "Punkte",
+		tournamentStage: "Erstes Spiel",
+		tournamentFirstGame: "Erstes Spiel:",
+        tournamentSecondGame: "Zweites Spiel:",
+        tournamentSmallFinal: "Spiel um Platz 3:",
+        tournamentFinal: "Finalspiel:",
+        tournamentWinner: "Wir haben einen Gewinner! Gut gespielt, Leute!"
 	},
 
   };
