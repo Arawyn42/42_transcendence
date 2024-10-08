@@ -51,7 +51,8 @@
 	</div>
 	
 	<!----------------------------------------- MENU ------------------------------------------>
-		<div id="menuScreen" class="screen">
+	<div id="menuScreen" class="screen">
+			<button id="chat">Chat</button>
 			<button id="profile" class="wideButton" textTranslated="profile">Profile</button>
 			<button id="playClassic" class="wideButton" textTranslated="playClassic">Play Classic</button>
 			<button id="playMultiplayer" class="wideButton" textTranslated="playMultiplayer">Play Multiplayer</button>
@@ -198,15 +199,6 @@
 
 	<!-- Game Screen -->
 		<div id="gameScreen" class="screen">
-			<!-- Live chat -->
-			<div id="liveChat">
-				<div id="messages"></div>
-				<form id="chatInput">
-					<input type="text" name="message" id="messageInput"/>
-					<button type="submit" id="sendButton" textTranslated="send">Send</button>
-				</form>
-			</div>
-
 			<!-- Top Section -->
 			<div id="topSection" class="game-section">
 				<!-- Player 3 name and controls -->
@@ -356,6 +348,27 @@
 		<button id="de" class="languageButton"><span class="fi fi-de"></span></button>
 	</div>
 
+
+	<!---------------------------------- CHAT MENU ----------------------------------->
+
+	<div id="dmsScreen" class="screen">
+		<div id="createDm">
+			<button id="createDmButton">Create dm</button>
+			<input id="usernameInput" type="text">
+		</div>
+		<div id="dmsList"></div>
+	</div>
+
+	<div id="dmScreen" class="screen">
+		<div id="msgList"></div>
+		<form id="sendMsg">
+			<input type="text" id="msgInput" type="text" autocomplete="off">
+			<button type="submit" id="sendMsgButton">Send</button>
+		</form>
+	</div>
+
+
+
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
 	<!-- Languages -->
@@ -372,6 +385,7 @@
 
 	<!-- Screens -->
 	<script src="{% static 'js/Screens/menu.js' %}"></script>
+	<script src="{% static 'js/Screens/chat.js' %}"></script>
 	<script src="{% static 'js/Screens/classicModeSelection.js' %}"></script>
 	<script src="{% static 'js/Screens/multiModeSelection.js' %}"></script>
 	<script src="{% static 'js/Screens/settings.js' %}"></script>

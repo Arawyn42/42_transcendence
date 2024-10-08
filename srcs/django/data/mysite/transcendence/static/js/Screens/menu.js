@@ -35,3 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('profile').addEventListener('click', showProfile);
 });
 
+// Button 'Chat'
+document.addEventListener('DOMContentLoaded', function () {
+	document.getElementById('chat').addEventListener('click', showChat);
+});
