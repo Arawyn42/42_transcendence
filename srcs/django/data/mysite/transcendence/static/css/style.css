@@ -608,15 +608,17 @@ input[type="text"] {
 	flex-direction: row;
 	height: 3em;
 	flex-shrink: 0;
+	width: 100%;
 }
 
 #msgInput {
 	font-size: 1em;
+	flex: 1;
 }
 
 #sendMsgButton {
 	margin: 0;
-	width: 5em;
+	width: 10%;
 	font-size: 1em;
 }
 
