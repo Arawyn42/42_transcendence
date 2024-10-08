@@ -39,25 +39,21 @@ function gameLoop(game)
 			break;
 		case 'end1':
 			setWinner(1);
-			closeSocketConnection();
 			endGame(game);
 			switchScreen('endScreen');
 			return;
 		case 'end2':
 			setWinner(2);
-			closeSocketConnection();
 			endGame(game);
 			switchScreen('endScreen');
 			return;
 		case 'end3':
 			setWinner(3);
-			closeSocketConnection();
 			endGame(game);
 			switchScreen('endScreen');
 			return;
 		case 'end4':
 			setWinner(4);
-			closeSocketConnection();
 			endGame(game);
 			switchScreen('endScreen');
 			return;
@@ -181,7 +177,6 @@ function launchGame()
 	currentGameInstance = game;
 
 	console.log("==GAME LAUNCH==");
-	chatConnection();
 
 	// Add event listeners for player controls and store them in the game object
 	const keydownListener = (e) => handleKeyDown(e, game);
