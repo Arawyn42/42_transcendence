@@ -32,3 +32,17 @@ class Friendship(models.Model):
 
     def __str__(self):
         return f"{self.from_user} -> {self.to_user} (Accepted: {self.is_accepted})"
+    
+
+class Room(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Message(models.Model):
+    username = models.CharField(max_length=255)
+    content = models.TextField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='messages')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['timestamp']

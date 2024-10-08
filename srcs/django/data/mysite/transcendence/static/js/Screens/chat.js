@@ -1,14 +1,17 @@
+const createDmButton	= document.getElementById("createDmButton");
+const usernameInput		= document.getElementById("usernameInput");
+const dmsList			= document.getElementById("dmsList");
+const msgList 			= document.getElementById("msgList");
+
 function showChat() {
     switchScreen('dmsScreen');
 }
 
 function showDm() {
+	msgList.innerHTML = "";
     switchScreen('dmScreen');
 }
 
-const createDmButton	= document.getElementById("createDmButton");
-const usernameInput		= document.getElementById("usernameInput");
-const dmsList			= document.getElementById("dmsList");
 
 createDmButton.onclick = function(){
 	const dmDiv 			= document.createElement("div");
@@ -27,26 +30,12 @@ createDmButton.onclick = function(){
 
 dmsList.addEventListener('click', function(event) {
     if (event.target.classList.contains('dmDiv')) {
+		const dmUsername = event.target.querySelector('p').textContent;
+		const dmHeaderP = document.getElementById("dmHeaderP");
+		dmHeaderP.textContent = "Direct message: " + dmUsername;
+		openConnection(dmUsername);
 		showDm("dmScreen");
     }
 });
 
-document.getElementById("sendMsg").addEventListener("submit", function(event) {
-	event.preventDefault();
 
-	const inputField = document.getElementById("msgInput");
-	const msgList = document.getElementById("msgList");
-
-	const msgDiv = document.createElement("div");
-	const msgP = document.createElement("p");
-	
-	console.log(inputField.value);
-	msgP.textContent = inputField.value;
-	msgP.classList.add("msgText");
-	msgDiv.appendChild(msgP);
-	msgDiv.classList.add("personalMsgDiv");
-
-	msgList.appendChild(msgDiv);
-	
-	inputField.value = "";
-});

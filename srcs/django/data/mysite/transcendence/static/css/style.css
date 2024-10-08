@@ -594,13 +594,34 @@ input[type="text"] {
     min-height: 0;
 }
 
+#dmHeaderDiv {
+	width: 100%;
+	height: 3em;
+	flex-shrink: 0;
+	background-color: #222;
+	text-align: center;
+	position: relative;
+}
+
+#dmHeaderP {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 #msgList {
 	display: flex;
 	flex-direction: column;
     flex-grow: 1;
     overflow-y: auto;
     min-height: 0; 
-	width: 100%;
+	width: 50vw;
+	min-width: 60em;
+	background-color: #111;
+	padding: 1em;
+	border-right: solid 2px #222;
+	border-left: solid 2px #222;
 }
 
 #sendMsg {
@@ -608,7 +629,8 @@ input[type="text"] {
 	flex-direction: row;
 	height: 3em;
 	flex-shrink: 0;
-	width: 100%;
+	width: 50vw;
+	min-width: 60em;
 }
 
 #msgInput {

@@ -117,6 +117,9 @@ function switchScreen(screenId)
 // Handle browser back/forward navigation
 window.addEventListener('popstate', (event) =>
 {
+	if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+		chatSocket.close();
+	}
 	if (event.state && event.state.screenId)
 		switchScreen(event.state.screenId);
 	else
@@ -127,6 +130,7 @@ window.addEventListener('popstate', (event) =>
 		console.log('Ending previous game instance...')
 		endGame(currentGameInstance);
 	}
+
 });
 
 /****************************** LAUNCH SCRIPTS ******************************/
