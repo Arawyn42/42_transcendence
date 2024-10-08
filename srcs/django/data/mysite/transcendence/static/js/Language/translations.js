@@ -26,8 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function translate(key) {
-	return translations[currentLanguage][key] || translations['en'][key] || key;
+	if (translations[currentLanguage] && translations[currentLanguage].hasOwnProperty(key))
+		return translations[currentLanguage][key];
+	else if (translations['en'] && translations['en'].hasOwnProperty(key))
+		return translations['en'][key];
+	else
+		return key;
 }
+
 
 function applyTranslations()
 {
@@ -176,7 +182,8 @@ const translations = {
 		send: "Send",
 		controls: "Controls",
 		controlsP: "(Controls",
-		playerWins: "Player wins!",
+		playerWinsPrefix: " ",
+		playerWins: " wins!",
 		restart: "Restart",
 		won: "won!",
 		//Multiplayers
@@ -259,7 +266,8 @@ const translations = {
 		send: "Envoyer",
 		controls: "Commandes",
 		controlsP: "(Commandes",
-		playerWins: "Le joueur gagne !",
+		playerWinsPrefix: " ",
+		playerWins: " gagne !",
 		restart: "Recommencer",
 		won: "a gagné !",
 		//Multiplayers
@@ -342,7 +350,8 @@ const translations = {
 		send: "Enviar",
 		controls: "Controles",
 		controlsP: "(Controles",
-		playerWins: "¡El jugador gana!",
+		playerWinsPrefix: "¡",
+		playerWins: " gana!",
 		restart: "Reiniciar",
 		won: "¡ganó!",
 		//Multiplayers
@@ -425,7 +434,8 @@ const translations = {
 		send: "Senden",
 		controls: "Steuerung",
 		controlsP: "(Steuerung",
-		playerWins: "Spieler gewinnt!",
+		playerWinsPrefix: " ",
+		playerWins: " gewinnt!",
 		restart: "Neustart",
 		won: "hat gewonnen!",
 		//Multiplayers

@@ -333,6 +333,19 @@ button {
 }
 
 
+/******************** END SCREEN ********************/
+.winMessageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	margin: 3vh 0;
+}
+
+.winMessageContainer h2 {
+    margin: 0;
+}
+
+
 /***************************** TOURNAMENT SCREEN *****************************/
 /* Tournament screen */
 #tournamentScreen {

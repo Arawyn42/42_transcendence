@@ -6,18 +6,26 @@ document.getElementById('modeVsAI').addEventListener('click', function () {
 	aiDifficulty = 1;
 
 	// Set the tournament mode OFF
-	tournament.running = false;
+	resetTournament();
 	
 	// If user is connected to his account, set his name
 	const username = document.getElementById('profileUsername').textContent;
 	if (username.length > 0)
 		document.getElementById('player1Label').textContent = username;
-
+	
 	// Set AI name
 	document.getElementById('player2Label').textContent = '42B0T';
 
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	if (username.length > 0)
+		savePlayer(1);
+	savePlayer(2);
+	
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');
+
 	console.log(`Choosing settings for 1 Player Mode - Classic`);
 });
 
@@ -28,12 +36,18 @@ document.getElementById('mode2Players').addEventListener('click', function () {
 	aiDifficulty = 0;
 
 	// Set the tournament mode OFF
-	tournament.running = false;
+	resetTournament();
 
 	// If user is connected to his account, set his name
 	const username = document.getElementById('profileUsername').textContent;
 	if (username.length > 0)
 		document.getElementById('player1Label').textContent = username;
+
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	if (username.length > 0)
+		savePlayer(1);
 
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');
@@ -48,6 +62,11 @@ document.getElementById('modeTournament').addEventListener('click', function () 
 
 	// Set the tournament mode ON
 	tournament.running = true;
+
+	// Save the values in cookies
+	saveNbPlayers();
+	saveAiDifficulty();
+	saveTournament();
 
 	// Switch on Settings Screen
 	switchScreen('settingsScreen');

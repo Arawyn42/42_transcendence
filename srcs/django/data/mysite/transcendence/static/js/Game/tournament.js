@@ -8,15 +8,17 @@ function updateTournamentScreen(stage)
 						'Final game:',
 						'We have a winner! Well played all!'];
 	
+	// Update the current stage label
 	document.getElementById('tournamentStage').textContent = stages[stage];
 
+	// Update the screen if all games have been played
 	if (tournament.playedGames > 3)
 	{
 		document.getElementById('tournamentMatchup').style.display = 'none';
 		document.getElementById('startTournamentGame').style.display = 'none';
 		document.getElementById('menuFromTournament').style.display = 'block';
 	}
-	else
+	else // If not, display the next match up
 	{
 		document.getElementById('tournamentMatchup').style.display = 'block';
 		document.getElementById('startTournamentGame').style.display = 'block';
@@ -35,27 +37,27 @@ function updateTournamentScreen(stage)
 function updatePlayersRanks()
 {
 	const players = [
-        { name: tournament.player1, score: tournament.player1Score },
-        { name: tournament.player2, score: tournament.player2Score },
-        { name: tournament.player3, score: tournament.player3Score },
-        { name: tournament.player4, score: tournament.player4Score }
-    ];
+		{ name: tournament.player1, score: tournament.player1Score },
+		{ name: tournament.player2, score: tournament.player2Score },
+		{ name: tournament.player3, score: tournament.player3Score },
+		{ name: tournament.player4, score: tournament.player4Score }
+	];
 
-    // Trier le tableau par scores (ordre décroissant)
-    players.sort((a, b) => b.score - a.score);
+	// Sort the array according to the scores, descending
+	players.sort((a, b) => b.score - a.score);
 
-    // Mettre à jour le classement dans le HTML
-    document.getElementById('player1Rank').textContent = players[0].name;
-    document.getElementById('player1Wins').textContent = players[0].score;
-    
-    document.getElementById('player2Rank').textContent = players[1].name;
-    document.getElementById('player2Wins').textContent = players[1].score;
+	// Update the players ranks
+	document.getElementById('player1Rank').textContent = players[0].name;
+	document.getElementById('player1Wins').textContent = players[0].score;
+	
+	document.getElementById('player2Rank').textContent = players[1].name;
+	document.getElementById('player2Wins').textContent = players[1].score;
 
-    document.getElementById('player3Rank').textContent = players[2].name;
-    document.getElementById('player3Wins').textContent = players[2].score;
+	document.getElementById('player3Rank').textContent = players[2].name;
+	document.getElementById('player3Wins').textContent = players[2].score;
 
-    document.getElementById('player4Rank').textContent = players[3].name;
-    document.getElementById('player4Wins').textContent = players[3].score;
+	document.getElementById('player4Rank').textContent = players[3].name;
+	document.getElementById('player4Wins').textContent = players[3].score;
 }
 
 // Setup tournament, return false in case of error
@@ -68,6 +70,7 @@ function setUpTournament()
 	console.log(`= Game n°${tournament.playedGames + 1} =`);
 	console.log(``);
 
+	// Setup the current stage
 	switch (tournament.playedGames)
 	{
 		case 0:
@@ -89,6 +92,7 @@ function setUpTournament()
 			return (false);
 	}
 
+	// Change players labels (if tournament didn't end) and save it in cookies
 	if (tournament.playedGames !== 4)
 	{
 		if (tournament.opponent1 === null || tournament.opponent2 === null)
@@ -99,13 +103,21 @@ function setUpTournament()
 	
 		document.getElementById('player1Label').textContent = tournament.opponent1;
 		document.getElementById('player2Label').textContent = tournament.opponent2;
+		
+		savePlayer(1);
+		savePlayer(2);
 	}
 
+	// Update the tournament screen
 	updateTournamentScreen(tournament.playedGames);
+
+	// Save tournament object in cookies
+	saveTournament();
 
 	return (true);
 }
 
+// Set up the first tournament game (Stage 1)
 function setUpTournamentFirstGame()
 {
 	const rand = Math.random();
@@ -156,6 +168,7 @@ function setUpTournamentFirstGame()
 
 }
 
+// Set up the second tournament game (Stage 2)
 function setUpTournamentSecondGame()
 {
 	let first;
@@ -203,6 +216,7 @@ function setUpTournamentSecondGame()
 	console.log(`Setting second tournament game: ${tournament.opponent1} VS ${tournament.opponent2}`);
 }
 
+// Set up the third tournament game (Stage 3: small final)
 function setUpTournamentThirdGame()
 {
 	let first;
@@ -250,6 +264,7 @@ function setUpTournamentThirdGame()
 	console.log(`Setting 3rd tournament game (small final): ${tournament.opponent1} VS ${tournament.opponent2}`);
 }
 
+// Set up the fourth and last tournament game (Stage 4: final)
 function setUpTournamentFourthGame()
 {
 	let first;
@@ -297,13 +312,16 @@ function setUpTournamentFourthGame()
 	console.log(`Setting last tournament game (final): ${tournament.opponent1} VS ${tournament.opponent2}`);
 }
 
+// When a tournament's game ended, this function is called
 function tournamentGameEnded(winner)
 {
 	if (!tournament.running)
 		return;
 
+	// Update played games
 	tournament.playedGames++;
-	if (winner === 1)
+
+	if (winner === 1)	// Opponent 1 won
 	{
 		switch (tournament.opponent1)
 		{
@@ -340,7 +358,7 @@ function tournamentGameEnded(winner)
 				break;
 		}
 	}
-	else
+	else				// Opponent 2 won
 	{
 		switch (tournament.opponent2)
 		{
@@ -377,8 +395,12 @@ function tournamentGameEnded(winner)
 				break;
 		}
 	}
+
+	// Save changes in tournament object in cookies
+	saveTournament();
 }
 
+// Reset the tournament object and save changes in cookies
 function resetTournament()
 {
 	tournament.running = false;
@@ -397,6 +419,8 @@ function resetTournament()
 
 	tournament.player4 = '';
 	tournament.player4Score = 0;
+
+	saveTournament();
 }
 
 // Button 'Start Game'

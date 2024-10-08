@@ -72,6 +72,33 @@ function resetGame(game)
 }
 
 /********************************* END GAME *********************************/
+// Set the winner's name and save it
+function setWinner(winner)
+{
+	let name;
+
+	switch (winner)
+	{
+		case 1:
+			name = `${document.getElementById('player1Label').textContent}&nbsp;`;
+			break;
+		case 2:
+			name = `${document.getElementById('player2Label').textContent}&nbsp;`;
+			break;
+		case 3:
+			name = `${document.getElementById('player3Label').textContent}&nbsp;`;
+			break;
+		case 4:
+			name = `${document.getElementById('player4Label').textContent}&nbsp;`;
+			break;
+		default:
+			break;
+	}
+
+	document.getElementById('winningPlayer').innerHTML = name;
+	saveWinner(name);
+}
+
 // At the end, clear the AI interval and remove the event listeners
 function endGame(game)
 {
@@ -101,26 +128,4 @@ function endGame(game)
 
 	game.state = 'stopped';
 	currentGameInstance = null;
-
-	if (tournament.running)
-	{
-		if (tournament.playedGames > 3)
-		{
-			document.getElementById('tournamentResults').style.display = 'block';
-			document.getElementById('nextTournamentGame').style.display = 'none';
-		}
-		else
-		{
-			document.getElementById('tournamentResults').style.display = 'none';
-			document.getElementById('nextTournamentGame').style.display = 'block';
-		}
-		document.getElementById('restartClassicGame').style.display = 'none';
-	}
-	else
-	{
-		document.getElementById('nextTournamentGame').style.display = 'none';
-		document.getElementById('tournamentResults').style.display = 'none';
-		document.getElementById('restartClassicGame').style.display = 'block';
-	}
-
 }
