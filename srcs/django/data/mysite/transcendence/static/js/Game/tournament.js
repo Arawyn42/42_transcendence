@@ -2,14 +2,17 @@
 // Update the tournament screen according to the stage
 function updateTournamentScreen(stage)
 {
-	const stages = [	'First game:',
-						'Second game:',
-						'Small Final game:',
-						'Final game:',
-						'We have a winner! Well played all!'];
+	const stages = [	'tournamentFirstGame',
+						'tournamentSecondGame',
+						'tournamentSmallFinal',
+						'tournamentFinal',
+						'tournamentWinner'
+	];
 	
 	// Update the current stage label
-	document.getElementById('tournamentStage').textContent = stages[stage];
+    const stageElement = document.getElementById('tournamentStage');
+    stageElement.textContent = translate(stages[stage]);
+    stageElement.setAttribute('textTranslated', stages[stage]);
 
 	// Update the screen if all games have been played
 	if (tournament.playedGames > 3)
