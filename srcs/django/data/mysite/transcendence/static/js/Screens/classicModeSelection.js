@@ -9,9 +9,8 @@ document.getElementById('modeVsAI').addEventListener('click', function () {
 	resetTournament();
 	
 	// If user is connected to his account, set his name
-	const username = document.getElementById('profileUsername').textContent;
-	if (username.length > 0)
-		document.getElementById('player1Label').textContent = username;
+	if (USERNAME)
+		document.getElementById('player1Label').textContent = USERNAME;
 	
 	// Set AI name
 	document.getElementById('player2Label').textContent = '42B0T';
@@ -19,7 +18,7 @@ document.getElementById('modeVsAI').addEventListener('click', function () {
 	// Save the values in cookies
 	saveNbPlayers();
 	saveAiDifficulty();
-	if (username.length > 0)
+	if (USERNAME)
 		savePlayer(1);
 	savePlayer(2);
 	
@@ -39,14 +38,13 @@ document.getElementById('mode2Players').addEventListener('click', function () {
 	resetTournament();
 
 	// If user is connected to his account, set his name
-	const username = document.getElementById('profileUsername').textContent;
-	if (username.length > 0)
-		document.getElementById('player1Label').textContent = username;
+	if (USERNAME)
+		document.getElementById('player1Label').textContent = USERNAME;
 
 	// Save the values in cookies
 	saveNbPlayers();
 	saveAiDifficulty();
-	if (username.length > 0)
+	if (USERNAME)
 		savePlayer(1);
 
 	// Switch on Settings Screen

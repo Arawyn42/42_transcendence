@@ -62,18 +62,22 @@ let chatSocket;
 
 
 /******************************** FUNCTIONS *********************************/
-// Switch to another screen
+// Update USERNAME then switch to specified screen
 function switchScreen(screenId)
+{
+	updateUsername().then(() => {
+		switchToScreen(screenId);
+	}).catch(error => {
+		switchToScreen(screenId);
+	});
+}
+
+// Switch to another screen
+function switchToScreen(screenId)
 {
 	// Hide all screens
 	const screens = document.querySelectorAll('.screen');
 	screens.forEach(screen => screen.style.display = 'none');
-
-	// Update username
-	const data = JSON.parse(e.data);
-	USERNAME = data.username;
-	
-	console.log(`Username = '${USERNAME}'`);
 
 	// Show the selected screen
 	const activeScreen = document.getElementById(screenId);
@@ -85,10 +89,7 @@ function switchScreen(screenId)
 				resetTournament();
 				break;
 			case 'menuScreen':
-				// if (username.length < 1)
-				// 	document.getElementById('profile').style.display = 'none';
-				// else
-				// 	document.getElementById('profile').style.display = 'block';
+				displayMenuButtons();
 				resetTournament();
 				break;
 			case 'modeSelectionScreen':
@@ -148,10 +149,25 @@ window.addEventListener('popstate', (event) =>
 
 });
 
+// Update USERNAME
+async function updateUsername() {
+    try {
+        USERNAME = await getUsername();
+        console.log(`USERNAME updated: '${USERNAME}'`);
+    } catch (error) {
+        console.error('Error updating USERNAME: ', error);
+        USERNAME = null;
+    }
+}
+
 // Return the username if connected, or null if not or in case of error
 async function getUsername() {
 	try
 	{
+		const accessToken = localStorage.getItem('access_token');
+        if (!accessToken)
+            return (null);
+
 		const response = await fetch('/profile/', {
 			method: 'GET',
 			headers: {
@@ -165,12 +181,21 @@ async function getUsername() {
 			const data = await response.json();
 			return (data.username || null);
 		}
+		else if (response.status === 401)
+		{
+			localStorage.removeItem('access_token');
+			localStorage.removeItem('refresh_token');
+			console.log('Token expired. Disconnection...')
+			alert('Your session has expired. Please log in again.');
+			switchScreen('loginScreen');
+			return null;
+		}
 		else
 			return (null);
 	}
 	catch(error)
 	{
-		console.error('Error getting username:', error);
+		console.error('Error getting username: ', error);
 		return (null);
 	}
 }
