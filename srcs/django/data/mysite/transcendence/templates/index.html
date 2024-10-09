@@ -10,6 +10,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css">
 </head>
+
 <body class="hidden">
 
 	<!-------------------------------------- PAGE TITLE --------------------------------------->
@@ -49,6 +50,16 @@
 		<button id="registerFromLogin" class="wideButton" textTranslated="registerFromLogin">Not an account yet ? Register</button>
 		<button id="playAsGuest" class="wideButton" textTranslated="playAsGuest">Play as guest</button>	
 	</div>
+
+	<!----------------------------------------- 2FA ------------------------------------------->
+
+	<div id="2faScreen" class="screen">
+		<h2 textTranslated="twoFA_Verification">2FA Verification</h2>
+		<form id="twoFaForm" method="POST">
+			<input type="text" id="twoFaCode" name="2fa_code" placeholder="Enter the 2FA code received by email" textTranslated="twoFA_placeholder">
+			<button type="submit" class="wideButton" textTranslated="validate">Validate</button>
+		</form>
+	</div>
 	
 	<!----------------------------------------- MENU ------------------------------------------>
 	<div id="menuScreen" class="screen">
@@ -56,7 +67,7 @@
 			<button id="profile" class="wideButton" textTranslated="profile">Profile</button>
 			<button id="playClassic" class="wideButton" textTranslated="playClassic">Play Classic</button>
 			<button id="playMultiplayer" class="wideButton" textTranslated="playMultiplayer">Play Multiplayer</button>
-			<button id="playRemote" class="wideButton" textTranslated="playRemote">Play Remote</button>
+			<button id="logoutButton" class="wideButton" textTranslated="logOut">Logout</button>
 		</div>
 
 	<!--------------------------------------- PROFILE ----------------------------------------->
@@ -75,17 +86,6 @@
 			<button id="editProfile" class="wideButton" textTranslated="editProfile">Edit profile</button>
 			<button id="friendFromProfile" class="wideButton" textTranslated="friend">Friend</button>
 			<button id="menuFromProfile" class="wideButton" textTranslated="backToMenu">Back to menu</button>
-			<button id="logoutButton" textTranslated="logOut">Logout</button>
-		</div>
-
-	<!----------------------------------------- 2FA ------------------------------------------->
-
-		<div id="2faScreen" class="screen">
-			<h2 textTranslated="twoFA_Verification">2FA Verification</h2>
-			<form id="2faForm" method="POST">
-				<input type="text" id="twoFaCode" name="2fa_code" placeholder="Enter the 2FA code received by email" textTranslated="twoFA_placeholder">
-				<button type="submit" textTranslated="validate">Validate</button>
-			</form>
 		</div>
 
 	<!---------------------------------------- FRIEND ----------------------------------------->

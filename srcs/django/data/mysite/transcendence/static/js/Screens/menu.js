@@ -21,19 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
-// Button 'Play Remote'
-document.addEventListener('DOMContentLoaded', function () {
-	document.getElementById('playRemote').addEventListener('click', function ()
-	{
-		gameMode = 'classic';
-		saveGameMode();
-		aiDifficulty = 1;
-		saveAiDifficulty();
-		switchScreen('gameScreen');
-		console.log('Launching a game in remote');
-	});
-});
-
 // Button 'profile'
 document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('profile').addEventListener('click', showProfile);

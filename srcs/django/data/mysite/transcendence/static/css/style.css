@@ -81,7 +81,7 @@ button {
 
 /* Wide buttons */
 .wideButton {
-	width: 15vw;
+	width: 20vw;
 }
 
 /* 'Back' buttons */
@@ -89,6 +89,51 @@ button {
 	margin-top: 3vh;
 }
 
+
+/******************************* LOGIN SCREEN ********************************/
+#loginForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+	width: 20vw;
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 1vh;
+	text-align: center;
+}
+
+#loginForm input[type="password"] {
+	margin-bottom: 3vh;
+}
+
+
+/******************************** 2FA SCREEN *********************************/
+#twoFaForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#twoFaForm input[type="text"] {
+	width: 20vw;
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 3vh;
+	text-align: center;
+  }
+
+
+/********************************* LANGUAGES *********************************/
 /* Language Selection */
 .languageSelector {
 	display: flex;
@@ -115,6 +160,7 @@ button {
 .languageButton.active {
     border: 2px solid #007bff;
 }
+
 
 /******************************** GAME SCREEN ********************************/
 /* Game Screen Sections */

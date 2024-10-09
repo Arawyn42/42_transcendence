@@ -1,4 +1,4 @@
-document.getElementById('2faForm').addEventListener('submit', function(event) {
+document.getElementById('twoFaForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     // catch 2FA code
@@ -25,7 +25,7 @@ document.getElementById('2faForm').addEventListener('submit', function(event) {
             localStorage.setItem('access_token', data.access_token);
             localStorage.setItem('refresh_token', data.refresh_token);
             alert('Successful login!');
-			document.getElementById('2faForm').reset();
+			document.getElementById('twoFaForm').reset();
             switchScreen('menuScreen');
         } else {
             alert('Erreur: ' + data.error);

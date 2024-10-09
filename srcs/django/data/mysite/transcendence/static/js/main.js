@@ -10,7 +10,7 @@ const GREEN = '#00FF00';
 const RED = '#FF0000';
 
 // Username
-let USERNAME = '';
+let USERNAME = null;
 
 // Game instance
 let currentGameInstance = null;
@@ -69,6 +69,12 @@ function switchScreen(screenId)
 	const screens = document.querySelectorAll('.screen');
 	screens.forEach(screen => screen.style.display = 'none');
 
+	// Update username
+	const data = JSON.parse(e.data);
+	USERNAME = data.username;
+	
+	console.log(`Username = '${USERNAME}'`);
+
 	// Show the selected screen
 	const activeScreen = document.getElementById(screenId);
 	if (activeScreen)
@@ -79,8 +85,6 @@ function switchScreen(screenId)
 				resetTournament();
 				break;
 			case 'menuScreen':
-				const username = document.getElementById('profileUsername').textContent;
-				console.log(`username: '${username}' | USERNAME: '${USERNAME}'`);
 				// if (username.length < 1)
 				// 	document.getElementById('profile').style.display = 'none';
 				// else
@@ -143,6 +147,33 @@ window.addEventListener('popstate', (event) =>
 	}
 
 });
+
+// Return the username if connected, or null if not or in case of error
+async function getUsername() {
+	try
+	{
+		const response = await fetch('/profile/', {
+			method: 'GET',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+				'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+			},
+		});
+
+		if (response.ok)
+		{
+			const data = await response.json();
+			return (data.username || null);
+		}
+		else
+			return (null);
+	}
+	catch(error)
+	{
+		console.error('Error getting username:', error);
+		return (null);
+	}
+}
 
 
 /****************************** LAUNCH SCRIPTS ******************************/
