@@ -40,7 +40,7 @@ document.getElementById("loginForm").onsubmit = function(event) {
 			document.getElementById('loginForm').reset();
 			switchScreen('2faScreen');
 		} else {
-			alert('Error: ' + data.error);
+			alert('Error: Invalid credentials');
 		}
 	})
 	.catch(error => {
