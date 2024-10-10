@@ -140,7 +140,7 @@ const translations = {
 		losses: "Losses:",
 		dynamicLosses: "Losses:",
 		editProfile: "Edit profile",
-		friend: "Friend",
+		friends: "Friends",
 		backToMenu: "Back to menu",
 		logOut: "Logout",
 		//2FA
@@ -237,7 +237,7 @@ const translations = {
 		losses: "Défaites :",
 		dynamicLosses: "Défaites :",
 		editProfile: "Modifier le profil",
-		friend: "Ami",
+		friends: "Amis",
 		backToMenu: "Retour au menu",
 		logOut: "Déconnexion",
 		//2FA
@@ -334,7 +334,7 @@ const translations = {
 		losses: "Derrotas:",
 		dynamicLosses: "Derrotas:",
 		editProfile: "Editar perfil",
-		friend: "Amigo",
+		friends: "Amigos",
 		backToMenu: "Volver al menú",
 		logOut: "Cerrar sesión",
 		//2FA
@@ -431,7 +431,7 @@ const translations = {
 		losses: "Niederlagen:",
 		dynamicLosses: "Niederlagen:",
 		editProfile: "Profil bearbeiten",
-		friend: "Freund",
+		friends: "Freunde",
 		backToMenu: "Zurück zum Menü",
 		logOut: "Abmelden",
 		//2FA

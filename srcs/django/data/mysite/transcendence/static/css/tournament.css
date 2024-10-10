@@ -1,0 +1,86 @@
+/***************************** TOURNAMENT SCREEN *****************************/
+/* Tournament screen */
+#tournamentScreen {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	justify-content: flex-start;
+	/* padding-top: 1vh; */
+}
+
+/* 'Tournament' title */
+#tournamentScreen h2 {
+	margin-bottom: 1vh;
+}
+
+/* Ranking box */
+.ranking-box {
+	display: inline-block; /* Width adapts to its content */
+	background-color: #fff;
+	color: #000;
+	padding: 1vh;
+	border-radius: 5px;
+	margin-bottom: 3vh;
+	text-align: left;
+}
+
+.ranking-box p {
+	margin: 0.5vh 0;
+	font-size: 2vh;
+	white-space: nowrap; /* No wrapping for the text inside the box */
+}
+
+/* Stage title */
+#tournamentStage {
+	font-size: 3vh;
+	margin-bottom: 9vh;
+	text-decoration: underline;
+}
+
+/* Matchup */
+.tournament-matchup {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 7vh;
+}
+
+/* Opponent label */
+.opponentLabel {
+	font-size: 3vh;
+	white-space: nowrap;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/* Opponent 1 */
+#tournamentOpponent1 { 
+	position: absolute;
+	right: calc(50% + 20vh);
+}
+
+/* Opponent 2 */
+#tournamentOpponent2 { 
+	position: absolute;
+	left: calc(50% + 20vh);
+}
+
+/* VS label */
+.versusLabel {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 4vh;
+	font-weight: bold;
+}
+
+/* Start button */
+#startTournamentGame {
+	margin-top: 3vh;
+}

@@ -1,0 +1,156 @@
+/*********************************** CHAT ************************************/
+
+#chat {
+	position: absolute;
+	top: 7em;
+	right: 2em;
+}
+
+#searchDm {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 3em;
+}
+
+#searchDmfield {
+	display: flex;
+	flex-direction: row;
+	height: 3em;
+	flex-shrink: 0;
+	width: 50vw;
+	min-width: 60em;
+}
+
+#searchDmUsernameInput {
+	font-size: 2em;
+}
+
+#searchDmButton {
+	font-size: 20px;
+	width: 10em;
+	height: 100%;
+	margin: 0;
+}
+
+#dmsList {
+	position: relative;
+}
+
+.dmDiv {
+	position: relative;
+	
+	margin: 0 auto;
+
+	border: solid;
+	border-radius: 10px;
+	
+	height: 70px;
+	width: 70%;
+	min-width: 30em;
+	margin-bottom: 10px;
+
+	transition: transform 0.05s ease;
+}
+
+.dmDiv:active {
+	transform: scale(0.95);
+}
+
+.dmUsername {
+	position: absolute;
+
+	margin: 0;
+
+	left: 1em;
+	top: 50%;
+	transform: translateY(-50%);
+
+	font-size: larger;
+	color: lightgray;
+}
+
+#dmScreen {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+#dmHeaderDiv {
+	width: 100%;
+	height: 3em;
+	flex-shrink: 0;
+	background-color: #222;
+	text-align: center;
+	position: relative;
+}
+
+#dmHeaderP {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#msgList {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow-y: auto;
+	min-height: 0; 
+	width: 50vw;
+	min-width: 60em;
+	background-color: #111;
+	padding: 1em;
+	border-right: solid 2px #222;
+	border-left: solid 2px #222;
+}
+
+#sendMsg {
+	display: flex;
+	flex-direction: row;
+	height: 3em;
+	flex-shrink: 0;
+	width: 50vw;
+	min-width: 60em;
+}
+
+#msgInput {
+	font-size: 1em;
+	flex: 1;
+}
+
+#sendMsgButton {
+	margin: 0;
+	width: 10%;
+	font-size: 1em;
+}
+
+.otherMsgDiv {
+	display: inline-block;
+	width: fit-content;
+	max-width: 80%;
+	word-wrap: break-word;
+	background-color: grey;
+	border-radius: 5px;
+	margin-bottom: 0.5em;
+}
+
+.personalMsgDiv {
+	display: inline-block;
+	width: fit-content;
+	max-width: 80%;
+	word-wrap: break-word;
+	background-color: darkblue;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-bottom: 0.5em;
+}
+
+.msgText {
+	font-size: 1em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-left: 1em;
+	margin-right: 1em;
+}

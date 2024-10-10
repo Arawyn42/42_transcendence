@@ -223,3 +223,15 @@ document.getElementById('backFromSettings').addEventListener('click', function (
 		console.error(`Can't detect the game mode (from 'Back' button at Settings)`);
 });
 
+// Reset input texts
+function resetSettingsInputs()
+{
+	document.getElementById('player1Input').value = '';
+	document.getElementById('player1InputError').textContent = '';
+	document.getElementById('player2Input').value = '';
+	document.getElementById('player2InputError').textContent = '';
+	document.getElementById('player3Input').value = '';
+	document.getElementById('player3InputError').textContent = '';
+	document.getElementById('player4Input').value = '';
+	document.getElementById('player4InputError').textContent = '';
+}

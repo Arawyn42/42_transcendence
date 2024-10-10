@@ -1,0 +1,22 @@
+/******************************* LOGIN SCREEN ********************************/
+#loginForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+	width: 20vw;
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 1vh;
+	text-align: center;
+}
+
+#loginForm input[type="password"] {
+	margin-bottom: 3vh;
+}

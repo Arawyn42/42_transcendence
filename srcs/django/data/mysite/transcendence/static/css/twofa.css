@@ -1,0 +1,17 @@
+/******************************** 2FA SCREEN *********************************/
+#twoFaForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#twoFaForm input[type="text"] {
+	width: 20vw;
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 3vh;
+	text-align: center;
+}

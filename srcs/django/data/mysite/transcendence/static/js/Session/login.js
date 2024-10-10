@@ -45,7 +45,7 @@ document.getElementById("loginForm").onsubmit = function(event) {
 	})
 	.catch(error => {
 		alert('Connection error: ' + error.message);
-		console.error('Connection error:', error);
+		console.error('Connection error: ', error);
 	});
 };
 

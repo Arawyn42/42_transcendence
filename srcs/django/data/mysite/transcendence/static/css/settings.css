@@ -1,0 +1,84 @@
+/****************************** SETTINGS SCREEN ******************************/
+/* Enter your Names Section */
+#enterYourNames {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+/* Text, above input fields */
+#settingsScreen label {
+	width: 40%;
+	text-align: right;
+	padding-right: 1.5vw;
+	white-space: nowrap;
+}
+
+/* Forms (text inputs, error-messages for fields...) */
+input[type="text"] {
+	width: 60%;
+	padding: 0.5vh;
+	font-size: 1.5vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+}
+
+/* Input fields */
+#settingsScreen .inputField {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1vh;
+}
+
+/* Error message if names are not valid */
+.error-message {
+	color: red;
+	font-size: 0.8vh;
+	height: 1em;
+	text-align: center;
+	margin-bottom: 1vh;
+	margin-top: 0.4vh;
+}
+
+/* Difficulty Selection Styles */
+#difficultySelection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+/* Difficulty buttons (all) */
+#difficultyButtons {
+	display: flex;
+	justify-content: center;
+	gap: 2vh; /* Space between buttons */
+}
+
+/* Difficulty button (one) */
+.difficultyButton {
+	display: inline-block;
+	width: auto; /* Override inherited width */
+	padding: 1vh 2vh; /* Adjust padding for smaller size */
+	margin: 0; /* Remove margin */
+	font-size: 1.5vh; /* Smaller font size */
+	background-color: #fff;
+	border: 2px solid #fff;
+	color: #000;
+	cursor: pointer;
+}
+
+/* Difficulty button (when selected) */
+.difficultyButton.selected {
+	background-color: #4CAF50;
+	color: white;
+}
+
+/* Button to launch the game with choosed parameters */
+#startGameWithParameters {
+	margin-top: 4vh;
+	width: 10vw;
+}

@@ -86,7 +86,17 @@ function switchToScreen(screenId)
 		switch (screenId)
 		{
 			case 'loginScreen':
+				document.getElementById('loginForm').reset();
 				resetTournament();
+				break;
+			case '2faScreen':
+				document.getElementById('twoFaForm').reset();
+				break;
+			case 'registerScreen':
+				document.getElementById('registerForm').reset();
+				break;
+			case 'friendScreen':
+				updateFriendsList();
 				break;
 			case 'menuScreen':
 				displayMenuButtons();
@@ -102,6 +112,7 @@ function switchToScreen(screenId)
 				launchGame();
 				break;
 			case 'settingsScreen':
+				resetSettingsInputs();
 				adjustPlayerNamesScreen();
 				displayDifficultyButtons();
 				break;
@@ -166,7 +177,10 @@ async function getUsername() {
 	{
 		const accessToken = localStorage.getItem('access_token');
         if (!accessToken)
+		{
+			console.log(`Cannot get username: No access token stored`);
             return (null);
+		}
 
 		const response = await fetch('/profile/', {
 			method: 'GET',
@@ -185,12 +199,13 @@ async function getUsername() {
 		{
 			localStorage.removeItem('access_token');
 			localStorage.removeItem('refresh_token');
-			console.log('Token expired. Disconnection...')
+			console.log('Cannot get username: User token expired. Disconnection...');
 			alert('Your session has expired. Please log in again.');
 			switchScreen('loginScreen');
 			return null;
 		}
 		else
+			console.log(`Cannot get username: Unknown error`);
 			return (null);
 	}
 	catch(error)

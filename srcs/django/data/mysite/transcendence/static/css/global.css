@@ -1,0 +1,110 @@
+/********************************** GENERAL **********************************/
+/* margin and padding by default for all elements */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+	font-family: 'Press Start 2P', cursive;
+	color: #fff;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	width: 100%;
+	background-color: #fff;
+	color: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0; /* Ensure the header will not be reduced */
+}
+
+/* The #app container holds all screens */
+#app {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+/********************************** TITLES ***********************************/
+header h1 {
+	font-size: 3.5vh;
+	padding: 1vh 0;
+}
+
+h1 {
+	font-size: 3vh;
+	text-align: center;
+}
+
+h2 {
+	font-size: 2.5vh;
+	text-align: center;
+	margin-bottom: 3vh;
+}
+
+h3 {
+	font-size: 2vh;
+	text-align: center;
+	margin: 1vh 0;
+}
+
+/* 'Pong' Title */
+#pongTitle {
+	padding: 1vh 0;
+}
+
+
+/********************************** BUTTONS **********************************/
+/* Buttons */
+button {
+	display: block;
+	margin: 1vh 0; /* Space between buttons */
+	padding: 1.5vh;
+	background-color: #fff;
+	border: 2px solid #fff;
+	cursor: pointer;
+	/* Font */
+	font-family: 'Press Start 2P', cursive;
+	color: #000;
+	font-size: 1.5vh;
+	text-align: center;
+}
+
+/* Wide buttons */
+.wideButton {
+	width: 20vw;
+}
+
+/* 'Back' buttons */
+.backButton {
+	margin-top: 3vh;
+}
+
+
+/******************************** ALL SCREENS ********************************/
+/* Screens (hidden by default) */
+.screen {
+	display: none; /* Hide element */
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Hide body at start */
+.hidden {
+	visibility: hidden;
+}
