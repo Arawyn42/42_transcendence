@@ -2,10 +2,8 @@
 // Function to display the good number of fields according to the number of players
 function adjustPlayerNamesScreen()
 {
-	const username = document.getElementById('profileUsername').textContent;
-
 	// Hide Player 1 Input field if the user is connected to his account
-	if (username.length > 0)
+	if (USERNAME)
 	{
 		document.getElementById('player1LabelField').style.display = 'none';
 		document.getElementById('player1InputError').style.display = 'none';
@@ -56,7 +54,7 @@ function adjustPlayerNamesScreen()
 
 	// If user is connected to his account and there is no more players,
 	// hide the players names section
-	if (aiDifficulty > 0 && username.length > 0 && nbPlayers === 1)
+	if (aiDifficulty > 0 && USERNAME && nbPlayers === 1)
 		document.getElementById('enterYourNames').style.display = 'none';
 	else
 		document.getElementById('enterYourNames').style.display = 'flex';
@@ -112,7 +110,6 @@ function updateDifficultySelection(selectedButton)
 // Button 'Start Game' (Start the game with the players input names)
 document.getElementById('startGameWithParameters').addEventListener('click', function ()
 {
-	const username = document.getElementById('profileUsername').textContent;
 	let player1Name = document.getElementById('player1Input').value.trim();
 	const player2Name = document.getElementById('player2Input').value.trim();
 	const player3Name = document.getElementById('player3Input').value.trim();
@@ -126,7 +123,7 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 	document.getElementById('player4InputError').textContent = '';
 
 	// Check Player 1 Name
-	if (username.length === 0 && player1Name.length < 2)
+	if (USERNAME === null && player1Name.length < 2)
 	{
 		document.getElementById('player1InputError').textContent = 'Enter at least 2 characters';
 		isValid = false;
@@ -140,14 +137,14 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 	}
 
 	// Check Player 3 Name
-	if (nbPlayers >= 3 && player3Name.length < 2)
+	if ((tournament.running || nbPlayers >= 3) && player3Name.length < 2)
 	{
 		document.getElementById('player3InputError').textContent = 'Enter at least 2 characters';
 		isValid = false;
 	}
 
 	// Check Player 4 Name
-	if (nbPlayers === 4 && player4Name.length < 2)
+	if ((tournament.running || nbPlayers === 4) && player4Name.length < 2)
 	{
 		document.getElementById('player4InputError').textContent = 'Enter at least 2 characters';
 		isValid = false;
@@ -156,8 +153,8 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 	// If names are valid, start the game
 	if (isValid)
 	{
-		if (username.length > 0)
-			player1Name = username;
+		if (USERNAME)
+			player1Name = USERNAME;
 
 		// If in tournament mode, call the Setup function and return
 		if (tournament.running)

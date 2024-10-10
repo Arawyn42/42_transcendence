@@ -81,7 +81,7 @@ button {
 
 /* Wide buttons */
 .wideButton {
-	width: 15vw;
+	width: 20vw;
 }
 
 /* 'Back' buttons */
@@ -89,6 +89,117 @@ button {
 	margin-top: 3vh;
 }
 
+
+/******************************* LOGIN SCREEN ********************************/
+#loginForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+	width: 20vw;
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 1vh;
+	text-align: center;
+}
+
+#loginForm input[type="password"] {
+	margin-bottom: 3vh;
+}
+
+
+/******************************** 2FA SCREEN *********************************/
+#twoFaForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#twoFaForm input[type="text"] {
+	width: 20vw;
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 3vh;
+	text-align: center;
+}
+
+
+/********************************** PROFILE **********************************/
+#profileScreen {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+#profileScreen p {
+	text-align: left;
+	margin-bottom: 2vh;
+	width: 50vw;
+	padding-left: 15vw;
+}
+
+.profile-picture {
+	width: 10vw;
+	height: 10vh;
+	border-radius: 50%;
+	margin-bottom: 4vh;
+}
+
+
+/******************************* EDIT PROFILE ********************************/
+#editProfileScreen {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#editProfileForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#editProfileForm input,
+#editProfileForm button {
+	width: 20vw;
+	margin-bottom: 2vh;
+	box-sizing: border-box;
+}
+
+#editProfileForm input[type="text"],
+#editProfileForm input[type="email"],
+#editProfileForm input[type="password"] {
+	padding: 0.5vh;
+	font-size: 2vh;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	margin-bottom: 2vh;
+	text-align: center;
+}
+
+#editProfileForm input[type="file"] {
+	font-size: 2vh;
+	text-align: center;
+	margin-bottom: 3vh;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+}
+
+
+/********************************* LANGUAGES *********************************/
 /* Language Selection */
 .languageSelector {
 	display: flex;
@@ -113,8 +224,9 @@ button {
 }
 
 .languageButton.active {
-    border: 2px solid #007bff;
+	border: 2px solid #007bff;
 }
+
 
 /******************************** GAME SCREEN ********************************/
 /* Game Screen Sections */
@@ -335,14 +447,14 @@ button {
 
 /******************** END SCREEN ********************/
 .winMessageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 3vh 0;
 }
 
 .winMessageContainer h2 {
-    margin: 0;
+	margin: 0;
 }
 
 
@@ -403,7 +515,7 @@ button {
 	white-space: nowrap;
 	position: relative;
 	top: 50%;
-    transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 /* Opponent 1 */
@@ -534,13 +646,6 @@ input[type="text"] {
 	visibility: hidden;
 }
 
-/********************************** PROFILE **********************************/
-
-.profile-picture {
-	width: 75px;  /* largeur de l'image */
-	height: 75px; /* hauteur de l'image */
-	border-radius: 50%; /* optionnel : pour rendre l'image circulaire */
-}
 
 /*********************************** CHAT ************************************/
 
@@ -601,10 +706,10 @@ input[type="text"] {
 }
 
 #dmScreen {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
 }
 
 #dmHeaderDiv {
@@ -626,9 +731,9 @@ input[type="text"] {
 #msgList {
 	display: flex;
 	flex-direction: column;
-    flex-grow: 1;
-    overflow-y: auto;
-    min-height: 0; 
+	flex-grow: 1;
+	overflow-y: auto;
+	min-height: 0; 
 	width: 50vw;
 	min-width: 60em;
 	background-color: #111;

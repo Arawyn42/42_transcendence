@@ -49,15 +49,6 @@ document.getElementById("loginForm").onsubmit = function(event) {
 	});
 };
 
-document.getElementById('logoutButton').addEventListener('click', function() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-
-    switchScreen('loginScreen');
-    console.log('Déconnexion réussie, tokens supprimés');
-});
-
-
 function getCookie(name) {
 	let cookieValue = null;
 	if (document.cookie && document.cookie !== '') {
