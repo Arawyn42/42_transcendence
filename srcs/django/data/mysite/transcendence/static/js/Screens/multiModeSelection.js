@@ -6,9 +6,8 @@ document.getElementById('onePlayerMode').addEventListener('click', function () {
 	aiDifficulty = 1;
 	
 	// If user is connected to his account, set his name
-	const username = document.getElementById('profileUsername').textContent;
-	if (username.length > 0)
-		document.getElementById('player1Label').textContent = username;
+	if (USERNAME)
+		document.getElementById('player1Label').textContent = USERNAME;
 
 	// Set AI names
 	document.getElementById('player2Label').textContent = '42B0T';
@@ -18,7 +17,7 @@ document.getElementById('onePlayerMode').addEventListener('click', function () {
 	// Save the values in cookies
 	saveNbPlayers();
 	saveAiDifficulty();
-	if (username.length > 0)
+	if (USERNAME)
 		savePlayer(1);
 	savePlayer(2);
 	savePlayer(3);
@@ -36,9 +35,8 @@ document.getElementById('twoPlayersMode').addEventListener('click', function () 
 	aiDifficulty = 1;
 
 	// If user is connected to his account, set his name
-	const username = document.getElementById('profileUsername').textContent;
-	if (username.length > 0)
-		document.getElementById('player1Label').textContent = username;
+	if (USERNAME)
+		document.getElementById('player1Label').textContent = USERNAME;
 
 	// Set AI names
 	document.getElementById('player3Label').textContent = 'R2D2';
@@ -47,7 +45,7 @@ document.getElementById('twoPlayersMode').addEventListener('click', function () 
 	// Save the values in cookies
 	saveNbPlayers();
 	saveAiDifficulty();
-	if (username.length > 0)
+	if (USERNAME)
 		savePlayer(1);
 	savePlayer(3);
 	savePlayer(4);
@@ -64,9 +62,8 @@ document.getElementById('threePlayersMode').addEventListener('click', function (
 	aiDifficulty = 1;
 
 	// If user is connected to his account, set his name
-	const username = document.getElementById('profileUsername').textContent;
-	if (username.length > 0)
-		document.getElementById('player1Label').textContent = username;
+	if (USERNAME)
+		document.getElementById('player1Label').textContent = USERNAME;
 
 	// Set AI name
 	document.getElementById('player4Label').textContent = 'T33MO';
@@ -74,7 +71,7 @@ document.getElementById('threePlayersMode').addEventListener('click', function (
 	// Save the values in cookies
 	saveNbPlayers();
 	saveAiDifficulty();
-	if (username.length > 0)
+	if (USERNAME)
 		savePlayer(1);
 	savePlayer(4);
 
@@ -90,14 +87,13 @@ document.getElementById('fourPlayersMode').addEventListener('click', function ()
 	aiDifficulty = 0;
 
 	// If user is connected to his account, set his name
-	const username = document.getElementById('profileUsername').textContent;
-	if (username.length > 0)
-		document.getElementById('player1Label').textContent = username;
+	if (USERNAME)
+		document.getElementById('player1Label').textContent = USERNAME;
 
 	// Save the values in cookies
 	saveNbPlayers();
 	saveAiDifficulty();
-	if (username.length > 0)
+	if (USERNAME)
 		savePlayer(1);
 
 	// Switch on Settings Screen

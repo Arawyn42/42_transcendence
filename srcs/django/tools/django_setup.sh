@@ -7,4 +7,4 @@ fi
 env/bin/python mysite/manage.py makemigrations
 env/bin/python mysite/manage.py migrate
 
-cd mysite && ../env/bin/python -u -m daphne -b 0.0.0.0 -p 80 mysite.asgi:application
+cd mysite && ../env/bin/python -u -m daphne -b 0.0.0.0 -p 8001 mysite.asgi:application

@@ -1,5 +1,5 @@
-const createDmButton	= document.getElementById("createDmButton");
-const usernameInput		= document.getElementById("usernameInput");
+const createDmButton	= document.getElementById("searchDmButton");
+const usernameInput		= document.getElementById("searchDmUsernameInput");
 const dmsList			= document.getElementById("dmsList");
 const msgList 			= document.getElementById("msgList");
 
@@ -33,9 +33,7 @@ dmsList.addEventListener('click', function(event) {
 		const dmUsername = event.target.querySelector('p').textContent;
 		const dmHeaderP = document.getElementById("dmHeaderP");
 		dmHeaderP.textContent = "Direct message: " + dmUsername;
-		openConnection(dmUsername);
+		chatConnection(dmUsername);
 		showDm("dmScreen");
     }
 });
-
-

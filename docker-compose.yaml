@@ -22,14 +22,11 @@ services:
     networks:
       - my_network
 
-
   django:
     container_name: django
     build: srcs/django
     env_file:
       - .env
-    ports:
-      - "${PORT}:80"
     # volumes:
       # - transcendence:/django/mysite/
     networks:
@@ -43,10 +40,21 @@ services:
   redis:
     container_name: redis
     build: srcs/redis
-    # ports:
-    #   - "6379:6379"
     networks:
       - my_network
+
+  nginx:
+    container_name: nginx
+    build: srcs/nginx
+    ports:
+      - "443:443"
+    networks:
+      - my_network
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
 # volumes:
 
