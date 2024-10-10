@@ -8,7 +8,7 @@ document.getElementById('twoFaForm').addEventListener('submit', function(event) 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json', 
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': csrfToken
         },
         body: JSON.stringify({
             '2fa_code': twoFaCode // Send 2FA code
@@ -16,19 +16,20 @@ document.getElementById('twoFaForm').addEventListener('submit', function(event) 
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            alert('Invalid code.');
+            document.getElementById('twoFaForm').reset();
+            throw new Error('Code is not valid.');
         }
         return response.json();
     })
     .then(data => {
         if (data.success) {
             localStorage.setItem('access_token', data.access_token);
-            localStorage.setItem('refresh_token', data.refresh_token);
             alert('Successful login!');
 			document.getElementById('twoFaForm').reset();
             switchScreen('menuScreen');
         } else {
-            alert('Erreur: ' + data.error);
+            alert('Error: ' + data.error);
         }
     })
     .catch(error => {
@@ -42,7 +43,7 @@ function sendemail() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json', 
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': csrfToken
         }
     })
     .then(response => response.json())

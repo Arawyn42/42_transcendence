@@ -28,16 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Button 'Log out'
 document.getElementById('logoutButton').addEventListener('click', function() {
-	localStorage.removeItem('access_token');
-	localStorage.removeItem('refresh_token');
-	switchScreen('loginScreen');
+	logout();
 	console.log('Disconnection successful, token deleted');
 });
 
 // Button 'Login'
 document.getElementById('loginFromMenu').addEventListener('click', function() {
 	switchScreen('loginScreen');
-	console.log('Déconnexion réussie, tokens supprimés');
+	console.log('Return to login screen from menu');
 });
 
 // Button 'Chat'

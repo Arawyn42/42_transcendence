@@ -90,8 +90,11 @@ def login_view(request):
     return JsonResponse({'success': False, 'error': 'Méthode non supportée'}, status=405)
 
 def logout_view(request):
-    logout(request)
-    return redirect('/')
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
     
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -281,8 +284,7 @@ def verify_2fa(request):
 
             return JsonResponse({
                 'success': True,
-                'access_token': access_token,
-                'refresh_token': str(refresh)
+                'access_token': access_token
             }, status=200)
         else:
             return JsonResponse({

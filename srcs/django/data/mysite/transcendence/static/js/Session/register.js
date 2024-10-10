@@ -15,7 +15,7 @@ document.getElementById("registerForm").onsubmit = function(event) {
 		method: 'POST',
 		body: new FormData(document.getElementById('registerForm')),
 		headers: {
-			'X-CSRFToken': getCookie('csrftoken')
+			'X-CSRFToken': csrfToken
 		}
 	})
 	.then(response => response.json())

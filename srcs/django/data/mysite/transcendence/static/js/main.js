@@ -57,6 +57,9 @@ let tournament = {
 	player4Score: 0
 }
 
+// CSRF Token
+let csrfToken = getCookie('csrftoken');
+
 // WebSocket for livechat
 let chatSocket;
 
@@ -126,6 +129,7 @@ function switchToScreen(screenId)
 				break;
 			case 'endScreen':
 				updateEndScreen();
+				break;
 			default:
 				break;
 		}
@@ -148,9 +152,25 @@ window.addEventListener('popstate', (event) =>
 		chatSocket.close();
 	}
 	if (event.state && event.state.screenId)
+	{
 		switchScreen(event.state.screenId);
+		if (event.state.screenId === 'loginScreen')
+			setTimeout(() => {
+				location.reload();
+			}, 100);
+	}
 	else
-		switchScreen('menuScreen');
+	{
+		if (USERNAME)
+			switchToScreen('menuScreen');
+		else
+		{
+			switchToScreen('loginScreen');
+			setTimeout(() => {
+				location.reload();
+			}, 100);
+		}
+	}
 
 	if (currentGameInstance)
 	{
@@ -160,15 +180,22 @@ window.addEventListener('popstate', (event) =>
 
 });
 
-// Update USERNAME
+// Update CSRF Token
+function updateCsrfToken()
+{
+	csrfToken = getCookie('csrftoken');
+}
+
+// Update USERNAME and csrfToken
 async function updateUsername() {
-    try {
-        USERNAME = await getUsername();
-        console.log(`USERNAME updated: '${USERNAME}'`);
-    } catch (error) {
-        console.error('Error updating USERNAME: ', error);
-        USERNAME = null;
-    }
+	try {
+		updateCsrfToken();
+		USERNAME = await getUsername();
+		console.log(`USERNAME updated: '${USERNAME}'`);
+	} catch (error) {
+		console.error('Error updating USERNAME: ', error);
+		USERNAME = null;
+	}
 }
 
 // Return the username if connected, or null if not or in case of error
@@ -176,16 +203,16 @@ async function getUsername() {
 	try
 	{
 		const accessToken = localStorage.getItem('access_token');
-        if (!accessToken)
+		if (!accessToken)
 		{
 			console.log(`Cannot get username: No access token stored`);
-            return (null);
+			return (null);
 		}
 
 		const response = await fetch('/profile/', {
 			method: 'GET',
 			headers: {
-				'X-CSRFToken': getCookie('csrftoken'),
+				'X-CSRFToken': csrfToken,
 				'Authorization': 'Bearer ' + localStorage.getItem('access_token')
 			},
 		});
@@ -197,11 +224,9 @@ async function getUsername() {
 		}
 		else if (response.status === 401)
 		{
-			localStorage.removeItem('access_token');
-			localStorage.removeItem('refresh_token');
-			console.log('Cannot get username: User token expired. Disconnection...');
+			console.log('Cannot get username: User token expired. Logging out...');
+			logout();
 			alert('Your session has expired. Please log in again.');
-			switchScreen('loginScreen');
 			return null;
 		}
 		else
@@ -227,6 +252,15 @@ document.addEventListener('DOMContentLoaded', function ()
 	loadDatas();
 	
 	// Switch to current screen (or loginScreen if no current screen)
-	let hash = window.location.hash.replace('#', '') || 'loginScreen';
-	switchScreen(hash);
+	let hash = window.location.hash.replace('#', '');
+	if (hash) {
+		switchScreen(hash);
+	} else {
+		if (USERNAME) {
+			switchScreen('menuScreen');
+		} else {
+			switchScreen('loginScreen');
+		}
+	}
+
 });

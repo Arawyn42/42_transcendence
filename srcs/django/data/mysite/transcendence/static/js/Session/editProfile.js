@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             body: formData,
             headers: {
-                'X-CSRFToken': getCookie('csrftoken'),
+                'X-CSRFToken': csrfToken,
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token') // JWT token if required
             },
         })

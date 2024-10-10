@@ -13,7 +13,7 @@ document.getElementById('addFriendButton').addEventListener('click', function() 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
             'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         },
         body: JSON.stringify({ username: username })
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-CSRFToken': csrfToken,
                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 },
                 body: JSON.stringify({ request_id: requestId })

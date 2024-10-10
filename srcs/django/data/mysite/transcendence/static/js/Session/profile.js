@@ -27,7 +27,7 @@ function showProfile() {
     fetch('/profile/', {
         method: 'GET',
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
             'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         },
 

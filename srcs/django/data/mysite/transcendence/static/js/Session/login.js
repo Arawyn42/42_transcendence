@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
-
+// Button 'Login'
 document.getElementById("loginForm").onsubmit = function(event) {
 
 	// Do nothing if the 'Play as guest' button is clicked
 	if (document.activeElement === document.getElementById('playAsGuest'))
-        return;
+		return;
 
 
 	event.preventDefault();
@@ -21,13 +21,18 @@ document.getElementById("loginForm").onsubmit = function(event) {
 		method: 'POST',
 		body: new FormData(document.getElementById('loginForm')),
 		headers: {
-			'X-CSRFToken': getCookie('csrftoken')
+			'X-CSRFToken': csrfToken
 		}
 	})
 	.then(response => {
 		if (response.ok) {
 			return response.json();
-		} else {
+		} else if (response.status === 401) {
+			return response.json().then(data => { 
+				throw new Error('Invalid credentials. Please try again.');
+			});
+		}
+		else {
 			return response.json().then(data => { 
 				throw new Error(data.error || 'Unknown error');
 			});
@@ -74,3 +79,40 @@ document.addEventListener('DOMContentLoaded', function () {
 		console.log('Skipping login and going to menu');
 	});
 });
+
+// Log out function
+function logout() {
+	fetch('/logout/', {
+		method: 'POST',
+		headers: {
+			'X-CSRFToken': csrfToken
+		},
+		credentials: 'include'
+	})
+	.then(response => {
+		if (response.ok) {
+			return response.json();
+		} else {
+			return response.json().then(data => { 
+				throw new Error(data.error || 'Unknown error');
+			});
+		}
+	})
+	.then(data => {
+		if (data.success) {
+			localStorage.removeItem('access_token');
+			
+			switchScreen('loginScreen');
+			setTimeout(() => {
+				location.reload();
+			}, 100);
+			
+			console.log('User logged out successfully.');
+		} else {
+			alert('Error logging out: ' + (data.error || 'Unknown error'));
+		}
+	})
+	.catch(error => {
+		console.error('Logout error: ', error);
+	});
+}

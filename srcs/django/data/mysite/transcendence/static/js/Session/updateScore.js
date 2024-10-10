@@ -7,7 +7,7 @@ function sendScoreUpdate(result) {
             'opponent': opponent
         }),
         headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrfToken,
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         }
