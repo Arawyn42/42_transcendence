@@ -1,6 +1,177 @@
 /*********************************** CHAT ************************************/
 
 #chat {
+    position: absolute;
+    top: 7vh;
+    right: 2vw;
+}
+
+#searchDm {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
+}
+
+#searchDmfield {
+    display: flex;
+    flex-direction: row;
+    height: 3em;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 800px;
+}
+
+#searchDmUsernameInput {
+    font-size: clamp(1em, 2vw, 2em);
+    flex-grow: 1;
+}
+
+#searchDmButton {
+    font-size: clamp(0.8em, 1.5vw, 1.2em);
+    width: 30%;
+    max-width: 10em;
+    height: 100%;
+    margin: 0;
+}
+
+.dmDiv {
+    position: relative;
+    margin: 0 auto 10px;
+    border: solid;
+    border-radius: 10px;
+    height: clamp(50px, 10vh, 70px);
+    width: 100%;
+    max-width: 800px;
+    transition: transform 0.05s ease;
+}
+
+.dmUsername {
+    position: absolute;
+    margin: 0;
+    left: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(1em, 2vw, 1.2em);
+    color: lightgray;
+}
+
+#dmScreen {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+}
+
+#dmHeaderDiv {
+    width: 100%;
+    height: clamp(2em, 5vh, 3em);
+    flex-shrink: 0;
+    background-color: #222;
+    text-align: center;
+    position: relative;
+}
+
+#dmHeaderP {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(0.8em, 2vw, 1.2em);
+}
+
+#msgList {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0; 
+    width: 100%;
+    background-color: #111;
+    padding: 1em;
+    border-right: solid 2px #222;
+    border-left: solid 2px #222;
+}
+
+#sendMsg {
+    display: flex;
+    flex-direction: row;
+    height: clamp(2em, 5vh, 3em);
+    flex-shrink: 0;
+    width: 100%;
+}
+
+#msgInput {
+    font-size: clamp(0.8em, 1.5vw, 1em);
+    flex: 1;
+}
+
+#sendMsgButton {
+    margin: 0;
+    width: 20%;
+    max-width: 10em;
+    font-size: clamp(0.8em, 1.5vw, 1em);
+}
+
+.otherMsgDiv, .personalMsgDiv {
+    display: inline-block;
+    width: fit-content;
+    max-width: 80%;
+    word-wrap: break-word;
+    border-radius: 5px;
+    margin-bottom: 0.5em;
+}
+
+.otherMsgDiv {
+    background-color: grey;
+}
+
+.personalMsgDiv {
+    background-color: darkblue;
+    margin-left: auto;
+}
+
+.msgText {
+    font-size: clamp(0.8em, 1.5vw, 1em);
+    margin: 0.5em 1em;
+}
+
+@media screen and (max-width: 835px) {
+    #chat {
+        top: 8vh;
+        right: 1vw;
+    }
+
+    #searchDmfield, #sendMsg {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #searchDmButton, #sendMsgButton {
+        width: 100%;
+        margin-top: 0.5em;
+    }
+
+    .dmDiv {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 705px) {
+	#chat {
+        top: 8.5vh;
+	}
+}
+
+@media screen and (max-width: 575px) {
+	#chat {
+        top: 11vh;
+	}
+}
+
+
+/* 
+#chat {
 	position: absolute;
 	top: 7em;
 	right: 2em;
@@ -153,4 +324,4 @@
 	margin-bottom: 0.5em;
 	margin-left: 1em;
 	margin-right: 1em;
-}
+} */

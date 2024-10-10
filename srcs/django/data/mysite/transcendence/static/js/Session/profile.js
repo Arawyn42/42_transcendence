@@ -72,7 +72,7 @@ function showProfile() {
                 historyList.appendChild(li);
             });
         } else {
-            historyList.innerHTML = '<li>No matches played yet.</li>';
+            historyList.innerHTML = '<li textTranslated="noMatch">No match played yet</li>';
         }
         
         const friendRequestsList = document.getElementById('friendRequestsList');

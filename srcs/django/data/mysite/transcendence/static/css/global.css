@@ -27,6 +27,7 @@ header {
 	align-items: center;
 	justify-content: center;
 	flex-shrink: 0; /* Ensure the header will not be reduced */
+	height: 60px;
 }
 
 /* The #app container holds all screens */
@@ -39,7 +40,87 @@ header {
 
 
 /********************************** TITLES ***********************************/
+
+/* Titles more responsive */
 header h1 {
+    font-size: clamp(18px, 3.5vh, 36px);
+    padding: clamp(8px, 1vh, 16px) 0;
+}
+
+h1 {
+    font-size: clamp(16px, 3vh, 32px);
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(14px, 2.5vh, 28px);
+    text-align: center;
+    margin-bottom: clamp(16px, 3vh, 32px);
+}
+
+h3 {
+    font-size: clamp(12px, 2vh, 24px);
+    text-align: center;
+    margin: clamp(8px, 1vh, 16px) 0;
+}
+
+/* 'Pong' Title */
+#pongTitle {
+    padding: clamp(8px, 1vh, 16px) 0;
+}
+
+/* Media queries pour ajustements supplémentaires */
+@media screen and (max-width: 835px) {
+	header {
+        height: 70px;
+	}
+
+    header h1 {
+        font-size: clamp(16px, 3vh, 28px);
+    }
+
+    h1 {
+        font-size: clamp(14px, 2.5vh, 24px);
+    }
+
+    h2 {
+        font-size: clamp(12px, 2vh, 20px);
+    }
+
+    h3 {
+        font-size: clamp(10px, 1.8vh, 18px);
+    }
+}
+
+@media screen and (max-width: 705px) {
+    header {
+        height: 70px;
+	}
+
+	header h1 {
+        font-size: clamp(14px, 2.5vh, 24px);
+    }
+
+    h1 {
+        font-size: clamp(12px, 2vh, 20px);
+    }
+
+    h2 {
+        font-size: clamp(10px, 1.8vh, 18px);
+    }
+
+    h3 {
+        font-size: clamp(9px, 1.5vh, 16px);
+    }
+}
+
+@media screen and (max-width: 575px) {
+    header {
+        height: 90px;
+	}
+}
+
+/* header h1 {
 	font-size: 3.5vh;
 	padding: 1vh 0;
 }
@@ -61,10 +142,10 @@ h3 {
 	margin: 1vh 0;
 }
 
-/* 'Pong' Title */
+
 #pongTitle {
 	padding: 1vh 0;
-}
+} */
 
 
 /********************************** BUTTONS **********************************/

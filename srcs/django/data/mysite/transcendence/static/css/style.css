@@ -29,7 +29,82 @@ header {
 	flex-shrink: 0; /* Ensure the header will not be reduced */
 }
 
+/* The #app container holds all screens */
+#app {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+
+/* Titles more responsive */
 header h1 {
+    font-size: clamp(18px, 3.5vh, 36px);
+    padding: clamp(8px, 1vh, 16px) 0;
+}
+
+h1 {
+    font-size: clamp(16px, 3vh, 32px);
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(14px, 2.5vh, 28px);
+    text-align: center;
+    margin-bottom: clamp(16px, 3vh, 32px);
+}
+
+h3 {
+    font-size: clamp(12px, 2vh, 24px);
+    text-align: center;
+    margin: clamp(8px, 1vh, 16px) 0;
+}
+
+/* 'Pong' Title */
+#pongTitle {
+    padding: clamp(8px, 1vh, 16px) 0;
+}
+
+/* Media queries pour ajustements supplémentaires */
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: clamp(16px, 3vh, 28px);
+    }
+
+    h1 {
+        font-size: clamp(14px, 2.5vh, 24px);
+    }
+
+    h2 {
+        font-size: clamp(12px, 2vh, 20px);
+    }
+
+    h3 {
+        font-size: clamp(10px, 1.8vh, 18px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: clamp(14px, 2.5vh, 24px);
+    }
+
+    h1 {
+        font-size: clamp(12px, 2vh, 20px);
+    }
+
+    h2 {
+        font-size: clamp(10px, 1.8vh, 18px);
+    }
+
+    h3 {
+        font-size: clamp(9px, 1.5vh, 16px);
+    }
+}
+
+/* header h1 {
 	font-size: 3.5vh;
 	padding: 1vh 0;
 }
@@ -51,18 +126,11 @@ h3 {
 	margin: 1vh 0;
 }
 
-/* 'Pong' Title */
+
 #pongTitle {
 	padding: 1vh 0;
-}
+} */
 
-/* The #app container holds all screens */
-#app {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
 
 /* Buttons */
 button {
@@ -308,13 +376,39 @@ button {
 }
 
 .languageButton .fi {
-	font-size: 2em; /* Ajustez la taille selon vos besoins */
+	font-size: 2em;
 }
 
 .languageButton.active {
 	border: 2px solid #007bff;
 }
 
+@media screen and (max-width: 768px) {
+    .languageSelector {
+        top: 1%;
+        right: 1%;
+    }
+
+    .languageButton {
+        width: 2em;
+        height: 1.5em;
+    }
+
+    .languageButton .fi {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .languageButton {
+        width: 1.5em;
+        height: 1.2em;
+    }
+
+    .languageButton .fi {
+        font-size: 1em;
+    }
+}
 
 /******************************** GAME SCREEN ********************************/
 /* Game Screen Sections */

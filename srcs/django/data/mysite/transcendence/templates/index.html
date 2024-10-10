@@ -32,15 +32,19 @@
 <body class="hidden">
 
 	<!-------------------------------------- PAGE TITLE --------------------------------------->
+
 	<header>
 		<h1 textTranslated="pageTitle">Transcendence</h1>
 	</header>
 
 	<div id="app">
+
 	<!--------------------------------- PAGE SUBTITLE 'PONG' ---------------------------------->
+	
 		<h1 id="pongTitle" textTranslated="pongTitle">PONG</h1>
 
 	<!--------------------------------------- REGISTER ---------------------------------------->
+
 		<div id="registerScreen" class="screen">
 			<h2 textTranslated="register">Register</h2>
 			<form id="registerForm">
@@ -81,7 +85,7 @@
 	
 	<!----------------------------------------- MENU ------------------------------------------>
 	<div id="menuScreen" class="screen">
-			<button id="chat">Chat</button>
+			<button id="chat" class="wideButton">Chat</button>
 			<button id="profile" class="wideButton" textTranslated="profile">Profile</button>
 			<button id="playClassic" class="wideButton" textTranslated="playClassic">Play Classic</button>
 			<button id="playMultiplayer" class="wideButton" textTranslated="playMultiplayer">Play Multiplayer</button>
@@ -102,7 +106,7 @@
 			<p><strong textTranslated="firstName">First Name:</strong> <span id="profileFirstName" textTranslated="dynamicFirstName">{{ user.first_name }}</span></p>
 			<p><strong textTranslated="wins">Wins:</strong> <span id="profileWins" textTranslated="dynamicWins">{{ user.userprofile.victory_count }}</span></p>
 			<p><strong textTranslated="losses">Losses:</strong> <span id="profileLosses" textTranslated="dynamicLosses">{{ user.userprofile.defeat_count }}</span></p>
-			<h3>Match History</h3>
+			<h3 textTranslated="matchHistory">Matches History</h3>
 			<ul id="matchHistoryList">
 			</ul>
 			<button id="editProfile" class="wideButton" textTranslated="editProfile">Edit profile</button>
@@ -113,9 +117,9 @@
 	<!--------------------------------------MATCH HISTORY -------------------------------------->
 
 		<div id="matchHistory" class="screen">
-			<h3>Match History</h3>
+			<h3 textTranslated="matchHistory">Matches History</h3>
 			<ul id="historyList">
-				<li>No matches played yet.</li>
+				<li textTranslated="noMatch">No match played yet</li>
 			</ul>
 		</div>
 		
@@ -374,25 +378,15 @@
 		<button id="menuFromTournament" textTranslated="backToMenu">Back to Menu</button>
 	</div>
 
-	<!---------------------------------- LANGUAGE SELECTION ----------------------------------->
-
-	<div id="languageSelector" class="languageSelector">
-		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
-		<button id="fr" class="languageButton"><span class="fi fi-fr"></span></button>
-		<button id="es" class="languageButton"><span class="fi fi-es"></span></button>
-		<button id="de" class="languageButton"><span class="fi fi-de"></span></button>
-	</div>
-
-
 	<!---------------------------------- CHAT MENU ----------------------------------->
 
 	<div id="dmsScreen" class="screen">
 		<div id="searchDm">
-			<h3>Search friends</h2>
-			<form id="searchDmfield">
+			<h3 textTranslated="searchFriends">Search friends</h2>
+			<div id="searchDmfield">
 				<input id="searchDmUsernameInput" type="text">
-				<button type="submit" id="searchDmButton">Search</button>
-			</form>
+				<button id="searchDmButton" textTranslated="search">Search</button>
+			</div>
 		</div>
 		<div id="dmsList"></div>
 	</div>
@@ -404,12 +398,20 @@
 		<div id="msgList"></div>
 		<form id="sendMsg">
 			<input type="text" id="msgInput" autocomplete="off">
-			<button type="submit" id="sendMsgButton">Send</button>
+			<button type="submit" id="sendMsgButton" textTranslated="send">Send</button>
 		</form>
 	</div>
 
+	<!---------------------------------- LANGUAGE SELECTION ----------------------------------->
 
+	<div id="languageSelector" class="languageSelector">
+		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
+		<button id="fr" class="languageButton"><span class="fi fi-fr"></span></button>
+		<button id="es" class="languageButton"><span class="fi fi-es"></span></button>
+		<button id="de" class="languageButton"><span class="fi fi-de"></span></button>
+	</div>
 
+	
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
 	<!-- Languages -->
