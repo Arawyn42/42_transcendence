@@ -376,7 +376,7 @@ button {
 }
 
 .languageButton .fi {
-	font-size: 2em; /* Ajustez la taille selon vos besoins */
+	font-size: 2em;
 }
 
 .languageButton.active {
