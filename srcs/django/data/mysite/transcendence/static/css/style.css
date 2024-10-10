@@ -655,17 +655,30 @@ input[type="text"] {
 	right: 2em;
 }
 
-#createDm {
+#searchDm {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
+	margin-bottom: 3em;
 }
 
-#createDmButton {
-	margin-bottom: 10px;
+#searchDmfield {
+	display: flex;
+	flex-direction: row;
+	height: 3em;
+	flex-shrink: 0;
+	width: 50vw;
+	min-width: 60em;
+}
+
+#searchDmUsernameInput {
+	font-size: 2em;
+}
+
+#searchDmButton {
 	font-size: 20px;
-	width: 200px;
-	height: 75px;
+	width: 10em;
+	height: 100%;
+	margin: 0;
 }
 
 #dmsList {
