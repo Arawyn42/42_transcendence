@@ -29,7 +29,7 @@ function chatConnection(dmName) {
 			roomName = dmName + "_" + username + "_room";
 		}
 
-		chatSocket = new WebSocket(`wss://${window.location.host}/ws/socket-server/${roomName}/`);
+		chatSocket = new WebSocket(`wss://${window.location.host}/ws/socket-server/chat/${roomName}/`);
 	
 		chatSocket.onmessage = function(e) {
 			const data = JSON.parse(e.data);
