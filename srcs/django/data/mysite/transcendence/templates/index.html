@@ -359,10 +359,10 @@
 	<div id="dmsScreen" class="screen">
 		<div id="searchDm">
 			<h3>Search friends</h2>
-			<div id="searchDmfield">
+			<form id="searchDmfield">
 				<input id="searchDmUsernameInput" type="text">
-				<button id="searchDmButton">Search</button>
-			</div>
+				<button type="submit" id="searchDmButton">Search</button>
+			</form>
 		</div>
 		<div id="dmsList"></div>
 	</div>
@@ -373,7 +373,7 @@
 		</div>
 		<div id="msgList"></div>
 		<form id="sendMsg">
-			<input type="text" id="msgInput" type="text" autocomplete="off">
+			<input type="text" id="msgInput" autocomplete="off">
 			<button type="submit" id="sendMsgButton">Send</button>
 		</form>
 	</div>

@@ -271,3 +271,11 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({"message": "Tu as accédé à une ressource protégée"})
+
+def check_user_exists(request):
+    if request.method == 'GET':
+        username = request.GET.get('username', None)
+        if username:
+            exists = User.objects.filter(username=username).exists()
+            return JsonResponse({'exists': exists}, status=200)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
