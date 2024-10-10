@@ -16,6 +16,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from . import models
+from django.db.models import Q
+from .models import MatchHistory
 
 def home(request):
 	return render(request, 'index.html')
@@ -98,6 +101,19 @@ class ProfileView(APIView):
         friend_requests = FriendRequest.objects.filter(to_user=user)
         friends = user.userprofile.friends.all()
 
+        # Récupérer les 5 derniers matchs de l'utilisateur (en tant que joueur 1 ou 2)
+        match_history = MatchHistory.objects.filter(user=request.user).order_by('-date')
+
+        match_history = [
+            {
+                'opponent': match.opponent,
+                'result': 'win' if match.result == 'win' else 'lose',
+                'date': match.date.strftime('%Y-%m-%d %H:%M')
+            }
+            for match in match_history
+        ]
+
+
         friend_requests_data = [
             {
                 'id': friend_request.id,
@@ -118,6 +134,7 @@ class ProfileView(APIView):
             'defeat_count': user.userprofile.defeat_count,
             'friend_requests': friend_requests_data,
             'friends': friends_data,
+            'match_history': match_history  # Ajouter l'historique des matchs dans la réponse
         }
 
         return JsonResponse(data, status=200)
@@ -127,18 +144,31 @@ class UpdateScoreView(APIView):
 
     def post(self, request):
         result = request.POST.get('result')  # 'win' or 'lose'
-        
+        opponent = request.POST.get('opponent')  # Récupérer le nom de l'opposant depuis la requête
+
         profile = request.user.userprofile
         
         if result == 'win':
             profile.victory_count += 1
-        elif result == 'loose':
+            match_result = "win"
+        elif result == 'lose':
             profile.defeat_count += 1
+            match_result = "lose"
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid result'}, status=400)
         
         profile.save()
-        
+
+        # Créer l'historique du match
+        match = MatchHistory.objects.create(user=request.user, opponent=opponent, result=match_result)
+
+        # Limiter l'historique des matchs à 5 entrées
+        match_history = MatchHistory.objects.filter(user=request.user).order_by('-date')
+        if match_history.count() > 5:
+            match_history.last().delete()
+
         return JsonResponse({'success': True})
-    
+
     def get(self, request):
         return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
 
@@ -271,3 +301,11 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({"message": "Tu as accédé à une ressource protégée"})
+
+def check_user_exists(request):
+    if request.method == 'GET':
+        username = request.GET.get('username', None)
+        if username:
+            exists = User.objects.filter(username=username).exists()
+            return JsonResponse({'exists': exists}, status=200)
+    return JsonResponse({'error': 'Invalid request'}, status=400)

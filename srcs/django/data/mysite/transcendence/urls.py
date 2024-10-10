@@ -17,6 +17,7 @@ from .views import (
     UpdateScoreView,
     SendFriendRequestView,
     AcceptFriendRequestView,
+	check_user_exists,
 )
 
 urlpatterns = [
@@ -34,6 +35,7 @@ urlpatterns = [
     path('update-score/', UpdateScoreView.as_view(), name='update_score'),
     path('send-friend-request/', SendFriendRequestView.as_view(), name='send_friend_request'),
     path('accept-friend-request/', AcceptFriendRequestView.as_view(), name='accept_friend_request'),
+	path('check-user-exists/', check_user_exists, name='check_user_exists'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
