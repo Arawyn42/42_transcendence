@@ -1,0 +1,236 @@
+/******************************** GAME SCREEN ********************************/
+/* Game Screen Sections */
+#gameScreen {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.game-section {
+	box-sizing: border-box;
+}
+
+
+/************************** TOP SECTION (PLAYER 3) ***************************/
+#topSection {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Top controls and scores*/
+.top-controls-row, .top-score-row {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5vh 0;
+}
+
+
+/****************** MIDDLE SECTION (PLAYER 1 AND PLAYER 2) *******************/
+#middleSection {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+/* Subsections within Middle Section */
+.game-subsection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+
+/*************************** LEFT SECTION (PLAYER 1) ***************************/
+/* Left Controls Section */
+#leftControlsSection {
+	width: 12%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; /* Center the entire section */
+	text-align: center;
+	position: relative;
+}
+
+/* Left Score Section */
+#leftScoreSection {
+	width: 3%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+/************************ CENTER SECTION (GAME AREA) *************************/
+#centerSection {
+	width: 70%; /* Because left and right are 15% or viewport width */
+	height: 100%; /* Same as middle section height */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Game canvas */
+#gameCanvas {
+	width: 100%; /* Fills the width of center section */
+	height: auto;
+	background-color: #fff;
+	image-rendering: pixelated;
+}
+
+/* Adjust the game canvas */
+#gameWrapper {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/************************* RIGHT SECTION (PLAYER 2) **************************/
+/* Right Score Section */
+#rightScoreSection {
+	width: 3%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Right Controls Section */
+#rightControlsSection {
+	width: 12%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; /* Center the entire section */
+	text-align: center;
+	position: relative;
+}
+
+
+/************************* BOTTOM SECTION (PLAYER 4) *************************/
+#bottomSection {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Bottom score and controls */
+.bottom-score-row, .bottom-controls-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5vh 0;
+}
+
+
+/************************* PLAYERS LABELS AND SCORES *************************/
+/* Player Info Styles (Left and right sections) */
+.playerInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 50%; /* Place it in the vertical center */
+	transform: translateY(-50%); /* Adjust for proper centering */
+}
+
+/* Player labels (All sections) */
+.playerLabel {
+	font-size: 2vh;
+	margin: 0 2vh;
+}
+
+/* Player scores (All sections)*/
+.playerScore {
+	font-size: 3vh;
+}
+
+
+/***************************** CONTROLS DISPLAY ******************************/
+/* Title 'Controls' for for top and bottom */
+.controlsTextTopBot {
+	font-size: 2vh;
+	margin-right: 1vh;
+}
+
+/* Title 'Controls' for for left and right */
+.controlsTextLeftRight {
+	font-size: 2vh;
+	margin-bottom: 1vh;
+}
+
+/* Keys style (general) for left and right sections*/
+.controlKeys {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 8vh;
+}
+
+/* Keys style for all sections */
+.key, .controlKeys p {
+	border: 2px solid #fff;
+	text-align: center;
+	display: flex; /* Use flexbox for centering */
+	align-items: center; /* Center vertically */
+	justify-content: center; /* Center horizontally */
+	margin: 0.5vh;
+	background-color: transparent;
+	color: #fff;
+}
+
+/* Keys style for top and bot sections */
+.key {
+	width: 2vh;
+	height: 2vh;
+	font-size: 1vh;
+}
+
+/* Keys style for left and right sections */
+.controlKeys p {
+	width: 4vh;
+	height: 4vh;
+	font-size: 2.5vh;
+}
+
+
+/*********************** CLASSIC MODE (HIDE SECTIONS) ************************/
+/* Hide top and bottom section in classic mode */
+.classic-mode #topSection,
+.classic-mode #bottomSection {
+	visibility: hidden;
+}
+
+.classic-mode #leftControlsSection,
+.classic-mode #rightControlsSection {
+	width: 20%;
+}
+
+.classic-mode #centerSection {
+	width: 60%;
+}
+
+
+/******************************** END SCREEN *********************************/
+.winMessageContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 3vh 0;
+}
+
+.winMessageContainer h2 {
+	margin: 0;
+}
