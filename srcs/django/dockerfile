@@ -16,4 +16,6 @@ COPY data/mysite ./mysite
 COPY tools/django_setup.sh .
 RUN chmod +x django_setup.sh
 
+EXPOSE 8001
+
 CMD ["./django_setup.sh"]

@@ -157,7 +157,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 # cookie params
-CSRF_COOKIE_SECURE = False  # True for HTTPS
+CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://localhost', 'https://your-domain.com']
+CSRF_COOKIE_SECURE = True  # True for HTTPS
 CSRF_USE_SESSIONS = False
 
 
