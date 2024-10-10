@@ -51,12 +51,14 @@ function displayMenuButtons()
 	if (USERNAME === null)
 	{
 		document.getElementById('profile').style.display = 'none';
+		document.getElementById('chat').style.display = 'none';
 		document.getElementById('logoutButton').style.display = 'none';
 		document.getElementById('loginFromMenu').style.display = 'block';
 	}
 	else
 	{
 		document.getElementById('profile').style.display = 'block';
+		document.getElementById('chat').style.display = 'block';
 		document.getElementById('logoutButton').style.display = 'block';
 		document.getElementById('loginFromMenu').style.display = 'none';
 	}
