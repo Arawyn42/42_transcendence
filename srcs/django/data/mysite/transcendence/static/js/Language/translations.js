@@ -122,6 +122,10 @@ const translations = {
 		login: "Login",
 		registerFromLogin: "Not an account yet ? Register",
 		playAsGuest: "Play as guest",
+		//2FA
+		twoFA_Verification: "2FA Verification",
+		twoFA_placeholder: "Enter the 2FA code received by email",
+		validate: "Validate",
 		//Menu
 		profile: "Profile",
 		playClassic: "Play Classic",
@@ -143,10 +147,9 @@ const translations = {
 		friends: "Friends",
 		backToMenu: "Back to menu",
 		logOut: "Logout",
-		//2FA
-		twoFA_Verification: "2FA Verification",
-		twoFA_placeholder: "Enter the 2FA code received by email",
-		validate: "Validate",
+		//Match history
+		matchHistory: "Match History",
+		noMatch: "No matches played yet",
 		//Friend
 		friendsList: "Friends List",
 		addFriend: "Add a Friend",
@@ -199,7 +202,7 @@ const translations = {
         tournamentSmallFinal: "Small Final game:",
         tournamentFinal: "Final game:",
         tournamentWinner: "We have a winner! Well played everybody!",
-		//Chat
+		//Chat menu
 		searchFriends: "Search friends",
 		search: "Search",
     },
@@ -219,6 +222,10 @@ const translations = {
 		login: "Connexion",
 		registerFromLogin: "Pas encore de compte ? Inscrivez-vous",
 		playAsGuest: "Jouer en tant qu'invité(e)",
+		//2FA
+		twoFA_Verification: "Vérification 2FA",
+		twoFA_placeholder: "Entrez le code 2FA reçu par e-mail",
+		validate: "Valider",
 		//Menu
 		profile: "Profil",
 		playClassic: "Jouer en Classique",
@@ -240,10 +247,9 @@ const translations = {
 		friends: "Amis",
 		backToMenu: "Retour au menu",
 		logOut: "Déconnexion",
-		//2FA
-		twoFA_Verification: "Vérification 2FA",
-		twoFA_placeholder: "Entrez le code 2FA reçu par e-mail",
-		validate: "Valider",
+		//Match history
+		matchHistory : "Historique du match",
+		noMatch : "Aucun match n'a encore été joué",
 		//Friend
 		friendsList: "Liste d'amis",
 		addFriend: "Ajouter un ami",
@@ -296,7 +302,7 @@ const translations = {
         tournamentSmallFinal: "Petite finale :",
         tournamentFinal: "Finale :",
         tournamentWinner: "Nous avons un gagnant ! Bien joué à tous !",
-		//Chat
+		//Chat menu
 		searchFriends: "Rechercher des amis",
 		search: "Rechercher",
     },
@@ -316,6 +322,10 @@ const translations = {
 		login: "Iniciar sesión",
 		registerFromLogin: "¿No tienes cuenta aún? Regístrate",
 		playAsGuest: "Jugar como invitado",
+		//2FA
+		twoFA_Verification: "Verificación 2FA",
+		twoFA_placeholder: "Introduzca el código 2FA recibido por correo electrónico",
+		validate: "Validar",
 		//Menu
 		profile: "Perfil",
 		playClassic: "Jugar Clásico",
@@ -337,10 +347,9 @@ const translations = {
 		friends: "Amigos",
 		backToMenu: "Volver al menú",
 		logOut: "Cerrar sesión",
-		//2FA
-		twoFA_Verification: "Verificación 2FA",
-		twoFA_placeholder: "Introduzca el código 2FA recibido por correo electrónico",
-		validate: "Validar",
+		//Match history
+		matchHistory: "Historia del partido",
+		noMatch: "Todavía no se ha jugado ningún partido",
 		//Friend
 		friendsList: "Lista de amigos",
 		addFriend: "Agregar un amigo",
@@ -393,7 +402,7 @@ const translations = {
         tournamentSmallFinal: "Juego por el tercer puesto:",
         tournamentFinal: "Juego final:",
         tournamentWinner: "¡Tenemos un ganador! ¡Bien jugado todo el mundo!",
-		//Chat
+		//Chat menu
 		searchFriends: "Buscar amigos",
 		search: "Buscar",
 	},
@@ -413,6 +422,10 @@ const translations = {
 		login: "Anmelden",
 		registerFromLogin: "Noch kein Konto? Registrieren",
 		playAsGuest: "Als Gast spielen",
+		//2FA
+		twoFA_Verification: "2FA-Verifizierung",
+		twoFA_placeholder: "Geben Sie den per E-Mail erhaltenen 2FA-Code ein",
+		validate: "Bestätigen",
 		//Menu
 		profile: "Profil",
 		playClassic: "Klassisch spielen",
@@ -434,10 +447,9 @@ const translations = {
 		friends: "Freunde",
 		backToMenu: "Zurück zum Menü",
 		logOut: "Abmelden",
-		//2FA
-		twoFA_Verification: "2FA-Verifizierung",
-		twoFA_placeholder: "Geben Sie den per E-Mail erhaltenen 2FA-Code ein",
-		validate: "Bestätigen",
+		//Match history
+		matchHistory: "Spielverlauf",
+		noMatch: "Es wurden noch keine Spiele gespielt",
 		//Friend
 		friendsList: "Freundesliste",
 		addFriend: "Freund hinzufügen",
@@ -490,7 +502,7 @@ const translations = {
         tournamentSmallFinal: "Spiel um Platz 3:",
         tournamentFinal: "Finalspiel:",
         tournamentWinner: "Wir haben einen Gewinner! Gut gespielt, Leute!",
-		//Chat
+		//Chat menu
 		searchFriends: "Freunde suchen",
 		search: "Suchen",
 	},
