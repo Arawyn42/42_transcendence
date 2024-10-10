@@ -84,11 +84,23 @@
 			<p><strong textTranslated="firstName">First Name:</strong> <span id="profileFirstName" textTranslated="dynamicFirstName">{{ user.first_name }}</span></p>
 			<p><strong textTranslated="wins">Wins:</strong> <span id="profileWins" textTranslated="dynamicWins">{{ user.userprofile.victory_count }}</span></p>
 			<p><strong textTranslated="losses">Losses:</strong> <span id="profileLosses" textTranslated="dynamicLosses">{{ user.userprofile.defeat_count }}</span></p>
+			<h3>Match History</h3>
+			<ul id="matchHistoryList">
+			</ul>
 			<button id="editProfile" class="wideButton" textTranslated="editProfile">Edit profile</button>
 			<button id="friendFromProfile" class="wideButton" textTranslated="friend">Friend</button>
 			<button id="menuFromProfile" class="wideButton" textTranslated="backToMenu">Back to menu</button>
 		</div>
 
+	<!--------------------------------------MATCH HISTORY -------------------------------------->
+
+		<div id="matchHistory" class="screen">
+			<h3>Match History</h3>
+			<ul id="historyList">
+				<li>No matches played yet.</li>
+			</ul>
+		</div>
+		
 	<!---------------------------------------- FRIEND ----------------------------------------->
 		<div id="friendScreen" class="screen">
 			<h2 textTranslated="friendsList">Friends List</h2>
