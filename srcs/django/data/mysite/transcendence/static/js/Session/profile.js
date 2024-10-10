@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Button 'Friends'
 document.addEventListener('DOMContentLoaded', function () {
     const friendButton = document.getElementById('friendFromProfile');
     if (friendButton) {

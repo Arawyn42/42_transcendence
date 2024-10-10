@@ -95,6 +95,9 @@ function switchToScreen(screenId)
 			case 'registerScreen':
 				document.getElementById('registerForm').reset();
 				break;
+			case 'friendScreen':
+				updateFriendsList();
+				break;
 			case 'menuScreen':
 				displayMenuButtons();
 				resetTournament();

@@ -85,42 +85,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-fetch('/friends/', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-    },
-})
-.then(response => {
-    if (response.ok) {
-        return response.json();
-    } else if (response.status === 401) {
-        return response.json().then(data => {
-            if (data.redirect) {
-                switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
-            }
-            throw new Error(data.error || 'Unauthorized');
-        });
-    } else {
-        throw new Error('Network response was not ok.');
-    }
-})
-.then(data => {
-    const friendsListDiv = document.getElementById('friendsList');
-    if (data.friends && data.friends.length > 0) {
-        let friendsHTML = '<ul>';
-        data.friends.forEach(friend => {
-            friendsHTML += `<li>${friend.username}</li>`;
-        });
-        friendsHTML += '</ul>';
-        friendsListDiv.innerHTML = friendsHTML;
-    } else {
-        friendsListDiv.innerHTML = 'No friends yet.';
-    }
-})
-.catch(error => console.error(`Error: ${error}`));
+function updateFriendsList()
+{
+    fetch('/friends/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else if (response.status === 401) {
+            return response.json().then(data => {
+                if (data.redirect) {
+                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                }
+                throw new Error(data.error || 'Unauthorized');
+            });
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .then(data => {
+        const friendsListDiv = document.getElementById('friendsList');
+        if (data.friends && data.friends.length > 0) {
+            let friendsHTML = '<ul>';
+            data.friends.forEach(friend => {
+                friendsHTML += `<li>${friend.username}</li>`;
+            });
+            friendsHTML += '</ul>';
+            friendsListDiv.innerHTML = friendsHTML;
+        } else {
+            friendsListDiv.innerHTML = 'No friends yet.';
+        }
+    })
+    .catch(error => console.error(`Error: ${error}`));
+}
 
 function getCookie(name) {
     let cookieValue = null;
