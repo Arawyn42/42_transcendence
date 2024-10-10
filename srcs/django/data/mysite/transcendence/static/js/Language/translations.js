@@ -198,7 +198,10 @@ const translations = {
         tournamentSecondGame: "Second game:",
         tournamentSmallFinal: "Small Final game:",
         tournamentFinal: "Final game:",
-        tournamentWinner: "We have a winner! Well played everybody!"
+        tournamentWinner: "We have a winner! Well played everybody!",
+		//Chat
+		searchFriends: "Search friends",
+		search: "Search",
     },
 
     fr: {
@@ -292,8 +295,10 @@ const translations = {
         tournamentSecondGame: "Deuxième match :",
         tournamentSmallFinal: "Petite finale :",
         tournamentFinal: "Finale :",
-        tournamentWinner: "Nous avons un gagnant ! Bien joué à tous !"
-		
+        tournamentWinner: "Nous avons un gagnant ! Bien joué à tous !",
+		//Chat
+		searchFriends: "Rechercher des amis",
+		search: "Rechercher",
     },
 
     es: {
@@ -387,7 +392,10 @@ const translations = {
         tournamentSecondGame: "Segundo juego:",
         tournamentSmallFinal: "Juego por el tercer puesto:",
         tournamentFinal: "Juego final:",
-        tournamentWinner: "¡Tenemos un ganador! ¡Bien jugado todo el mundo!"
+        tournamentWinner: "¡Tenemos un ganador! ¡Bien jugado todo el mundo!",
+		//Chat
+		searchFriends: "Buscar amigos",
+		search: "Buscar",
 	},
 
 	de: {
@@ -481,7 +489,10 @@ const translations = {
         tournamentSecondGame: "Zweites Spiel:",
         tournamentSmallFinal: "Spiel um Platz 3:",
         tournamentFinal: "Finalspiel:",
-        tournamentWinner: "Wir haben einen Gewinner! Gut gespielt, Leute!"
+        tournamentWinner: "Wir haben einen Gewinner! Gut gespielt, Leute!",
+		//Chat
+		searchFriends: "Freunde suchen",
+		search: "Suchen",
 	},
 
   };

@@ -344,24 +344,14 @@
 		<button id="menuFromTournament" textTranslated="backToMenu">Back to Menu</button>
 	</div>
 
-	<!---------------------------------- LANGUAGE SELECTION ----------------------------------->
-
-	<div id="languageSelector" class="languageSelector">
-		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
-		<button id="fr" class="languageButton"><span class="fi fi-fr"></span></button>
-		<button id="es" class="languageButton"><span class="fi fi-es"></span></button>
-		<button id="de" class="languageButton"><span class="fi fi-de"></span></button>
-	</div>
-
-
 	<!---------------------------------- CHAT MENU ----------------------------------->
 
 	<div id="dmsScreen" class="screen">
 		<div id="searchDm">
-			<h3>Search friends</h2>
+			<h3 textTranslated="searchFriends">Search friends</h2>
 			<div id="searchDmfield">
 				<input id="searchDmUsernameInput" type="text">
-				<button id="searchDmButton">Search</button>
+				<button id="searchDmButton" textTranslated="search">Search</button>
 			</div>
 		</div>
 		<div id="dmsList"></div>
@@ -374,12 +364,20 @@
 		<div id="msgList"></div>
 		<form id="sendMsg">
 			<input type="text" id="msgInput" type="text" autocomplete="off">
-			<button type="submit" id="sendMsgButton">Send</button>
+			<button type="submit" id="sendMsgButton" textTranslated="send">Send</button>
 		</form>
 	</div>
 
+	<!---------------------------------- LANGUAGE SELECTION ----------------------------------->
 
+	<div id="languageSelector" class="languageSelector">
+		<button id="en" class="languageButton"><span class="fi fi-gb"></span></button>
+		<button id="fr" class="languageButton"><span class="fi fi-fr"></span></button>
+		<button id="es" class="languageButton"><span class="fi fi-es"></span></button>
+		<button id="de" class="languageButton"><span class="fi fi-de"></span></button>
+	</div>
 
+	
 	<!---------------------------------- JAVASCRIPT SCRIPTS ----------------------------------->
 	{% load static %}
 	<!-- Languages -->
