@@ -42,7 +42,7 @@ document.getElementById('loginFromMenu').addEventListener('click', function() {
 
 // Button 'Chat'
 document.addEventListener('DOMContentLoaded', function () {
-	document.getElementById('chat').addEventListener('click', showChat);
+	document.getElementById('chat').addEventListener('click', showDmList);
 });
 
 // Function to display the right buttons if user is connected or not

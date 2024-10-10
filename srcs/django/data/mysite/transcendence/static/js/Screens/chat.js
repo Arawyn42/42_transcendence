@@ -3,7 +3,7 @@ const usernameInput		= document.getElementById("searchDmUsernameInput");
 const dmsList			= document.getElementById("dmsList");
 const msgList 			= document.getElementById("msgList");
 
-function showChat() {
+function showDmList() {
     switchScreen('dmsScreen');
 }
 
@@ -12,14 +12,12 @@ function showDm() {
     switchScreen('dmScreen');
 }
 
-
 document.getElementById("searchDmfield").addEventListener("submit", async function(event) {
 	event.preventDefault();	
 	const username 	= usernameInput.value;
 	usernameInput.value = "";
 
-	const myUsername = await getUserProfile();
-	if (myUsername === username) {
+	if (USERNAME === username) {
 		alert("Cannot open a conversation with yourself");
 		return ;
 	}
