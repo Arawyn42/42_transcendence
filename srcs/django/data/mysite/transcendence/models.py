@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -9,6 +10,15 @@ class UserProfile(models.Model):
     friends = models.ManyToManyField('self', symmetrical=True, blank=True)
     def __str__(self):
         return self.user.username
+
+class MatchHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_history')
+    opponent = models.CharField(max_length=255)
+    result = models.CharField(max_length=10)  # 'win' ou 'lose'
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} vs {self.opponent} - {self.result}"
 
 class FriendRequest(models.Model):
     from_user = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)

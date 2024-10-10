@@ -52,11 +52,28 @@ function showProfile() {
     
     })
     .then(data => {
+        console.log(data);
+        
         document.getElementById('profileUsername').textContent = data.username;
         document.getElementById('profileEmail').textContent = data.email;
         document.getElementById('profileFirstName').textContent = data.first_name;
         document.getElementById('profileWins').textContent = data.victory_count;
         document.getElementById('profileLosses').textContent = data.defeat_count;
+        
+        const historyList = document.getElementById('matchHistoryList');
+        console.log(historyList);
+        
+        historyList.innerHTML = '';
+        if (data.match_history.length > 0) {
+            data.match_history.forEach(match => {
+                const li = document.createElement('li');
+                li.textContent = `Date: ${match.date}, Result: ${match.result}, Opponent: ${match.opponent}`;
+                historyList.appendChild(li);
+            });
+        } else {
+            historyList.innerHTML = '<li>No matches played yet.</li>';
+        }
+        
         const friendRequestsList = document.getElementById('friendRequestsList');
         friendRequestsList.innerHTML = '';
 

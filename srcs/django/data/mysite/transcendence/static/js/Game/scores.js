@@ -41,7 +41,7 @@ function checkScores(game)
 			if (player2Score >= MAX_SCORE) // Player 2 wins
 			{
 				console.log(`----- Player 2 won! -----`);
-				sendScoreUpdate('loose');
+				sendScoreUpdate('lose');
 				tournamentGameEnded(2);
 				setScore(0, 0);
 				game.state = 'end2';
@@ -62,7 +62,6 @@ function checkScores(game)
 				&& player4Score <= 0)
 			{
 				console.log(`----- Player 1 won! -----`);
-				sendScoreUpdate('win');
 				setScore(0, MAX_SCORE);
 				game.state = 'end1';
 				return;
@@ -71,7 +70,6 @@ function checkScores(game)
 				&& player4Score <= 0)
 			{
 				console.log(`----- Player 2 won! -----`);
-				sendScoreUpdate('loose');
 				setScore(0, MAX_SCORE);
 				game.state = 'end2';
 				return;
@@ -80,7 +78,6 @@ function checkScores(game)
 				&& player4Score <= 0)
 			{
 				console.log(`----- Player 3 won! -----`);
-				sendScoreUpdate('loose');
 				setScore(0, MAX_SCORE);
 				game.state = 'end3';
 				return;
@@ -89,7 +86,6 @@ function checkScores(game)
 				&& player3Score <= 0)
 			{
 				console.log(`----- Player 4 won! -----`);
-				sendScoreUpdate('loose');
 				setScore(0, MAX_SCORE);
 				game.state = 'end4';
 				return;
