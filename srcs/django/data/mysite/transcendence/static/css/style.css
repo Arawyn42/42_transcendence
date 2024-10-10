@@ -133,6 +133,39 @@ button {
 }
 
 
+/****************************** REGISTER SCREEN ******************************/
+#registerScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#registerForm input,
+#registerForm button {
+    width: 20vw;
+    margin-bottom: 2vh;
+    box-sizing: border-box;
+}
+
+#registerForm input[type="text"],
+#registerForm input[type="email"],
+#registerForm input[type="password"] {
+    padding: 0.5vh;
+    font-size: 2vh;
+    border: 2px solid #fff;
+    background-color: #000;
+    color: #fff;
+    margin-bottom: 2vh;
+    text-align: center;
+}
+
+
 /********************************** PROFILE **********************************/
 #profileScreen {
 	display: flex;
