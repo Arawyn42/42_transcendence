@@ -85,7 +85,7 @@
 	
 	<!----------------------------------------- MENU ------------------------------------------>
 	<div id="menuScreen" class="screen">
-			<button id="chat">Chat</button>
+			<button id="chat" class="wideButton">Chat</button>
 			<button id="profile" class="wideButton" textTranslated="profile">Profile</button>
 			<button id="playClassic" class="wideButton" textTranslated="playClassic">Play Classic</button>
 			<button id="playMultiplayer" class="wideButton" textTranslated="playMultiplayer">Play Multiplayer</button>
@@ -106,7 +106,7 @@
 			<p><strong textTranslated="firstName">First Name:</strong> <span id="profileFirstName" textTranslated="dynamicFirstName">{{ user.first_name }}</span></p>
 			<p><strong textTranslated="wins">Wins:</strong> <span id="profileWins" textTranslated="dynamicWins">{{ user.userprofile.victory_count }}</span></p>
 			<p><strong textTranslated="losses">Losses:</strong> <span id="profileLosses" textTranslated="dynamicLosses">{{ user.userprofile.defeat_count }}</span></p>
-			<h3>Match History</h3>
+			<h3 textTranslated="matchHistory">Matches History</h3>
 			<ul id="matchHistoryList">
 			</ul>
 			<button id="editProfile" class="wideButton" textTranslated="editProfile">Edit profile</button>
@@ -117,9 +117,9 @@
 	<!--------------------------------------MATCH HISTORY -------------------------------------->
 
 		<div id="matchHistory" class="screen">
-			<h3 textTranslated="matchHistory">Match History</h3>
+			<h3 textTranslated="matchHistory">Matches History</h3>
 			<ul id="historyList">
-				<li textTranslated="noMatch">No matches played yet</li>
+				<li textTranslated="noMatch">No match played yet</li>
 			</ul>
 		</div>
 		

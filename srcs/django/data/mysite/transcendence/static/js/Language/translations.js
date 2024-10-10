@@ -148,8 +148,8 @@ const translations = {
 		backToMenu: "Back to menu",
 		logOut: "Logout",
 		//Match history
-		matchHistory: "Match History",
-		noMatch: "No matches played yet",
+		matchHistory: "Matches History",
+		noMatch: "No match played yet",
 		//Friend
 		friendsList: "Friends List",
 		addFriend: "Add a Friend",
@@ -248,7 +248,7 @@ const translations = {
 		backToMenu: "Retour au menu",
 		logOut: "Déconnexion",
 		//Match history
-		matchHistory : "Historique du match",
+		matchHistory : "Historique des matches",
 		noMatch : "Aucun match n'a encore été joué",
 		//Friend
 		friendsList: "Liste d'amis",
@@ -348,7 +348,7 @@ const translations = {
 		backToMenu: "Volver al menú",
 		logOut: "Cerrar sesión",
 		//Match history
-		matchHistory: "Historia del partido",
+		matchHistory: "Historial de partidos",
 		noMatch: "Todavía no se ha jugado ningún partido",
 		//Friend
 		friendsList: "Lista de amigos",
@@ -448,7 +448,7 @@ const translations = {
 		backToMenu: "Zurück zum Menü",
 		logOut: "Abmelden",
 		//Match history
-		matchHistory: "Spielverlauf",
+		matchHistory: "Spielegeschichte",
 		noMatch: "Es wurden noch keine Spiele gespielt",
 		//Friend
 		friendsList: "Freundesliste",
