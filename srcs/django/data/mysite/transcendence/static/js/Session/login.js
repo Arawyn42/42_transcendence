@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.getElementById("loginForm").onsubmit = function(event) {
-	
+
 	// Do nothing if the 'Play as guest' button is clicked
 	if (document.activeElement === document.getElementById('playAsGuest'))
         return;
@@ -45,7 +45,7 @@ document.getElementById("loginForm").onsubmit = function(event) {
 	})
 	.catch(error => {
 		alert('Connection error: ' + error.message);
-		console.error('Connection error:', error);
+		console.error('Connection error: ', error);
 	});
 };
 
