@@ -86,7 +86,14 @@ function switchToScreen(screenId)
 		switch (screenId)
 		{
 			case 'loginScreen':
+				document.getElementById('loginForm').reset();
 				resetTournament();
+				break;
+			case '2faScreen':
+				document.getElementById('twoFaForm').reset();
+				break;
+			case 'registerScreen':
+				document.getElementById('registerForm').reset();
 				break;
 			case 'menuScreen':
 				displayMenuButtons();
@@ -102,6 +109,7 @@ function switchToScreen(screenId)
 				launchGame();
 				break;
 			case 'settingsScreen':
+				resetSettingsInputs();
 				adjustPlayerNamesScreen();
 				displayDifficultyButtons();
 				break;
