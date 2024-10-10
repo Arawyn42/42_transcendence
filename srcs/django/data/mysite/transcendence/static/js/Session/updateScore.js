@@ -1,8 +1,10 @@
 function sendScoreUpdate(result) {
-    fetch('/update-scores/', {
+    opponent = document.getElementById('player2Label').textContent;
+    fetch('/update-score/', {
         method: 'POST',
         body: new URLSearchParams({
-            'result': result
+            'result': result,
+            'opponent': opponent
         }),
         headers: {
             'X-CSRFToken': getCookie('csrftoken'),
@@ -10,20 +12,7 @@ function sendScoreUpdate(result) {
             'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         }
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else if (response.status === 401) {
-            return response.json().then(data => {
-                if (data.redirect) {
-                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
-                }
-                throw new Error(data.error || 'Unauthorized');
-            });
-        } else {
-            throw new Error('Network response was not ok.');
-        }
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
             console.log('Scores updated successfully!');
