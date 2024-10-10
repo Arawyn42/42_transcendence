@@ -34,6 +34,15 @@
     margin: 0;
 }
 
+#dmsList {
+	width: 20vw;
+	min-width: fit-content;
+}
+
+#dmDiv {
+	overflow: hidden;
+}
+
 .dmDiv {
     position: relative;
     margin: 0 auto 10px;
