@@ -72,3 +72,8 @@ window.addEventListener("beforeunload", function() {
 		chatSocket.close();
 	}
 })
+
+document.getElementById('backFromChat').addEventListener('click', function () {
+	switchScreen('dmsScreen');
+	console.log('Returning on Chat Selection from Chat');
+});	

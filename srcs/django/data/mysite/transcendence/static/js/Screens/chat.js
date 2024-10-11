@@ -172,3 +172,8 @@ function createDmDiv(interlocutor) {
 
 	dmsList.appendChild(dmDiv);
 }
+
+document.getElementById('backFromDms').addEventListener('click', function () {
+	switchScreen('menuScreen');
+	console.log('Returning on Menu from Chat Selection');
+});

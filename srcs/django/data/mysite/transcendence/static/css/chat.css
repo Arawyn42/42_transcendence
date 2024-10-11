@@ -6,6 +6,12 @@
     right: 2vw;
 }
 
+#backFromDms {
+	position: absolute;
+    top: 7vh;
+    left: 2vw;
+}
+
 #searchDm {
     display: flex;
     flex-direction: column;
@@ -106,6 +112,13 @@
 	margin: 0;
 }
 
+#backFromChat {
+	position: absolute;
+	left: 0;
+	height: 100%;
+	margin: 0;
+}
+
 #dmHeaderP {
     position: absolute;
     top: 50%;
@@ -176,6 +189,11 @@
         right: 1vw;
     }
 
+	#backFromDms {
+		top: 8vh;
+        left: 1vw;
+	}
+	
     #searchDmfield, #sendMsg {
         flex-direction: column;
         height: auto;
@@ -195,11 +213,17 @@
 	#chat {
         top: 8.5vh;
 	}
+	#backFromDms {
+		top: 8.5vh;
+	}
 }
 
 @media screen and (max-width: 575px) {
 	#chat {
         top: 11vh;
+	}
+	#backFromDms {
+		top: 11vh;
 	}
 }
 
