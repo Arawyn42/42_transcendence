@@ -1,12 +1,10 @@
 
 async function WebSocketStatus() {
-    console.log("WebSocketsStatus start");
     statusSocket = new WebSocket(`wss://${window.location.host}/ws/status/`);
     updateFriendsList();
 
     statusSocket.onmessage = function(e) {
 		const data = JSON.parse(e.data);
-		console.log("friendsssss" + data['friends']);
         if (data['friends']) {
             data['friends'].forEach(friend => {
                 const statusIndicator = document.getElementById(`status_${friend}`);
@@ -16,8 +14,6 @@ async function WebSocketStatus() {
     };
     statusSocket.onopen = function() {
     };
-
-
 }
 
 window.addEventListener('beforeunload', function (event) {
