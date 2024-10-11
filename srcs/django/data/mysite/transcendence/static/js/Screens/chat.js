@@ -45,6 +45,12 @@ document.getElementById("searchDmfield").addEventListener("submit", async functi
 		return ;
 	}
 
+	const openDms = document.getElementsByClassName("dmUsername");
+	for (let i = 0; i < openDms.length; i++) {
+		if (openDms[i].textContent === username)
+			return ;
+	}
+
 	if (username.trim() !== '') {
 		fetch(`/check-user-exists/?username=${username}`)
 			.then(response => response.json())
