@@ -7,8 +7,14 @@ async function WebSocketStatus() {
     statusSocket.onmessage = function(e) {
 		const data = JSON.parse(e.data);
 		console.log("friendsssss" + data['friends']);
-	};
-
+        if (data['friends']) {
+            data['friends'].forEach(friend => {
+                const statusIndicator = document.getElementById(`status_${friend}`);
+                statusIndicator.style.display = 'flex';
+                console.logs(statusIndicator.getAttribute('id'));
+            });
+        }
+    };
     statusSocket.onopen = function() {
     };
 
