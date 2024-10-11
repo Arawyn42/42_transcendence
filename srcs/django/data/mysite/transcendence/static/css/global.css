@@ -120,34 +120,6 @@ h3 {
 	}
 }
 
-/* header h1 {
-	font-size: 3.5vh;
-	padding: 1vh 0;
-}
-
-h1 {
-	font-size: 3vh;
-	text-align: center;
-}
-
-h2 {
-	font-size: 2.5vh;
-	text-align: center;
-	margin-bottom: 3vh;
-}
-
-h3 {
-	font-size: 2vh;
-	text-align: center;
-	margin: 1vh 0;
-}
-
-
-#pongTitle {
-	padding: 1vh 0;
-} */
-
-
 /********************************** BUTTONS **********************************/
 
 /* Buttons */
@@ -172,7 +144,7 @@ button {
 
 /* Wide buttons */
 .wideButton {
-    width: clamp(150px, 20vw, 300px);
+    width: clamp(150px, 200vw, 350px);
 }
 
 /* 'Back' buttons */
@@ -181,6 +153,19 @@ button {
 }
 
 /* Media query for smaller screens */
+@media screen and (max-width: 1200px) {
+    button {
+        width: 20vw;
+        max-width: none;
+        font-size: clamp(8px, 4vw, 16px);
+        padding: clamp(1vh, 2vh, 3vh) clamp(2vw, 4vw, 6vw);
+    }
+
+    .wideButton {
+        width: 20vw;
+    }
+}
+
 @media screen and (max-width: 835px) {
     button {
         width: 20vw;
