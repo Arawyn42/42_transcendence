@@ -114,8 +114,6 @@ class FriendStatusConsumer(AsyncWebsocketConsumer):
 		self.user = self.scope["user"]
 		await self.accept()
 		tab.append(self.user.username)
-		for t in tab:
-			print(t)
 
 	async def receive(self, text_data):
 		data = json.loads(text_data)

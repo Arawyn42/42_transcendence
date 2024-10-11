@@ -21,6 +21,10 @@ async function WebSocketStatus() {
 
 }
 
+window.addEventListener('beforeunload', function (event) {
+	statusSocket.close();
+});
+
 document.getElementById('twoFaForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
