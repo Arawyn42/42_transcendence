@@ -106,3 +106,38 @@ class ChatConsumer(AsyncWebsocketConsumer):
 		if room.user1 == current_user:
 			return room.user2
 		return room.user1
+
+tab = []
+
+class FriendStatusConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        print("Client connected.")  # Log de connexion
+        self.user = self.scope["user"]
+        await self.accept()
+        tab.append(self.user.username)
+
+    async def receive(self, text_data):
+        print(f"Received data: {text_data}")  # Log des données reçues
+        data = json.loads(text_data)
+        await self.channel_layer.group_send(
+            f"user_status_{data['userId']}",
+            {
+                "type": "status_update",
+                "userId": data["userId"],
+                "status": data["status"],
+            }
+        )
+
+    async def status_update(self, event):
+        print(f"Sending status update: {event['status']}")  # Log de mise à jour de statut
+        await self.send(text_data=json.dumps({
+            "userId": event["userId"],
+            "status": event["status"],
+        }))
+
+    async def disconnect(self, close_code):
+        print("Client disconnected.")  # Log de déconnexion
+        if	self.user.username in tab:
+            tab.remove(self.user.username)
+
+	

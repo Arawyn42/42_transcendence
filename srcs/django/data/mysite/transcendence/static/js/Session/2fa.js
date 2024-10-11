@@ -1,3 +1,36 @@
+async function WebSocketStatus() {
+    console.log("WebSocketsStatus start");
+    updateFriendsList();
+    statusSocket = new WebSocket(`wss://${window.location.host}/ws/status/`);
+
+    statusSocket.onopen = function() {
+        console.log("WebSocket connection opened.");
+    };
+
+    statusSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log("Received status update:", data);  
+
+        const statusElement = document.getElementById(`status_${data.userId}`);
+        if (statusElement) {
+            const statusSpan = statusElement.querySelector('.friend-status');
+            if (statusSpan) {
+                statusSpan.textContent = data.status;
+            }
+        } else {
+            console.log("friend not found in the DOM");
+        }
+    };
+
+    statusSocket.onclose = function() {
+        console.log("WebSocket connection closed.");
+    };
+
+    statusSocket.onerror = function(error) {
+        console.error("WebSocket error:", error);
+    };
+}
+
 document.getElementById('twoFaForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -27,6 +60,7 @@ document.getElementById('twoFaForm').addEventListener('submit', function(event) 
             localStorage.setItem('access_token', data.access_token);
             alert('Successful login!');
 			document.getElementById('twoFaForm').reset();
+            WebSocketStatus();
             switchScreen('menuScreen');
         } else {
             alert('Error: ' + data.error);

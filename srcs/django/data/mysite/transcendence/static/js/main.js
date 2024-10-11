@@ -63,6 +63,10 @@ let csrfToken = getCookie('csrftoken');
 // WebSocket for livechat
 let chatSocket;
 
+// WebSocket for status
+let statusSocket;
+
+
 
 /******************************** FUNCTIONS *********************************/
 // Update USERNAME then switch to specified screen
