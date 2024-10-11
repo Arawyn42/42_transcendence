@@ -24,7 +24,7 @@ document.getElementById('addFriendButton').addEventListener('click', function() 
         } else if (response.status === 401) {
             return response.json().then(data => {
                 if (data.redirect) {
-                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                    switchScreen('loginScreen');
                 }
                 throw new Error(data.error || 'Unauthorized');
             });
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else if (response.status === 401) {
                     return response.json().then(data => {
                         if (data.redirect) {
-                            switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                            switchScreen('loginScreen');
                         }
                         throw new Error(data.error || 'Unauthorized');
                     });
@@ -100,7 +100,7 @@ function updateFriendsList()
         } else if (response.status === 401) {
             return response.json().then(data => {
                 if (data.redirect) {
-                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                    switchScreen('loginScreen');
                 }
                 throw new Error(data.error || 'Unauthorized');
             });
