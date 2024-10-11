@@ -23,6 +23,33 @@ document.addEventListener('DOMContentLoaded', function () {
 // Show the user profile when clicking on 'Profile' from 'Menu'
 function showProfile() {
     switchScreen('profileScreen');
+    fetch('/friends/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else if (response.status === 401) {
+            return response.json().then(data => {
+                if (data.redirect) {
+                    switchScreen('loginScreen');  // Assurez-vous que 'loginScreen' est défini
+                }
+                throw new Error(data.error || 'Unauthorized');
+            });
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .then(data => {
+        statusSocket.send(JSON.stringify({
+			'friends': data.friends
+		}));
+	});
+
 
     fetch('/profile/', {
         method: 'GET',

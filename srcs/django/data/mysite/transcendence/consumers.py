@@ -106,3 +106,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
 		if room.user1 == current_user:
 			return room.user2
 		return room.user1
+
+tab = []
+
+class FriendStatusConsumer(AsyncWebsocketConsumer):
+	async def connect(self):
+		self.user = self.scope["user"]
+		await self.accept()
+		tab.append(self.user.username)
+
+	async def receive(self, text_data):
+		data = json.loads(text_data)
+		connected_friends = []
+		if len(data['friends']) > 0:
+			for friend in data['friends']:
+				if friend['username'] in tab:
+					connected_friends.append(friend['username'])
+
+		await self.send(text_data=json.dumps({
+			'friends': connected_friends,
+		}))
+
+	async def disconnect(self, close_code):
+		print("Client disconnected.")  # Log de déconnexion
+		if	self.user.username in tab:
+			tab.remove(self.user.username)
+
+	

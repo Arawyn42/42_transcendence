@@ -1,3 +1,24 @@
+
+async function WebSocketStatus() {
+    console.log("WebSocketsStatus start");
+    updateFriendsList();
+    statusSocket = new WebSocket(`wss://${window.location.host}/ws/status/`);
+
+    statusSocket.onmessage = function(e) {
+		const data = JSON.parse(e.data);
+		console.log("friendsssss" + data['friends']);
+	};
+
+    statusSocket.onopen = function() {
+    };
+
+
+}
+
+window.addEventListener('beforeunload', function (event) {
+	statusSocket.close();
+});
+
 document.getElementById('twoFaForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -27,6 +48,7 @@ document.getElementById('twoFaForm').addEventListener('submit', function(event) 
             localStorage.setItem('access_token', data.access_token);
             alert('Successful login!');
 			document.getElementById('twoFaForm').reset();
+            WebSocketStatus();
             switchScreen('menuScreen');
         } else {
             alert('Error: ' + data.error);
