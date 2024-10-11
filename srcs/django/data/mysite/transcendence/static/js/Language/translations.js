@@ -156,8 +156,9 @@ const translations = {
 		addFriendButton: "Add Friend",
 		friendsRequests: "Friend Requests",
 		accept: "Accept",
-		noFriendRequest: "No friend requests",
+		noFriendRequest: "No friend request",
 		cancel: "Cancel",
+		noFriendYet: "No friends yet",
 		//Edit Profile
 		saveChanges: "Save changes",
 		//Settings
@@ -258,6 +259,7 @@ const translations = {
 		accept: "Accepter",
 		noFriendRequest: "Aucune demande d'ami",
 		cancel: "Annuler",
+		noFriendYet: "Pas encore d'amis",
 		//Edit Profile
 		saveChanges: "Enregistrer les modifications",
 		//Settings
@@ -358,6 +360,7 @@ const translations = {
 		accept: "Aceptar",
 		noFriendRequest: "No hay solicitudes de amistad",
 		cancel: "Cancelar",
+		noFriendYet: "Sin amigos todavía",
 		//Edit Profile
 		saveChanges: "Guardar cambios",
 		//Settings
@@ -458,6 +461,7 @@ const translations = {
 		accept: "Akzeptieren",
 		noFriendRequest: "Keine Freundschaftsanfragen",
 		cancel: "Abbrechen",
+		noFriendYet: "Noch keine Freunde",
 		//Edit Profile
 		saveChanges: "Änderungen speichern",
 		//Settings

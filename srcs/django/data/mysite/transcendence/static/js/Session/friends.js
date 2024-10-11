@@ -118,7 +118,7 @@ function updateFriendsList()
             friendsHTML += '</ul>';
             friendsListDiv.innerHTML = friendsHTML;
         } else {
-            friendsListDiv.innerHTML = 'No friends yet.';
+            friendsListDiv.innerHTML = '<li textTranslated="noFriendYet">No friends yet</li>';
         }
     })
     .catch(error => console.error(`Error: ${error}`));

@@ -90,7 +90,7 @@ function showProfile() {
                 friendRequestsList.appendChild(li);
             });
         } else {
-            friendRequestsList.innerHTML = '<li>No friend requests</li>';
+            friendRequestsList.innerHTML = '<li textTranslated="noFriendRequest">No friend request</li>';
         }
     })
     .catch(error => {
