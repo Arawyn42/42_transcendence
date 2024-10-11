@@ -8,7 +8,7 @@
 
 #backFromDms {
 	position: absolute;
-    top: 7vh;
+    top: 5vh;
     left: 2vw;
 }
 
@@ -190,7 +190,7 @@
     }
 
 	#backFromDms {
-		top: 8vh;
+		top: 6vh;
         left: 1vw;
 	}
 	
@@ -214,7 +214,7 @@
         top: 8.5vh;
 	}
 	#backFromDms {
-		top: 8.5vh;
+		top: 6vh;
 	}
 }
 
@@ -223,7 +223,7 @@
         top: 11vh;
 	}
 	#backFromDms {
-		top: 11vh;
+		top: 8.5vh;
 	}
 }
 
