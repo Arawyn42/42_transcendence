@@ -100,9 +100,8 @@
 
 #friendRequestsList {
     list-style: none;
-    margin: 0 0 4vh 0;
-    width: 50vw;
-	padding-left: 15vw;
+	text-align: center;
+    margin: clamp(8px, 1vh, 16px) 0;
 }
 
 #friendRequestsList li {
