@@ -113,14 +113,23 @@ function updateFriendsList()
         if (data.friends && data.friends.length > 0) {
             let friendsHTML = '<ul>';
             data.friends.forEach(friend => {
-                friendsHTML += `<li>${friend.username}</li>`;
+                friendsHTML += `
+                <li class="friend-item">
+                    <span>${friend.username}</span>
+                    <span id="status_${friend.username}" class="status-indicator" style="display: none;"></span>
+                </li>`;
+
             });
             friendsHTML += '</ul>';
             friendsListDiv.innerHTML = friendsHTML;
         } else {
             friendsListDiv.innerHTML = '<li textTranslated="noFriendYet">No friends yet</li>';
         }
+            statusSocket.send(JSON.stringify({
+                'friends': data.friends
+            }));
     })
+
     .catch(error => console.error(`Error: ${error}`));
 }
 

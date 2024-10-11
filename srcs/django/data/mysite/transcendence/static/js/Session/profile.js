@@ -44,11 +44,7 @@ function showProfile() {
             throw new Error('Network response was not ok.');
         }
     })
-    .then(data => {
-        statusSocket.send(JSON.stringify({
-			'friends': data.friends
-		}));
-	});
+
 
 
     fetch('/profile/', {

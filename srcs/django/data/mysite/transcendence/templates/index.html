@@ -126,7 +126,13 @@
 	<!---------------------------------------- FRIEND ----------------------------------------->
 		<div id="friendScreen" class="screen">
 			<h2 textTranslated="friendsList">Friends List</h2>
-			<div id="friendsList"></div>
+			<div id="friendsList">
+				{% for friend in friends %}
+					<div id="friend_{{ friend.id }}" class="friend-item">
+						<span>{{ friend.username }}</span>
+					</div>
+				{% endfor %}
+			</div>			
 			<h3 textTranslated="addFriend">Add a Friend</h3>
 			<input type="text" id="friendUsername" placeholder="Username" textTranslated="usernamePlaceholder">
 			<button id="addFriendButton" class="wideButton" textTranslated="addFriendButton">Add Friend</button>
