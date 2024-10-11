@@ -45,8 +45,12 @@ function showProfile() {
         }
     })
     .then(data => {
-        statusSocket.send(data.friends)
-    });
+        statusSocket.send(JSON.stringify({
+			'friends': data.friends
+		}));
+	});
+
+
     fetch('/profile/', {
         method: 'GET',
         headers: {

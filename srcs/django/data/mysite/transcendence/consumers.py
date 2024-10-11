@@ -110,34 +110,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
 tab = []
 
 class FriendStatusConsumer(AsyncWebsocketConsumer):
-    async def connect(self):
-        print("Client connected.")  # Log de connexion
-        self.user = self.scope["user"]
-        await self.accept()
-        tab.append(self.user.username)
+	async def connect(self):
+		self.user = self.scope["user"]
+		await self.accept()
+		tab.append(self.user.username)
+		for t in tab:
+			print(t)
 
-    async def receive(self, text_data):
-        print(f"Received data: {text_data}")  # Log des données reçues
-        data = json.loads(text_data)
-        await self.channel_layer.group_send(
-            f"user_status_{data['userId']}",
-            {
-                "type": "status_update",
-                "userId": data["userId"],
-                "status": data["status"],
-            }
-        )
+	async def receive(self, text_data):
+		data = json.loads(text_data)
+		connected_friends = []
+		if len(data['friends']) > 0:
+			for friend in data['friends']:
+				if friend['username'] in tab:
+					connected_friends.append(friend['username'])
 
-    async def status_update(self, event):
-        print(f"Sending status update: {event['status']}")  # Log de mise à jour de statut
-        await self.send(text_data=json.dumps({
-            "userId": event["userId"],
-            "status": event["status"],
-        }))
+		await self.send(text_data=json.dumps({
+			'friends': connected_friends,
+		}))
 
-    async def disconnect(self, close_code):
-        print("Client disconnected.")  # Log de déconnexion
-        if	self.user.username in tab:
-            tab.remove(self.user.username)
+	async def disconnect(self, close_code):
+		print("Client disconnected.")  # Log de déconnexion
+		if	self.user.username in tab:
+			tab.remove(self.user.username)
 
 	
