@@ -6,7 +6,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 django.setup()
 
 from asgiref.sync import sync_to_async
-from .models import Message, Room
+from django.contrib.auth.models import User
+from django.db import models
+from .models import Message, Room, Block
 import json
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -41,6 +43,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
 		message = text_data_json['message']
 		username = text_data_json['username']
 
+		# check blocked
+		interlocutor = self.room_name.replace(username, "").replace("_", "")
+		if await self.is_blocked(username, interlocutor):
+			await self.send(text_data=json.dumps({
+				'error': 'You are blocked or have blocked this user.'
+        	}))
+			return
+
 		await self.save_message(self.room_name, username, message)
 
 		await self.channel_layer.group_send(
@@ -55,6 +65,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
 	async def chat_message(self, event):
 		message = event['message']
 		username = event['username']
+
+		# check blocked
+		interlocutor = self.room_name.replace(username, "").replace("_", "")
+		if await self.is_blocked(username, interlocutor):
+			return 
 
 		await self.send(text_data=json.dumps({
 			'message': message,
@@ -76,8 +91,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
 	def get_or_create_room(self, room_name):
 		print("ROOM CREATED: " + room_name);
 		return Room.objects.get_or_create(name=room_name)
+	
+	@sync_to_async
+	def is_blocked(self, username, interlocutor):
+		blocker = User.objects.get(username=username)
+		blocked = User.objects.get(username=interlocutor)
 
+		return Block.objects.filter(
+			models.Q(blocker=blocker, blocked=blocked) |
+			models.Q(blocker=blocked, blocked=blocker)
+		).exists()
 
+	def get_interlocutor(self, room_name, current_user):
+		room = Room.objects.get(name=room_name)
+		if room.user1 == current_user:
+			return room.user2
+		return room.user1
 
 # import json
 # from channels.generic.websocket import AsyncWebsocketConsumer

@@ -15,20 +15,22 @@ function chatConnection(dmName) {
 
 	let roomName;
 	if (USERNAME.localeCompare(dmName) > 0) {
-		roomName = USERNAME + "_" + dmName + "_room";
+		roomName = USERNAME + "_" + dmName;
 	}
 	else {
-		roomName = dmName + "_" + USERNAME + "_room";
+		roomName = dmName + "_" + USERNAME;
 	}
 
 	chatSocket = new WebSocket(`wss://${window.location.host}/ws/socket-server/chat/${roomName}/`);
 
 	chatSocket.onmessage = function(e) {
 		const data = JSON.parse(e.data);
-		if (data.username === USERNAME) {
+
+		if (data.error) {
+			alert(data.error);
+		} else if (data.username === USERNAME) {
 			displayMessage(data.message, "personalMsgDiv");
-		}
-		else {
+		} else {
 			displayMessage(data.message, "otherMsgDiv");
 		}
 	}

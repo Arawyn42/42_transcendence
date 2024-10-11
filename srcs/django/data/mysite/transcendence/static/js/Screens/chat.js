@@ -23,17 +23,7 @@ function showDmList() {
 	.then(data => {
         if (data.friends && data.friends.length > 0) {
 			data.friends.forEach(friend => {
-				const dmDiv 		= document.createElement("div");
-				const dmUsername	= document.createElement("p");
-			
-				dmDiv.classList.add("dmDiv");
-			
-				dmUsername.classList.add("dmUsername")
-				dmUsername.textContent = friend.username;
-				
-				dmDiv.appendChild(dmUsername);
-			
-				dmsList.appendChild(dmDiv);
+				createDmDiv(friend.username);
             });
 		}
 	})
@@ -60,17 +50,7 @@ document.getElementById("searchDmfield").addEventListener("submit", async functi
 			.then(response => response.json())
 			.then(data => {
 				if (data.exists) {
-					const dmDiv 		= document.createElement("div");
-					const dmUsername	= document.createElement("p");
-				
-					dmDiv.classList.add("dmDiv");
-				
-					dmUsername.classList.add("dmUsername")
-					dmUsername.textContent = username;
-					
-					dmDiv.appendChild(dmUsername);
-				
-					dmsList.appendChild(dmDiv);
+					createDmDiv(username);
 				}
 				else {
 					alert("This user does not exist");
@@ -86,5 +66,45 @@ dmsList.addEventListener('click', function(event) {
 		dmHeaderP.textContent = "Direct message: " + dmUsername;
 		chatConnection(dmUsername);
 		showDm("dmScreen");
-    }
+    } else if (event.target.classList.contains('dmBlockButton')) {
+		blockUser(event.target.dataset.user);
+	}
 });
+
+function blockUser(username) {
+	fetch(`/block/${username}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-CSRFToken': csrfToken
+        },
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.status === 'success') {
+			console.log("blocked");
+		} else {
+			console.error("Error: cannot block");
+		}
+	})
+	.catch(error => console.error('Error:', error));
+}
+
+function createDmDiv(interlocutor) {
+	const dmDiv 		= document.createElement("div");
+	const dmUsername	= document.createElement("p");
+	const dmBlockButton	= document.createElement("button");
+
+	dmDiv.classList.add("dmDiv");
+	dmUsername.classList.add("dmUsername")
+	dmBlockButton.classList.add("dmBlockButton");
+	dmBlockButton.setAttribute("data-user", interlocutor);
+
+	dmUsername.textContent = interlocutor;
+	dmBlockButton.textContent = "Block";
+	
+	dmDiv.appendChild(dmUsername);
+	dmDiv.appendChild(dmBlockButton);
+
+	dmsList.appendChild(dmDiv);
+}

@@ -19,6 +19,7 @@ from .views import (
     AcceptFriendRequestView,
 	check_user_exists,
 	ProfileFriendView,
+	block_user,
 )
 
 urlpatterns = [
@@ -38,6 +39,7 @@ urlpatterns = [
     path('send-friend-request/', SendFriendRequestView.as_view(), name='send_friend_request'),
     path('accept-friend-request/', AcceptFriendRequestView.as_view(), name='accept_friend_request'),
 	path('check-user-exists/', check_user_exists, name='check_user_exists'),
+	path('block/<str:username>/', block_user, name='block_user'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

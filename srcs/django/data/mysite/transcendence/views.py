@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from .forms import ProfileForm, UserForm
 from .models import Friendship
 from .models import FriendRequest
+from .models import Block
 from .utils import send_email_code
 import json
 import random
@@ -359,3 +360,13 @@ def check_user_exists(request):
             exists = User.objects.filter(username=username).exists()
             return JsonResponse({'exists': exists}, status=200)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def block_user(request, username):
+	if request.method == 'POST':
+		blocker = request.user
+		blocked = get_object_or_404(User, username=username)
+		if Block.objects.filter(blocker=blocker, blocked=blocked).exists():
+			return JsonResponse({'status': 'error', 'message': 'User already blocked.'})
+		Block.objects.create(blocker=blocker, blocked=blocked)
+		return JsonResponse({'status': 'success', 'message': f'User {blocked.username} blocked successfully.'})
+	return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
