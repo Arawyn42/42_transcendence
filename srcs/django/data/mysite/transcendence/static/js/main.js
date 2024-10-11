@@ -256,11 +256,12 @@ document.addEventListener('DOMContentLoaded', function ()
 	if (hash) {
 		switchScreen(hash);
 	} else {
+		updateUsername().then(() => {
+
 		if (USERNAME) {
 			switchScreen('menuScreen');
 		} else {
 			switchScreen('loginScreen');
 		}
-	}
-
+	})}
 });

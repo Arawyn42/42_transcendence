@@ -3,8 +3,10 @@ const usernameInput		= document.getElementById("searchDmUsernameInput");
 const dmsList			= document.getElementById("dmsList");
 const msgList 			= document.getElementById("msgList");
 
+
 function showDmList() {
     switchScreen('dmsScreen');
+	dmsList.innerHTML = "";
 
 	fetch('/friends/', {
         method: 'GET',

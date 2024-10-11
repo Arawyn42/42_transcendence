@@ -141,6 +141,54 @@ class ProfileView(APIView):
         }
 
         return JsonResponse(data, status=200)
+    
+
+class ProfileFriendView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, username):
+        user = get_object_or_404(User, username=username)
+        friend_requests = FriendRequest.objects.filter(to_user=user)
+        friends = user.userprofile.friends.all()
+
+        # Récupérer les 5 derniers matchs de l'utilisateur (en tant que joueur 1 ou 2)
+        match_history = MatchHistory.objects.filter(user=request.user).order_by('-date')
+
+        match_history = [
+            {
+                'opponent': match.opponent,
+                'result': 'win' if match.result == 'win' else 'lose',
+                'date': match.date.strftime('%Y-%m-%d %H:%M')
+            }
+            for match in match_history
+        ]
+
+
+        friend_requests_data = [
+            {
+                'id': friend_request.id,
+                'from_user': friend_request.from_user.username
+            }
+            for friend_request in friend_requests
+        ]
+
+        friends_data = [
+            friend.user.username for friend in friends
+        ]
+
+        data = {
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'victory_count': user.userprofile.victory_count,
+            'defeat_count': user.userprofile.defeat_count,
+            'friend_requests': friend_requests_data,
+            'friends': friends_data,
+            'match_history': match_history  # Ajouter l'historique des matchs dans la réponse
+        }
+
+        return JsonResponse(data, status=200)
+
 
 class UpdateScoreView(APIView):
     permission_classes = [IsAuthenticated]

@@ -73,12 +73,21 @@
 }
 
 #dmHeaderDiv {
+	display: flex;
+	flex-direction: row;
     width: 100%;
     height: clamp(2em, 5vh, 3em);
     flex-shrink: 0;
     background-color: #222;
     text-align: center;
     position: relative;
+}
+
+#dmAccessProfile {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	margin: 0;
 }
 
 #dmHeaderP {

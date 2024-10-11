@@ -18,6 +18,7 @@ from .views import (
     SendFriendRequestView,
     AcceptFriendRequestView,
 	check_user_exists,
+	ProfileFriendView,
 )
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('2fa/enable/', enable_2fa, name='enable_2fa'),
     path('protected/', ProtectedView.as_view(), name='protected'),
     path('profile/', ProfileView.as_view(), name='profile'),
+    path('profileFriend/<str:username>/', ProfileFriendView.as_view(), name='profileFriend'),
     path('friends/', ListFriendsView.as_view(), name='list_friends'),
     path('friend-requests/', ListFriendRequestsView.as_view(), name='list_friend_requests'),
     path('edit-profile/', EditProfileView.as_view(), name='edit_profile'),

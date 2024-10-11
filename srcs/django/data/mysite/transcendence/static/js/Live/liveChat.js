@@ -1,8 +1,18 @@
 
-const inputField = document.getElementById("msgInput");
+const inputField 		= document.getElementById("msgInput");
+const dmAccessProfile 	= document.getElementById("dmAccessProfile");
+
+
+
 
 // open and manage the connection
 function chatConnection(dmName) {
+
+	dmAccessProfile.addEventListener('click', function() {
+		showFriendProfile(dmName);
+	})
+
+
 	let roomName;
 	if (USERNAME.localeCompare(dmName) > 0) {
 		roomName = USERNAME + "_" + dmName + "_room";
