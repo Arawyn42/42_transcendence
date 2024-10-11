@@ -20,6 +20,8 @@ from .views import (
 	check_user_exists,
 	ProfileFriendView,
 	block_user,
+	unblock_user,
+	isblocked_user,
 )
 
 urlpatterns = [
@@ -40,6 +42,8 @@ urlpatterns = [
     path('accept-friend-request/', AcceptFriendRequestView.as_view(), name='accept_friend_request'),
 	path('check-user-exists/', check_user_exists, name='check_user_exists'),
 	path('block/<str:username>/', block_user, name='block_user'),
+	path('unblock/<str:username>/', unblock_user, name='unblock_user'),
+	path('isblocked/<str:username>/', isblocked_user, name='isblocked_user'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

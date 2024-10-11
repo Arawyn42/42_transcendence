@@ -68,8 +68,35 @@ dmsList.addEventListener('click', function(event) {
 		showDm("dmScreen");
     } else if (event.target.classList.contains('dmBlockButton')) {
 		blockUser(event.target.dataset.user);
+		event.target.textContent = "UnBlock";
+		event.target.classList.remove('dmBlockButton');
+		event.target.classList.add('dmUnBlockButton');
+	} else if (event.target.classList.contains('dmUnBlockButton')) {
+		unBlockUser(event.target.dataset.user);
+		event.target.textContent = "Block";
+		event.target.classList.remove('dmUnBlockButton');
+		event.target.classList.add('dmBlockButton');
 	}
 });
+
+function unBlockUser(username) {
+	fetch(`/unblock/${username}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-CSRFToken': csrfToken
+        },
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			console.log("unblocked");
+		} else {
+			console.error("Error:", data.error);
+		}
+	})
+	.catch(error => console.error("Error:", error));
+}
 
 function blockUser(username) {
 	fetch(`/block/${username}/`, {
@@ -81,10 +108,30 @@ function blockUser(username) {
 	})
 	.then(response => response.json())
 	.then(data => {
-		if (data.status === 'success') {
+		if (data.success) {
 			console.log("blocked");
 		} else {
-			console.error("Error: cannot block");
+			console.error("Error:", data.error);
+		}
+	})
+	.catch(error => console.error('Error:', error));
+}
+
+async function isUserBlocked(username) {
+	return fetch(`/isblocked/${username}/`, {
+		method: 'GET',
+		headers: {
+			'X-CSRFToken': csrfToken,
+			'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+		},
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.success) {
+			return (data.isBlocked);
+		} else {
+			console.error("Error:", data.error);
+			return (false);
 		}
 	})
 	.catch(error => console.error('Error:', error));
@@ -95,14 +142,25 @@ function createDmDiv(interlocutor) {
 	const dmUsername	= document.createElement("p");
 	const dmBlockButton	= document.createElement("button");
 
-	dmDiv.classList.add("dmDiv");
 	dmUsername.classList.add("dmUsername")
-	dmBlockButton.classList.add("dmBlockButton");
+	dmUsername.textContent = interlocutor;
+	
 	dmBlockButton.setAttribute("data-user", interlocutor);
 
-	dmUsername.textContent = interlocutor;
-	dmBlockButton.textContent = "Block";
+	isUserBlocked(interlocutor)
+		.then(isBlocked => {
+			if (isBlocked) {
+				console.log("blocked");
+				dmBlockButton.classList.add("dmUnBlockButton");
+				dmBlockButton.textContent = "UnBlock";
+			} else {
+				console.log("notblocked");
+				dmBlockButton.classList.add("dmBlockButton");
+				dmBlockButton.textContent = "Block";
+			}
+		})
 	
+	dmDiv.classList.add("dmDiv");
 	dmDiv.appendChild(dmUsername);
 	dmDiv.appendChild(dmBlockButton);
 

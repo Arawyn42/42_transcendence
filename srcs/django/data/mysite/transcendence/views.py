@@ -366,7 +366,40 @@ def block_user(request, username):
 		blocker = request.user
 		blocked = get_object_or_404(User, username=username)
 		if Block.objects.filter(blocker=blocker, blocked=blocked).exists():
-			return JsonResponse({'status': 'error', 'message': 'User already blocked.'})
+			return JsonResponse({'success': False, 'error': 'User already blocked.'})
 		Block.objects.create(blocker=blocker, blocked=blocked)
-		return JsonResponse({'status': 'success', 'message': f'User {blocked.username} blocked successfully.'})
-	return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+		return JsonResponse({'success': True})
+	return JsonResponse({'success': True, 'error': 'Invalid request method.'})
+
+def unblock_user(request, username):
+	if request.method == 'POST':
+		try:
+			blocked_user = User.objects.get(username=username)
+			block_entry = Block.objects.get(blocker=request.user, blocked=blocked_user)
+			block_entry.delete()
+			still_blocked = Block.objects.filter(
+				models.Q(blocker=request.user, blocked=blocked_user) |
+				models.Q(blocker=blocked_user, blocked=request.user)
+			).exists()
+			return JsonResponse({'success': True})
+		except User.DoesNotExist:
+			return JsonResponse({'success': False, 'error': 'User not found'})
+		except Block.DoesNotExist:
+			return JsonResponse({'success': False, 'error': 'Not blocked'})
+	else:
+		return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+def isblocked_user(request, username):
+	if request.method == 'GET':
+		try:
+			blocked_user = User.objects.get(username=username)
+			block_entry = Block.objects.get(blocker=request.user, blocked=blocked_user)
+			return JsonResponse({'success': True, 'isBlocked': True})
+		except User.DoesNotExist:
+			return JsonResponse({'success': True, 'isBlocked': False})
+		except Block.DoesNotExist:
+			return JsonResponse({'success': True, 'isBlocked': False})
+		except Exception as error:
+			return JsonResponse({'success': False, 'error': str(error)})
+	else:
+		return JsonResponse({'success': False, 'error': 'Invalid request'})

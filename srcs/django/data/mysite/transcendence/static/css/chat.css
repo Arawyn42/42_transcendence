@@ -72,6 +72,14 @@
 	max-width: 25%;
 }
 
+.dmUnBlockButton {
+	position: absolute;
+	right: 0;
+	margin: 0;
+	height: 100%;
+	max-width: 25%;
+}
+
 #dmScreen {
     flex-grow: 1;
     display: flex;
