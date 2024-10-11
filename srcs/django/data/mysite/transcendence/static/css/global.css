@@ -38,7 +38,6 @@ header {
 	align-items: center;
 }
 
-
 /********************************** TITLES ***********************************/
 
 /* Titles more responsive */
@@ -186,33 +185,6 @@ button {
         font-size: clamp(8px, 3.5vw, 14px);
     }
 }
-
-
-/* Buttons
-button {
-	display: block;
-	margin: 1vh 0; Space between buttons
-	padding: 1.5vh;
-	background-color: #fff;
-	border: 2px solid #fff;
-	cursor: pointer;
-	Font
-	font-family: 'Press Start 2P', cursive;
-	color: #000;
-	font-size: 1.5vh;
-	text-align: center;
-}
-
-Wide buttons
-.wideButton {
-	width: 20vw;
-}
-
-'Back' buttons
-.backButton {
-	margin-top: 3vh;
-} */
-
 
 /******************************** ALL SCREENS ********************************/
 /* Screens (hidden by default) */
