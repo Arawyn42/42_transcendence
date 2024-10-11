@@ -5,6 +5,37 @@ const msgList 			= document.getElementById("msgList");
 
 function showDmList() {
     switchScreen('dmsScreen');
+
+	fetch('/friends/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        },
+    })
+	.then(response => {
+        if (response.ok) {
+            return response.json();
+		}
+	})
+	.then(data => {
+        if (data.friends && data.friends.length > 0) {
+			data.friends.forEach(friend => {
+				const dmDiv 		= document.createElement("div");
+				const dmUsername	= document.createElement("p");
+			
+				dmDiv.classList.add("dmDiv");
+			
+				dmUsername.classList.add("dmUsername")
+				dmUsername.textContent = friend.username;
+				
+				dmDiv.appendChild(dmUsername);
+			
+				dmsList.appendChild(dmDiv);
+            });
+		}
+	})
+    .catch(error => console.error(`Error: ${error}`));
 }
 
 function showDm() {
@@ -47,7 +78,7 @@ document.getElementById("searchDmfield").addEventListener("submit", async functi
 });
 
 dmsList.addEventListener('click', function(event) {
-    if (event.target.classList.contains('dmDiv')) {
+    if (event.target.classList.contains('dmDiv') || event.target.classList.contains('dmUsername')) {
 		const dmUsername = event.target.querySelector('p').textContent;
 		const dmHeaderP = document.getElementById("dmHeaderP");
 		dmHeaderP.textContent = "Direct message: " + dmUsername;
