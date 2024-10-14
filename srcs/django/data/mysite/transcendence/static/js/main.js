@@ -63,6 +63,10 @@ let csrfToken = getCookie('csrftoken');
 // WebSocket for livechat
 let chatSocket;
 
+// WebSocket for status
+let statusSocket;
+
+
 
 /******************************** FUNCTIONS *********************************/
 // Update USERNAME then switch to specified screen
@@ -250,17 +254,19 @@ document.addEventListener('DOMContentLoaded', function ()
 
 	// Load datas from cookies
 	loadDatas();
-	
-	// Switch to current screen (or loginScreen if no current screen)
-	let hash = window.location.hash.replace('#', '');
-	if (hash) {
-		switchScreen(hash);
-	} else {
+	updateUsername().then(() => {
 		if (USERNAME) {
-			switchScreen('menuScreen');
-		} else {
-			switchScreen('loginScreen');
+			WebSocketStatus();
 		}
-	}
-
+		// Switch to current screen (or loginScreen if no current screen)
+		let hash = window.location.hash.replace('#', '');
+		if (hash) {
+			switchScreen(hash);
+		} else {
+			if (USERNAME) {
+				switchScreen('menuScreen');
+			} else {
+				switchScreen('loginScreen');
+			}
+		}})
 });

@@ -38,7 +38,6 @@ header {
 	align-items: center;
 }
 
-
 /********************************** TITLES ***********************************/
 
 /* Titles more responsive */
@@ -120,60 +119,72 @@ h3 {
 	}
 }
 
-/* header h1 {
-	font-size: 3.5vh;
-	padding: 1vh 0;
-}
-
-h1 {
-	font-size: 3vh;
-	text-align: center;
-}
-
-h2 {
-	font-size: 2.5vh;
-	text-align: center;
-	margin-bottom: 3vh;
-}
-
-h3 {
-	font-size: 2vh;
-	text-align: center;
-	margin: 1vh 0;
-}
-
-
-#pongTitle {
-	padding: 1vh 0;
-} */
-
-
 /********************************** BUTTONS **********************************/
+
 /* Buttons */
 button {
-	display: block;
-	margin: 1vh 0; /* Space between buttons */
-	padding: 1.5vh;
-	background-color: #fff;
-	border: 2px solid #fff;
-	cursor: pointer;
-	/* Font */
-	font-family: 'Press Start 2P', cursive;
-	color: #000;
-	font-size: 1.5vh;
-	text-align: center;
+    display: inline-block;
+    margin: clamp(0.5vh, 1vh, 2vh) 0; /* Space between buttons */
+    padding: clamp(0.8vh, 1.5vh, 2.5vh) clamp(1vw, 2vw, 3vw);
+    background-color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+    /* Font */
+    font-family: 'Press Start 2P', cursive;
+    color: #000;
+    font-size: clamp(10px, 1.5vh, 20px);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: fit-content;
+    max-width: 50vw;
 }
 
 /* Wide buttons */
 .wideButton {
-	width: 20vw;
+    width: clamp(150px, 200vw, 350px);
 }
 
 /* 'Back' buttons */
 .backButton {
-	margin-top: 3vh;
+    margin-top: clamp(1.5vh, 3vh, 4vh);
 }
 
+/* Media query for smaller screens */
+@media screen and (max-width: 1200px) {
+    button {
+        width: 20vw;
+        max-width: none;
+        font-size: clamp(8px, 4vw, 16px);
+        padding: clamp(1vh, 2vh, 3vh) clamp(2vw, 4vw, 6vw);
+    }
+
+    .wideButton {
+        width: 20vw;
+    }
+}
+
+@media screen and (max-width: 835px) {
+    button {
+        width: 20vw;
+        max-width: none;
+        font-size: clamp(8px, 4vw, 16px);
+        padding: clamp(1vh, 2vh, 3vh) clamp(2vw, 4vw, 6vw);
+    }
+
+    .wideButton {
+        width: 20vw;
+    }
+}
+
+/* Media query for very small screens */
+@media screen and (max-width: 575px) {
+    button {
+        width: 20vw;
+        font-size: clamp(8px, 3.5vw, 14px);
+    }
+}
 
 /******************************** ALL SCREENS ********************************/
 /* Screens (hidden by default) */

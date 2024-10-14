@@ -56,3 +56,11 @@ class Message(models.Model):
 
     class Meta:
         ordering = ['timestamp']
+
+class Block(models.Model):
+    blocker = models.ForeignKey(User, related_name='blocker', on_delete=models.CASCADE)
+    blocked = models.ForeignKey(User, related_name='blocked', on_delete=models.CASCADE)
+    blocked_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('blocker', 'blocked')

@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from .forms import ProfileForm, UserForm
 from .models import Friendship
 from .models import FriendRequest
+from .models import Block
 from .utils import send_email_code
 import json
 import random
@@ -141,6 +142,54 @@ class ProfileView(APIView):
         }
 
         return JsonResponse(data, status=200)
+    
+
+class ProfileFriendView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, username):
+        user = get_object_or_404(User, username=username)
+        friend_requests = FriendRequest.objects.filter(to_user=user)
+        friends = user.userprofile.friends.all()
+
+        # Récupérer les 5 derniers matchs de l'utilisateur (en tant que joueur 1 ou 2)
+        match_history = MatchHistory.objects.filter(user=request.user).order_by('-date')
+
+        match_history = [
+            {
+                'opponent': match.opponent,
+                'result': 'win' if match.result == 'win' else 'lose',
+                'date': match.date.strftime('%Y-%m-%d %H:%M')
+            }
+            for match in match_history
+        ]
+
+
+        friend_requests_data = [
+            {
+                'id': friend_request.id,
+                'from_user': friend_request.from_user.username
+            }
+            for friend_request in friend_requests
+        ]
+
+        friends_data = [
+            friend.user.username for friend in friends
+        ]
+
+        data = {
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'victory_count': user.userprofile.victory_count,
+            'defeat_count': user.userprofile.defeat_count,
+            'friend_requests': friend_requests_data,
+            'friends': friends_data,
+            'match_history': match_history  # Ajouter l'historique des matchs dans la réponse
+        }
+
+        return JsonResponse(data, status=200)
+
 
 class UpdateScoreView(APIView):
     permission_classes = [IsAuthenticated]
@@ -311,3 +360,46 @@ def check_user_exists(request):
             exists = User.objects.filter(username=username).exists()
             return JsonResponse({'exists': exists}, status=200)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def block_user(request, username):
+	if request.method == 'POST':
+		blocker = request.user
+		blocked = get_object_or_404(User, username=username)
+		if Block.objects.filter(blocker=blocker, blocked=blocked).exists():
+			return JsonResponse({'success': False, 'error': 'User already blocked.'})
+		Block.objects.create(blocker=blocker, blocked=blocked)
+		return JsonResponse({'success': True})
+	return JsonResponse({'success': True, 'error': 'Invalid request method.'})
+
+def unblock_user(request, username):
+	if request.method == 'POST':
+		try:
+			blocked_user = User.objects.get(username=username)
+			block_entry = Block.objects.get(blocker=request.user, blocked=blocked_user)
+			block_entry.delete()
+			still_blocked = Block.objects.filter(
+				models.Q(blocker=request.user, blocked=blocked_user) |
+				models.Q(blocker=blocked_user, blocked=request.user)
+			).exists()
+			return JsonResponse({'success': True})
+		except User.DoesNotExist:
+			return JsonResponse({'success': False, 'error': 'User not found'})
+		except Block.DoesNotExist:
+			return JsonResponse({'success': False, 'error': 'Not blocked'})
+	else:
+		return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+def isblocked_user(request, username):
+	if request.method == 'GET':
+		try:
+			blocked_user = User.objects.get(username=username)
+			block_entry = Block.objects.get(blocker=request.user, blocked=blocked_user)
+			return JsonResponse({'success': True, 'isBlocked': True})
+		except User.DoesNotExist:
+			return JsonResponse({'success': True, 'isBlocked': False})
+		except Block.DoesNotExist:
+			return JsonResponse({'success': True, 'isBlocked': False})
+		except Exception as error:
+			return JsonResponse({'success': False, 'error': str(error)})
+	else:
+		return JsonResponse({'success': False, 'error': 'Invalid request'})

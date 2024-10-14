@@ -108,6 +108,7 @@ function logout() {
 			}, 100);
 			
 			console.log('User logged out successfully.');
+			statusSocket.close();
 		} else {
 			alert('Error logging out: ' + (data.error || 'Unknown error'));
 		}

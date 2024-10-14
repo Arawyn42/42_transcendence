@@ -17,8 +17,8 @@ services:
       start_period: 5s
     env_file:
       - .env
-#    volumes:
-#      - database:/usr/local/pgsql/data
+    volumes:
+     - database:/usr/local/pgsql/data
     networks:
       - my_network
 
@@ -27,8 +27,6 @@ services:
     build: srcs/django
     env_file:
       - .env
-    # volumes:
-      # - transcendence:/django/mysite/
     networks:
       - my_network
     depends_on:
@@ -56,21 +54,21 @@ services:
       redis:
         condition: service_started
 
-# volumes:
+volumes:
 
-#   transcendence:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: ${DJANGO_VOLUME_PATH}
-#       o: bind
+  # transcendence:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: ${DJANGO_VOLUME_PATH}
+      # o: bind
   
-#  database:
-#    driver: local
-#    driver_opts:
-#      type: none
-#      device: ${POSTGRESQL_VOLUME_PATH}
-#      o: bind
+ database:
+   driver: local
+   driver_opts:
+     type: none
+     device: data/
+     o: bind
 
 networks:
   my_network:

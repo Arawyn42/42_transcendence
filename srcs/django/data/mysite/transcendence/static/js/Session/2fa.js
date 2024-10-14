@@ -1,3 +1,25 @@
+
+async function WebSocketStatus() {
+    statusSocket = new WebSocket(`wss://${window.location.host}/ws/status/`);
+    updateFriendsList();
+
+    statusSocket.onmessage = function(e) {
+		const data = JSON.parse(e.data);
+        if (data['friends']) {
+            data['friends'].forEach(friend => {
+                const statusIndicator = document.getElementById(`status_${friend}`);
+                statusIndicator.style.display = 'flex';
+            });
+        }
+    };
+    statusSocket.onopen = function() {
+    };
+}
+
+window.addEventListener('beforeunload', function (event) {
+	statusSocket.close();
+});
+
 document.getElementById('twoFaForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -27,6 +49,7 @@ document.getElementById('twoFaForm').addEventListener('submit', function(event) 
             localStorage.setItem('access_token', data.access_token);
             alert('Successful login!');
 			document.getElementById('twoFaForm').reset();
+            WebSocketStatus();
             switchScreen('menuScreen');
         } else {
             alert('Error: ' + data.error);
