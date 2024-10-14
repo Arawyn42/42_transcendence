@@ -122,6 +122,9 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 	document.getElementById('player3InputError').textContent = '';
 	document.getElementById('player4InputError').textContent = '';
 
+	if (USERNAME)
+		player1Name = USERNAME;
+
 	// Check Player 1 Name
 	if (USERNAME === null && player1Name.length < 2)
 	{
@@ -130,32 +133,42 @@ document.getElementById('startGameWithParameters').addEventListener('click', fun
 	}
 
 	// Check Player 2 Name
-	if (nbPlayers >= 2 && player2Name.length < 2)
+	if (nbPlayers >= 2 && (player2Name.length < 2 || player2Name === player1Name))
 	{
-		document.getElementById('player2InputError').textContent = 'Enter at least 2 characters';
+		if (player2Name.length < 2)
+			document.getElementById('player2InputError').textContent = 'Enter at least 2 characters';
+		else
+			document.getElementById('player2InputError').textContent = 'Enter a different name';
 		isValid = false;
 	}
 
 	// Check Player 3 Name
-	if ((tournament.running || nbPlayers >= 3) && player3Name.length < 2)
+	if ((tournament.running || nbPlayers >= 3)
+		&& (player3Name.length < 2 || player3Name === player1Name
+		|| player3Name === player2Name))
 	{
-		document.getElementById('player3InputError').textContent = 'Enter at least 2 characters';
+		if (player3Name.length < 2)
+			document.getElementById('player3InputError').textContent = 'Enter at least 2 characters';
+		else
+			document.getElementById('player3InputError').textContent = 'Enter a different name';
 		isValid = false;
 	}
 
 	// Check Player 4 Name
-	if ((tournament.running || nbPlayers === 4) && player4Name.length < 2)
+	if ((tournament.running || nbPlayers === 4)
+		&& (player4Name.length < 2 || player4Name === player1Name
+		|| player4Name === player2Name || player4Name === player3Name))
 	{
-		document.getElementById('player4InputError').textContent = 'Enter at least 2 characters';
+		if (player4Name.length < 2)
+			document.getElementById('player4InputError').textContent = 'Enter at least 2 characters';
+		else
+			document.getElementById('player4InputError').textContent = 'Enter a different name';
 		isValid = false;
 	}
 
 	// If names are valid, start the game
 	if (isValid)
 	{
-		if (USERNAME)
-			player1Name = USERNAME;
-
 		// If in tournament mode, call the Setup function and return
 		if (tournament.running)
 		{
