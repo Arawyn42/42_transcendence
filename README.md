@@ -1,29 +1,38 @@
-# 42_transcendance
+# 42_transcendence
 
 ## How to build
 First thing first, you will need to install docker and docker compose on your machine - https://docs.docker.com/engine/install/
 
 (you may have to run docker commands as root if your user does not belong to the docker group)
 
+--> Decomposer les différentes étapes avec des screens si possible.
+
 Clone this repository:
 ```sh
-git clone https://github.com/Arawyn42/42_transcendance
+git clone https://github.com/Arawyn42/42_transcendence transcendence
 ```
-Next enter the directory and setup the environment file:
+Enter the directory:
+```sh
+cd transcendence
+```
+Setup the environment file:
 ```sh
 cp dev.env .env && nano .env
 ```
-You may need to create the folders for the docker volumes:
+For the email and password used for 2fa, you need to create a gmail address and to create an application password.
+
+(...) -> Explain how to do that with screens.
+
+Create a folder for the database docker volume with appropriated permissions:
 ```sh
-mkdir -p data/mysite
+mkdir data && sudo chown -R $USER:$USER data && chmod -R 755 data
 ```
-Build the project using docker compose: 
+Build and run the project with docker compose: 
 ```sh
-docker compose build
-```
-Run the webserver:
-```sh
-docker compose up -d
+docker compose up -d --build
 ```
 
-The server should now be running locally. You can try connecting to it on your browser under the ip 127.0.0.1:8000 (default port in the .env file)
+In your browser, go to this url:
+```
+https://localhost
+```
