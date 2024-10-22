@@ -1,7 +1,7 @@
 <div align="center">
   <h1>⚙️ ft_transcendence (a <a href="https://42perpignan.fr/">42</a> project) ⚙️</h1>
   <img src="preview.png" alt="Preview">
-  <p>Subject: <a href="en.subject.pdf">en.subject.pdf</a></p>
+  <p><b>Subject:</b> <a href="en.subject.pdf">en.subject.pdf</a></p>
 </div>
 <div align="center">
   <h2>✅ Grade</h2>
