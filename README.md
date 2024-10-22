@@ -1,11 +1,11 @@
 <div align="center">
   <h1>⚙️ ft_transcendence (a <a href="https://42perpignan.fr/">42</a> project) ⚙️</h1>
-  <img src="preview.png" alt="Preview">
-  <p><b>Subject:</b> <a href="en.subject.pdf">en.subject.pdf</a></p>
+  <img src="ressources/preview.gif" alt="Preview">
+  <p><b>Subject:</b> <a href="ressources/en.subject.pdf">en.subject.pdf</a></p>
 </div>
 <div align="center">
   <h2>✅ Grade</h2>
-  <img src="grade.png" alt="Grade">
+  <img src="ressources/grade.png" alt="Grade">
 </div><br>
 
 ## <div align="center">📄 Introduction</div>
@@ -34,6 +34,7 @@ When the mandatory part is done, we had to choose wisely some additionnal module
 ## <div align="center">💻 Usage</div>
 Open a bash terminal and type the following commands to run the project.
 
+### Install Docker and Docker-Compose
 **Install Docker** if not installed yet (if you have any problem during the installation, please refer to the [Docker official documentation](https://docs.docker.com/engine/install/ubuntu/)):
 ```sh
 sudo apt update && sudo apt upgrade -y
@@ -60,7 +61,9 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 ```sh
 sudo chmod +x /usr/local/bin/docker-compose
 ```
-<br>Clone the project's repository:
+
+### Download the project
+Clone the project's repository:
 ```sh
 git clone https://github.com/Arawyn42/42_transcendence transcendence
 ```
@@ -68,12 +71,15 @@ git clone https://github.com/Arawyn42/42_transcendence transcendence
 ```sh
 cd transcendence
 ```
-<br>Setup the environment file:
+
+### Setup the environment
+Setup the environment file:
 ```sh
 cp dev.env .env && nano .env
 ```
 
 <br>You can set the variables in the .env file like you want. For example:
+
 ```
 # Transcendence environment variables
 # Copy this file under the name ".env" and fill the blank values
@@ -92,9 +98,11 @@ EMAIL_HOST_USER="youremail@gmail.com"
 EMAIL_HOST_PASSWORD="16 characters application password"
 
 ```
+
 For the *EMAIL_HOST_USER* and *EMAIL_HOST_PASSWORD*, **you need to create a gmail address and [an application password](https://support.google.com/mail/answer/185833?hl=en)** on this mail adress.
 
-<br>Create a folder for the database docker volume:
+### Run the Docker-Compose
+Create a folder for the database docker volume:
 ```sh
 mkdir data && sudo chown -R $USER:$USER data && chmod -R 755 data
 ```
@@ -103,7 +111,9 @@ mkdir data && sudo chown -R $USER:$USER data && chmod -R 755 data
 docker compose up -d --build
 ```
 
-<br>**Connect to the site!** In your browser, go to this url:
+### Connect to the website
+In your browser, go to this url:
 ```
 https://localhost
 ```
+Your browser can warn you for non secured connexion, just allow it since it runs localy.
